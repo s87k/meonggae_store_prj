@@ -4,8 +4,7 @@
     <div class="container">
         <div class="action pull-right">
             <ul>
-                <li class="login"><a href="javascript:void(0);" class="login-btn"><i class="fa fa-user"></i> 로그인</a></li>
-                <li class="join"><a href="javascript:void(0);" class="login-btn"><i class="fa fa-lock"></i> 회원가입</a></li>
+                <li class="login"><a href="javascript:void(0);" class="login-btn"><i class="fa fa-user"></i> 로그인 / 회원가입</a></li>
             </ul>
         </div>
     </div>
@@ -25,7 +24,7 @@
                 <div class="search-form">
                     <form class="navbar-form" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="상품명, 상점명 입력">
+                            <input type="text" class="form-control" placeholder="상품명, @상점명 입력">
                         </div>
                         <button type="button" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
                     </form>
@@ -104,7 +103,7 @@
             </div>
             <div class="modal-footer">
             <p style="text-align: center">
-            도움이 필요하면 이메일 또는 고객센터1670-2910로 문의 부탁드립니다.
+            도움이 필요하면 이메일 또는 고객센터1670-2910로 문의 부탁드립니다.<br>
 			고객센터 운영시간: 09~18시 (점심시간 12~13시, 주말/공휴일 제외)
             </p>
             </div>
