@@ -34,14 +34,14 @@
 <!-- Theme Stylesheet -->
 <script src="../common/JS/script.js"></script>
 <script src="../common/JS/eventJS.js"></script>
-<link rel="stylesheet"
-	href="http://localhost/meonggae_prj/common/CSS/style.css">
+ <link rel="stylesheet"
+	href="http://localhost/meonggae_prj/common/CSS/style.css"> 
 <link rel="stylesheet"
 	href="http://localhost/meonggae_prj/common/CSS/event_style.css">
 <link rel="stylesheet"
 	href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 <link rel="stylesheet"
-	href="http://localhost/meonggae_prj/assets/CSS/meongae_talk.css">
+	href="http://localhost/meonggae_prj/common/CSS/meongae_talk.css">
 </head>
 <body>
 	<!-- header 시작 -->
