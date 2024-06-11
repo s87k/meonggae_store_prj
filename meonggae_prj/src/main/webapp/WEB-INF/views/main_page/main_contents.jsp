@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>멍게장터</title>
-<link rel="icon" href="../common/tamcatIcon.ico"/>
+<link rel="icon" href="common/tamcatIcon.ico"/>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
