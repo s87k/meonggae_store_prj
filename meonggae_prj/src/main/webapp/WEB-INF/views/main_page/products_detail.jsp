@@ -22,7 +22,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" type="text/css">
 <!-- Theme Stylesheet -->
 <script src ="../common/JS/script.js"></script>
-<script src ="../common/JS/eventJS.js"></script>
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 </head>
@@ -146,7 +145,7 @@
 				<div class="product-sellerStyle">
 					<button class="store-btn">
 						<div class="profile">
-							<img class="profile-pic" src="../common/images/kimyear.png" alt="판매하기 이미지">
+							<img class="profile-pic" src="http://localhost/meonggae_prj/common/images/kimyear.png" alt="판매하기 이미지">
 						</div>
 							없는거빼고다있어샵
 					</button>
@@ -154,7 +153,7 @@
 					<c:forEach begin="1" end="6" varStatus="i">
 						<div class="other-product">
 							<a href="#void">
-								<img src="../products-img/product-${ i.index }.jpg" alt="" class="other-product-thumbnail">
+								<img src="http://localhost/meonggae_prj/products-img/product-${ i.index }.jpg" alt="" class="other-product-thumbnail">
 								<span class="other-product-price">1${ i.index },000원</span>
 							</a>
 						</div>
@@ -173,7 +172,7 @@
 					<div class="one-review">
 						<button class="buyer-btn">
 							<div class="buyer-profile">
-								<img class="buyer-pic" src="../common/images/default.png" alt="판매하기 이미지">
+								<img class="buyer-pic" src="http://localhost/meonggae_prj/common/images/defualt.png" alt="판매하기 이미지">
 							</div>
 								댕큰구매하러옴
 						</button>
