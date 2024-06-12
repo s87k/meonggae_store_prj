@@ -54,21 +54,21 @@ public class LoginController {
 	 * JSONObject json = (JSONObject) parser.parse(responseBody); String accessToken
 	 * = (String) json.get("access_token");
 	 * 
-	 * // ¾×¼¼½º ÅäÅ«À» »ç¿ëÇÏ¿© »ç¿ëÀÚ Á¤º¸¸¦ °¡Á®¿À´Â ·ÎÁ÷ Map<String, Object> userInfo =
+	 * // ì•¡ì„¸ìŠ¤ í† í°ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ì ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë¡œì§ Map<String, Object> userInfo =
 	 * getUserInfo(accessToken);
 	 * 
 	 * redirectAttributes.addFlashAttribute("userInfo", userInfo); return
-	 * "redirect:/user/home"; // ¸®´ÙÀÌ·ºÆ®ÇÒ °æ·Î ¼³Á¤ } catch (ParseException e) {
-	 * e.printStackTrace(); return "redirect:/login?error"; } } else { // ¿À·ù Ã³¸® ·ÎÁ÷
-	 * Ãß°¡ return "redirect:/login?error"; } }
+	 * "redirect:/user/home"; // ë¦¬ë‹¤ì´ë ‰íŠ¸í•  ê²½ë¡œ ì„¤ì • } catch (ParseException e) {
+	 * e.printStackTrace(); return "redirect:/login?error"; } } else { // ì˜¤ë¥˜ ì²˜ë¦¬ ë¡œì§
+	 * ì¶”ê°€ return "redirect:/login?error"; } }
 	 * 
-	 * // ¾×¼¼½º ÅäÅ«À» »ç¿ëÇÏ¿© »ç¿ëÀÚ Á¤º¸¸¦ °¡Á®¿À´Â ¸Ş¼­µå Ãß°¡ private Map<String, Object>
+	 * // ì•¡ì„¸ìŠ¤ í† í°ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ì ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ ì¶”ê°€ private Map<String, Object>
 	 * getUserInfo(String accessToken) { String userInfoUrl =
 	 * "https://kapi.kakao.com/v2/user/me";
 	 * 
 	 * RestTemplate restTemplate = new RestTemplate();
 	 * 
-	 * // HTTP ¿äÃ» Çì´õ ¼³Á¤ HttpHeaders headers = new HttpHeaders();
+	 * // HTTP ìš”ì²­ í—¤ë” ì„¤ì • HttpHeaders headers = new HttpHeaders();
 	 * headers.add("Authorization", "Bearer " + accessToken);
 	 * 
 	 * HttpEntity<String> entity = new HttpEntity<>(headers);
