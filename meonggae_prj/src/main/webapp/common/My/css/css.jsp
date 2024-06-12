@@ -24,6 +24,6 @@
 <!-- Theme Stylesheet -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/css/style.css">
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/css/responsive.css">
-
+<script src="http://localhost/meonggae_prj/common/JS/script.js"></script>
 </head>
 <body>

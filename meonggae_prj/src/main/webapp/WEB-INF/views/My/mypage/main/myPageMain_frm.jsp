@@ -9,8 +9,8 @@
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
-<c:import url="http://localhost/meonggae_prj/My/common/css/css.jsp"/>
-<c:import url="http://localhost/meonggae_prj/header/header.jsp"/>
+<c:import url="http://localhost/meonggae_prj/common/My/css/css.jsp"/>
+<c:import url="../../../header/header.jsp"/>
 <!-- header -->
 
 <!-- CSS -->
