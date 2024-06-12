@@ -18,7 +18,7 @@
                     <div class="social">
 
                         <ul>
-                            <li><a href="mgr/login/mgr_login_frm.do"><i class="fa fa-wrench"></i></a></li>
+                            <li><a href=""><i class="fa fa-wrench"></i></a></li>
                             <li><a href=""><i class="fa fa-twitter"></i></a></li>
                             <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                             <li><a href=""><i class="fa fa-github"></i></a></li>
@@ -115,16 +115,6 @@
         </div>
 
     </div>
-
-    <!-- jQuery Library -->
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-	<!-- bootstrap JavaScript -->
-
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-	<!-- Script -->
 
 </body>
 </html>

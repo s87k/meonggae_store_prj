@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 	//검색버튼 클릭
 	$("#search-btn").click(function(){
-		location.href="search_contents.jsp";
+		location.href="http://localhost//meonggae_prj/main_page/search_contents.do";
 	});
 	
 	//카테고리 토글
