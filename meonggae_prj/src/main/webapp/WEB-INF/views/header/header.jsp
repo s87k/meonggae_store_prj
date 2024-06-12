@@ -38,7 +38,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                    <a href="#void" class="icons">
+                    <a href="http://localhost//meonggae_prj/My/mypage/main/mypage.do" class="icons">
                         <img src="http://localhost/meonggae_prj/common/images/meonggaeStore.png" alt="내상점 이미지">
                         <span class="icons-text">내 상점</span>
                     </a>
