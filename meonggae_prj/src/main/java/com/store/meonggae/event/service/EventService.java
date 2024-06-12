@@ -20,35 +20,35 @@ public class EventService {
 
 		StringBuilder pageNation = new StringBuilder();
 
-		// ÇÑ È­¸é¿¡¼­ º¸¿©ÁÙ ÆäÀÌÁö ÀÎµ¦½º ¼ö
+		// í•œ í™”ë©´ì—ì„œ ë³´ì—¬ì¤„ í˜ì´ì§€ ì¸ë±ìŠ¤ ìˆ˜
 		int pageNumber = 3;
 
-		// È­¸é¿¡ º¸¿©ÁÙ ½ÃÀÛ ÆäÀÌÁö ¹øÈ£
+		// í™”ë©´ì— ë³´ì—¬ì¤„ ì‹œì‘ í˜ì´ì§€ ë²ˆí˜¸
 		int startPage = ((currentPage - 1) / pageNumber) * pageNumber + 1;
 
-		// È­¸é¿¡ º¸¿©ÁÙ ¸¶Áö¸· ÆäÀÌÁö ¹øÈ£
+		// í™”ë©´ì— ë³´ì—¬ì¤„ ë§ˆì§€ë§‰ í˜ì´ì§€ ë²ˆí˜¸
 		int endPage = ((startPage - 1) + pageNumber) / pageNumber * pageNumber;
 		// int endPage = startPage - 1 + pageNumber;
 
-		// ÃÑ ÆäÀÌÁöÀÇ ¼ö°¡ ¿¬»êµÈ ¸¶Áö¸· ÆäÀÌÁö ¼öº¸´Ù ÀÛ´Ù¸é ÃÑ ÆäÀÌÁö ¼ö°¡ ¸¶Áö¸· ÆäÀÌÁö ¹øÈ£·Î ¼³Á¤µÈ´Ù
+		// ì´ í˜ì´ì§€ì˜ ìˆ˜ê°€ ì—°ì‚°ëœ ë§ˆì§€ë§‰ í˜ì´ì§€ ìˆ˜ë³´ë‹¤ ì‘ë‹¤ë©´ ì´ í˜ì´ì§€ ìˆ˜ê°€ ë§ˆì§€ë§‰ í˜ì´ì§€ ë²ˆí˜¸ë¡œ ì„¤ì •ëœë‹¤
 		if (totalPage <= endPage) {
 			endPage = totalPage;
 		} // end if
 
-		// Ã³À½ ÆäÀÌÁö·Î
+		// ì²˜ìŒ í˜ì´ì§€ë¡œ
 		switch (totalPage) {
 		case 0:
 			break;
 		default:
 			pageNation.append("<a href='").append("?currentPage=").append(1).append(param).append(
-					"'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='Ã³À½ ÆäÀÌÁö'/></a>&nbsp;&nbsp;&nbsp;");
+					"'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='ì²˜ìŒ í˜ì´ì§€'/></a>&nbsp;&nbsp;&nbsp;");
 		} // end switch
 
-		// Ã¹ ÆäÀÌÁö°¡ ÀÎµ¦½º È­¸éÀÌ ¾Æ´Ñ °æ¿ì
-		// String prevMark = "[ << ]"; // ¸µÅ©´Â ºñÈ°¼ºÈ­µÇÁö¸¸, ¸¶Å©¸¦ Ç×»ó º¸¿©ÁÖ´Â °æ¿ì
-		String prevMark = ""; // ¸µÅ©°¡ ºñÈ°¼ºÈ­µÇ¸é ¸¶Å©¸¦ º¸¿©ÁÖÁö ¾Ê´Â °æ¿ì
+		// ì²« í˜ì´ì§€ê°€ ì¸ë±ìŠ¤ í™”ë©´ì´ ì•„ë‹Œ ê²½ìš°
+		// String prevMark = "[ << ]"; // ë§í¬ëŠ” ë¹„í™œì„±í™”ë˜ì§€ë§Œ, ë§ˆí¬ë¥¼ í•­ìƒ ë³´ì—¬ì£¼ëŠ” ê²½ìš°
+		String prevMark = ""; // ë§í¬ê°€ ë¹„í™œì„±í™”ë˜ë©´ ë§ˆí¬ë¥¼ ë³´ì—¬ì£¼ì§€ ì•ŠëŠ” ê²½ìš°
 		int movePage = 0;
-		if (currentPage > pageNumber) { // ½ÃÀÛ ÆäÀÌÁöº¸´Ù 1 ÀûÀº ÆäÀÌÁö·Î ÀÌµ¿
+		if (currentPage > pageNumber) { // ì‹œì‘ í˜ì´ì§€ë³´ë‹¤ 1 ì ì€ í˜ì´ì§€ë¡œ ì´ë™
 			movePage = startPage - 1;
 			prevMark = "<a href='" + url + "?currentPage=" + movePage + param
 					+ "'><input type='button' class='btn btn-sm btn-light marginL' value='&lt;&lt;'/></a>&nbsp;&nbsp;&nbsp;";
@@ -56,10 +56,10 @@ public class EventService {
 
 		pageNation.append(prevMark);
 
-		// ½ÃÀÛ ÆäÀÌÁö ¹øÈ£ºÎÅÍ ³¡ ÆäÀÌÁö ¹øÈ£±îÁö È­¸é¿¡ Ãâ·Â
+		// ì‹œì‘ í˜ì´ì§€ ë²ˆí˜¸ë¶€í„° ë í˜ì´ì§€ ë²ˆí˜¸ê¹Œì§€ í™”ë©´ì— ì¶œë ¥
 		movePage = startPage;
 		while (movePage <= endPage) {
-			if (movePage == currentPage) { // ÇöÀç ÆäÀÌÁö¿¡ ´ëÇØ¼­´Â ¸µÅ©¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù
+			if (movePage == currentPage) { // í˜„ì¬ í˜ì´ì§€ì— ëŒ€í•´ì„œëŠ” ë§í¬ë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤
 				pageNation.append("<input type='button' class='btn btn-sm btn-secondary marginL' value='")
 						.append(currentPage).append("'/>&nbsp");
 			} else {
@@ -70,7 +70,7 @@ public class EventService {
 			movePage++;
 		} // end while
 
-		// µÚ¿¡ ÆäÀÌÁö°¡ ´õ ÀÖ´Â °æ¿ì
+		// ë’¤ì— í˜ì´ì§€ê°€ ë” ìˆëŠ” ê²½ìš°
 		String endMark = "";
 		if (totalPage > endPage) {
 			movePage = endPage + 1;
@@ -81,13 +81,13 @@ public class EventService {
 		pageNation.append(endMark);
 		// pageNation.append(" ... ").append(endMark);
 
-		// ¸¶Áö¸· ÆäÀÌÁö·Î
+		// ë§ˆì§€ë§‰ í˜ì´ì§€ë¡œ
 		switch (totalPage) {
 		case 0:
 			break;
 		default:
 			pageNation.append("&nbsp;&nbsp;&nbsp;<a href='").append("?currentPage=").append(totalPage).append(param)
-					.append("'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='¸¶Áö¸· ÆäÀÌÁö'/></a>");
+					.append("'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='ë§ˆì§€ë§‰ í˜ì´ì§€'/></a>");
 		} // end switch
 
 		return pageNation.toString();
