@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>멍게장터</title>
-<link rel="icon" href="common/tamcatIcon.ico"/>
+<link rel="icon" href="../common/tamcatIcon.ico"/>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -19,10 +19,11 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <!-- Google Font -->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600' rel='stylesheet' type='text/css'>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" type="text/css">
 <!-- Theme Stylesheet -->
+
 <script src ="http://localhost/meonggae_prj/common/JS/script.js"></script>
+<!-- <script src ="http://localhost/meonggae_prj/common/JS/infinite_scroll.js"></script> -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 </head>
@@ -87,6 +88,7 @@
 									</div>
 								</div>
 							</c:forEach>
+							<div id="listEnd"></div>
 						</div>
                    	</div>
 

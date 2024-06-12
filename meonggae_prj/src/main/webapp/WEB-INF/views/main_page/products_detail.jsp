@@ -18,10 +18,10 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <!-- Google Font -->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600' rel='stylesheet' type='text/css'>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" type="text/css">
 <!-- Theme Stylesheet -->
-<script src ="../common/JS/script.js"></script>
+
+<script src ="http://localhost/meonggae_prj/common/JS/script.js"></script>
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 </head>
@@ -145,7 +145,7 @@
 				<div class="product-sellerStyle">
 					<button class="store-btn">
 						<div class="profile">
-							<img class="profile-pic" src="http://localhost/meonggae_prj/common/images/kimyear.png" alt="판매하기 이미지">
+							<img class="profile-pic" src="../common/images/kimyear.png" alt="판매하기 이미지">
 						</div>
 							없는거빼고다있어샵
 					</button>
@@ -153,7 +153,7 @@
 					<c:forEach begin="1" end="6" varStatus="i">
 						<div class="other-product">
 							<a href="#void">
-								<img src="http://localhost/meonggae_prj/products-img/product-${ i.index }.jpg" alt="" class="other-product-thumbnail">
+								<img src="../products-img/product-${ i.index }.jpg" alt="" class="other-product-thumbnail">
 								<span class="other-product-price">1${ i.index },000원</span>
 							</a>
 						</div>
@@ -172,7 +172,7 @@
 					<div class="one-review">
 						<button class="buyer-btn">
 							<div class="buyer-profile">
-								<img class="buyer-pic" src="http://localhost/meonggae_prj/common/images/defualt.png" alt="판매하기 이미지">
+								<img class="buyer-pic" src="../common/images/default.png" alt="판매하기 이미지">
 							</div>
 								댕큰구매하러옴
 						</button>
@@ -220,9 +220,12 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-report" name="btn-report">신고하기</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- 신고하기 modal 끝 -->
 <!-- footer 시작 -->
 	<jsp:include page="../footer/footer.jsp" />

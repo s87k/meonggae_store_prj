@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @Controller
 public class MainController {
 
@@ -21,6 +22,11 @@ public class MainController {
 	 * return "main_page/main_contents"; }
 	 */
 	
+	@GetMapping("/main_page/search_contents.do")
+	public String searchContents() {
+		
+		return "main_page/search_contents";
+	}
 	@GetMapping("/main_page/products_detail.do")
 	public String productDetail() {
 		
@@ -32,9 +38,9 @@ public class MainController {
 		return "/login_page/login_page";
 	}
 	
-	@GetMapping("/login_page/mem_join.do")
+	@GetMapping("/join_page/mem_join.do")
 	public String join() {
 		
-		return "/login_page/mem_join";
+		return "/join_page/mem_join";
 	}
 }
