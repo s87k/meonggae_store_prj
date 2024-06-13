@@ -3,9 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<properties resource="properties/database.properties"/>
 <typeAliases>
+<!-- login -->
 	<typeAlias type="com.store.meonggae.user.login.vo.LoginVO" alias="loginVO"/>
 	<typeAlias type="com.store.meonggae.user.login.domain.LoginDomain" alias="loginDomain"/>
+<!-- event -->	
+	<typeAlias type="com.store.meonggae.event.vo.PagingVO" alias="pagingVO"/>
+	<typeAlias type="com.store.meonggae.event.vo.EventVO" alias="eventVO"/>
+	<typeAlias type="com.store.meonggae.event.domain.EventDomain" alias="eventDomain"/>
 </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -20,5 +26,6 @@
   </environments>
   <mappers>
     <mapper resource="com/store/meonggae/user/login/dao/loginMapper.xml"/>
+    <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
   </mappers>
 </configuration>

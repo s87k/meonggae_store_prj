@@ -1,260 +1,152 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" info="" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.store.meonggae.event.domain.EventDomain"%>
+<%@page import="java.util.List"%>
+<%@page import="com.store.meonggae.event.dao.UserEventDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" info=""%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>멍게장터</title>
-<link rel="icon" href="../common/tamcatIcon.ico"/>
+<link rel="icon" href="../common/tamcatIcon.ico" />
 
 <!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous"></script>
 <!-- Google Font -->
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600' rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600'
+	rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
+	type="text/css">
 <!-- Theme Stylesheet -->
-<script src ="../common/JS/script.js"></script>
-<script src ="../common/JS/event_content_ajax.js"></script>
-<script src ="../common/JS/event_detail_ajax.js"></script>
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/event_style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/responsive.css">
+<script src="../common/JS/script.js"></script>
+<script src="../common/JS/event_content_ajax.js"></script>
+<script src="../common/JS/event_detail_ajax.js"></script>
+<link rel="stylesheet"
+	href="http://localhost/meonggae_prj/common/CSS/style.css">
+<link rel="stylesheet"
+	href="http://localhost/meonggae_prj/common/CSS/event_style.css">
+<link rel="stylesheet"
+	href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 </head>
 <body>
-<!-- header 시작 -->
-<jsp:include page ="../header/header.jsp" />
-<div class="container" style="height:1000px;">
-<div>
-<h1>이벤트</h1>
-</div>
-<hr>
-<div id="event_main">
-	<div class="tab tab--item2">
-		<form name="evt_frm" id="evt_frm">
-		<input type="button" name ="event-type" value="진행중">
-		<input type="button" name ="event-type" value="종료">
-		</form>
+	<!-- header 시작 -->
+	<jsp:include page="../header/header.jsp" />
+	<div class="container" style="height: 1000px;">
+		<div>
+			<h1>이벤트</h1>
+		</div>
+		<hr>
+		<div id="event_main">
+			<div class="tab tab--item2">
+				<form name="evt_frm" id="evt_frm">
+					<input type="button" name="event-type" value="진행중"> <input
+						type="button" name="event-type" value="종료">
+				</form>
+			</div>
+			<%
+			request.setCharacterEncoding("UTF-8");
+			%>
+			<jsp:useBean id="pVO" class="com.store.meonggae.event.vo.PagingVO"
+				scope="page" />
+			<jsp:setProperty property="*" name="pVO" />
+			<%
+			UserEventDAO ueDAO = UserEventDAO.getInstance();
+			int totalCnt = ueDAO.selectTotalCount(pVO);
+			int pageScale = 4;
+			int totalPage = (int) Math.ceil((double) totalCnt / pageScale);
+
+			String tempPage = pVO.getCurrentPage();
+			int currentPage = 1;
+			if (tempPage != null) {
+				try {
+					currentPage = Integer.parseInt(tempPage);
+				} catch (NumberFormatException nfe) {
+					nfe.printStackTrace();
+				}
+			} //end if
+			int startNum = currentPage * pageScale - pageScale + 1;
+
+			int endNum = startNum + pageScale - 1;
+
+			pVO.setStartPageNum(startNum);
+			pVO.setEndPageNum(endNum);
+
+			List<EventDomain> eventList = ueDAO.selectEvent(pVO);
+			pageContext.setAttribute("eventList", eventList);
+
+			pageContext.setAttribute("toatlCnt", totalCnt);
+			pageContext.setAttribute("pageScale", pageScale);
+			pageContext.setAttribute("currentPage", currentPage);
+			%>
+			총 레코드의 수 :
+			<%=totalCnt%>건<br /> 한 화면에 보여줄 게시물 수 :
+			<%=pageScale%>건<br /> 총 페이지 수 :
+			<%=totalPage%>장<br /> 클릭한페이지 :
+			<%=tempPage%>/<%=currentPage%>
+			번<br /> 시작번호 :
+			<%=startNum%>
+			번<br /> 끝번호 :
+			<%=endNum%>
+			번<br />
+			<div class="article" style="">
+				<div class="event-board">
+					<div class="list list--event">
+						<ul class="list-ul">
+							<c:forEach var="evtDomain" items="${eventList}" varStatus="i">
+								<li class="list-item">
+									<div class="event-item">
+										<a href="" class="event_link" data-val="${evtDomain.eventNum}">
+											<div class="list__thumb">
+												<div class="image-container">
+													<img src="../common/images/event${evtDomain.img}"
+														alt="김병년 집단 린치 이벤트">
+												</div>
+											</div>
+											<div class="list__content">
+												<div class="list__subject" aria-label="제목">
+													<span class="list__title"><c:out
+															value="${evtDomain.title}" /></span>
+												</div>
+												<div class="list__term">
+													<strong>이벤트 기간</strong> :
+													<c:out value="${evtDomain.start_date}" />
+													~
+													<c:out value="${evtDomain.end_date}" />
+												</div>
+											</div>
+											<div class="list__status">
+												<span class="list__status--ongoing">진행</span>
+											</div>
+										</a>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="article" style="overflow-y: auto;">
-	<div class="event-board">
-	<div class="list list--event">
-    <ul class="list-ul">
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="1">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/poisn.png" alt="김병년 집단 린치 이벤트">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">김병년 집단 린치 이벤트</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024.05.23 ~ 2024-07-15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">진행</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="2">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/angry.webp" alt="멍게 장터 역삼역 Store 실시간 OPEN!!">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">멍게 장터 역삼역 Store 실시간 OPEN!!</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024.04.23 ~ 07.15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">진행</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="3">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/tomcat.png" alt="김병년 친필 사인 무료 나눔 이벤트!!">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">김병년 친필 사인 무료 나눔 이벤트!!</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 1999.02.13 ~ 2024.07.15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">진행</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="4">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/ginu.jpg" alt="이벤트 할 거 없다...">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">이벤트 할 거 없다...</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024.05.23 ~ 2024.07.15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">진행</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-               <a href="" class="event_link" data-val="5">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/myungsoo.jpg" alt="오픈 기념 랜덤 박스 이벤트!!">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">오픈 기념 랜덤 박스 이벤트!!</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024-05-23 ~ 2024-07-15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">진행</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="1">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/farewell.jpg" alt="FareWell! RestArea~~~">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">FareWell! RestArea~~~</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024-04-05 ~ 2024-05-17</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">종료</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="2">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/goodbye.jpg" alt="GoodBye!! Kiosk~~~">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">GoodBye!! Kiosk~~~</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024-05-23 ~ 2024-07-15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">종료</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="3">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/pizza.jpg" alt="이벤트 할 거 없다...">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">이벤트 할 거 없다...</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2024-03-10 ~ 2024-03-29</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">종료</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="../event_page/event_detail.jsp">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/run.png" alt="김병년을 잡아라">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">김병년을 잡아라</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2023-12-26 ~ 2024-07-15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">종료</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="event-item">
-                <a href="" class="event_link" data-val="4">
-                    <div class="list__thumb">
-                        <div class="image-container">
-                            <img src="../common/images/run.png" alt="김병년을 잡아라">
-                        </div>
-                    </div>
-                    <div class="list__content">
-                        <div class="list__subject" aria-label="제목">
-                            <span class="list__title">김병년을 잡아라</span>
-                        </div>
-                        <div class="list__term"><strong>이벤트 기간</strong> : 2023-12-26 ~ 2024-07-15</div>
-                    </div>
-                    <div class="list__status">
-                        <span class="list__status--ongoing">종료</span>
-                    </div>
-                </a>
-            </div>
-        </li>
-    </ul>
-</div>
-</div>
-	</div>
-	</div>
-</div>
-<!-- footer 시작 -->
-<jsp:include page="../footer/footer.jsp" />
-<!-- footer 끝 -->
+	<!-- footer 시작 -->
+	<jsp:include page="../footer/footer.jsp" />
+	<!-- footer 끝 -->
 
 </body>
 </html>
