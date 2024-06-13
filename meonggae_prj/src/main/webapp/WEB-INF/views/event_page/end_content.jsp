@@ -8,7 +8,7 @@
     <ul>
         <li class="list-item">
             <div class="event-item">
-                <a href="" class="event_link" data-val="1">
+                <a href="${pageContext.request.contextPath}/event_page/event_detail.do?event-code=1" class="event_link">
                     <div class="list__thumb">
                         <div class="image-container">
                             <img src="../common/images/farewell.jpg" alt="FareWell! RestArea~~~">
@@ -28,7 +28,7 @@
         </li>
         <li class="list-item">
             <div class="event-item">
-                <a href="" class="event_link" data-val="2">
+                <a href="${pageContext.request.contextPath}/event_page/event_detail.do?event-code=2" class="event_link">
                     <div class="list__thumb">
                         <div class="image-container">
                             <img src="../common/images/goodbye.jpg" alt="GoodBye!! Kiosk~~~">
@@ -48,7 +48,7 @@
         </li>
         <li class="list-item">
             <div class="event-item">
-                <a href="" class="event_link" data-val="3">
+                <a href="${pageContext.request.contextPath}/event_page/event_detail.do?event-code=3" class="event_link">
                     <div class="list__thumb">
                         <div class="image-container">
                             <img src="../common/images/pizza.jpg" alt="이벤트 할 거 없다...">
@@ -68,7 +68,7 @@
         </li>
         <li class="list-item">
             <div class="event-item">
-                <a href="../event_page/event_detail.jsp">
+                <a href="${pageContext.request.contextPath}/event_page/event_detail.do?event-code=4" class="event_link">
                     <div class="list__thumb">
                         <div class="image-container">
                             <img src="../common/images/run.png" alt="김병년을 잡아라">
@@ -88,7 +88,7 @@
         </li>
         <li class="list-item">
             <div class="event-item">
-                <a href="" class="event_link" data-val="4">
+                <a href="${pageContext.request.contextPath}/event_page/event_detail.do?event-code=5" class="event_link">
                     <div class="list__thumb">
                         <div class="image-container">
                             <img src="../common/images/run.png" alt="김병년을 잡아라">

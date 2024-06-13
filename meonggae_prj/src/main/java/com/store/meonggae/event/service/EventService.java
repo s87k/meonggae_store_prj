@@ -1,95 +1,93 @@
 package com.store.meonggae.event.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.store.meonggae.event.dao.UserEventDAO;
+import com.store.meonggae.event.domain.EventDomain;
 import com.store.meonggae.event.vo.PagingVO;
 
+@Service
 public class EventService {
 
-	public int totalCount(PagingVO pVO) {
-		int pageCnt = 0;
+    @Autowired
+    private UserEventDAO eventDAO;
 
-		return pageCnt;
-	}
+    public int totalCount(PagingVO pVO) {
+        return eventDAO.selectTotalCount(pVO);
+    }
 
-	public int pageScale() {
-		int pageSize = 0;
+    public List<EventDomain> selectEvent(PagingVO pVO) {
+        return eventDAO.selectEvent(pVO);
+    }
 
-		return pageSize;
-	}
+    public EventDomain selectDetailEvent(int seq) {
+        return eventDAO.selectDetailEvent(seq);
+    }
 
-	public String pageNation(String url, String param, int totalPage, int currentPage) {
+    public int pageScale() {
+        return 4; // 페이지당 항목 수
+    }
 
-		StringBuilder pageNation = new StringBuilder();
+    public String pageNation(String url, String param, int totalPage, int currentPage) {
+        StringBuilder pageNation = new StringBuilder();
 
-		// 한 화면에서 보여줄 페이지 인덱스 수
-		int pageNumber = 3;
+        int pageNumber = 3;
+        int startPage = ((currentPage - 1) / pageNumber) * pageNumber + 1;
+        int endPage = startPage + pageNumber - 1;
 
-		// 화면에 보여줄 시작 페이지 번호
-		int startPage = ((currentPage - 1) / pageNumber) * pageNumber + 1;
+        if (totalPage <= endPage) {
+            endPage = totalPage;
+        }
 
-		// 화면에 보여줄 마지막 페이지 번호
-		int endPage = ((startPage - 1) + pageNumber) / pageNumber * pageNumber;
-		// int endPage = startPage - 1 + pageNumber;
+        if (totalPage > 0) {
+            pageNation.append("<a href='").append(url).append("?currentPage=1").append(param)
+                .append("'><input type='button' class='btn btn-sm btn-light marginL' style='margin:0px auto;' value='처음 페이지'/></a>&nbsp;&nbsp;&nbsp;");
+        }
 
-		// 총 페이지의 수가 연산된 마지막 페이지 수보다 작다면 총 페이지 수가 마지막 페이지 번호로 설정된다
-		if (totalPage <= endPage) {
-			endPage = totalPage;
-		} // end if
+        if (currentPage > pageNumber) {
+            int movePage = startPage - 1;
+            pageNation.append("<a href='").append(url).append("?currentPage=").append(movePage).append(param)
+                .append("'><input type='button' class='btn btn-sm btn-light marginL' value='&lt;&lt;'/></a>&nbsp;&nbsp;&nbsp;");
+        }
 
-		// 처음 페이지로
-		switch (totalPage) {
-		case 0:
-			break;
-		default:
-			pageNation.append("<a href='").append("?currentPage=").append(1).append(param).append(
-					"'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='처음 페이지'/></a>&nbsp;&nbsp;&nbsp;");
-		} // end switch
+        for (int i = startPage; i <= endPage; i++) {
+            if (i == currentPage) {
+                pageNation.append("<input type='button' class='btn btn-sm btn-secondary marginL' value='").append(i).append("'/>&nbsp");
+            } else {
+                pageNation.append("<a href='").append(url).append("?currentPage=").append(i).append(param)
+                    .append("'><input type='button' class='btn btn-sm btn-light marginL' value='").append(i).append("'/></a>&nbsp");
+            }
+        }
 
-		// 첫 페이지가 인덱스 화면이 아닌 경우
-		// String prevMark = "[ << ]"; // 링크는 비활성화되지만, 마크를 항상 보여주는 경우
-		String prevMark = ""; // 링크가 비활성화되면 마크를 보여주지 않는 경우
-		int movePage = 0;
-		if (currentPage > pageNumber) { // 시작 페이지보다 1 적은 페이지로 이동
-			movePage = startPage - 1;
-			prevMark = "<a href='" + url + "?currentPage=" + movePage + param
-					+ "'><input type='button' class='btn btn-sm btn-light marginL' value='&lt;&lt;'/></a>&nbsp;&nbsp;&nbsp;";
-		} // end if
+        if (totalPage > endPage) {
+            int movePage = endPage + 1;
+            pageNation.append("&nbsp;&nbsp;&nbsp;<a href='").append(url).append("?currentPage=").append(movePage).append(param)
+                .append("'><input type='button' class='btn btn-sm btn-light marginL' value='&gt;&gt;'/></a>");
+        }
 
-		pageNation.append(prevMark);
+        if (totalPage > 0) {
+            pageNation.append("&nbsp;&nbsp;&nbsp;<a href='").append(url).append("?currentPage=").append(totalPage).append(param)
+                .append("'><input type='button' class='btn btn-sm btn-light marginL' style='margin:0px auto;' value='마지막 페이지'/></a>");
+        }
 
-		// 시작 페이지 번호부터 끝 페이지 번호까지 화면에 출력
-		movePage = startPage;
-		while (movePage <= endPage) {
-			if (movePage == currentPage) { // 현재 페이지에 대해서는 링크를 생성하지 않는다
-				pageNation.append("<input type='button' class='btn btn-sm btn-secondary marginL' value='")
-						.append(currentPage).append("'/>&nbsp");
-			} else {
-				pageNation.append("<a href='").append("?currentPage=").append(movePage).append(param).append("'>")
-						.append("<input type='button' class='btn btn-sm btn-light marginL' value='").append(movePage)
-						.append("'/>").append("</a>&nbsp");
-			} // end else
-			movePage++;
-		} // end while
+        return pageNation.toString();
+    }
 
-		// 뒤에 페이지가 더 있는 경우
-		String endMark = "";
-		if (totalPage > endPage) {
-			movePage = endPage + 1;
-			endMark = "&nbsp;&nbsp;&nbsp;<a href='" + url + "?currentPage=" + movePage + param
-					+ "'><input type='button' class='btn btn-sm btn-light marginL' value='&gt;&gt;'/></a>";
-		} // end if
+    public PagingVO createPagingVO(String keyword, String field, int currentPage) {
+        PagingVO pVO = new PagingVO();
+        pVO.setKeyword(keyword);
+        pVO.setField(field);
+        pVO.setCurrentPage(currentPage);
+        pVO.setPageScale(pageScale());
 
-		pageNation.append(endMark);
-		// pageNation.append(" ... ").append(endMark);
+        int totalCnt = totalCount(pVO);
+        pVO.setTotalCount(totalCnt);
 
-		// 마지막 페이지로
-		switch (totalPage) {
-		case 0:
-			break;
-		default:
-			pageNation.append("&nbsp;&nbsp;&nbsp;<a href='").append("?currentPage=").append(totalPage).append(param)
-					.append("'><input type='button' class='btn btn-sm btn-light marginL'  style='margin:0px auto;' value='마지막 페이지'/></a>");
-		} // end switch
+        pVO.calculatePageNumbers();
 
-		return pageNation.toString();
-	} // pageNation
+        return pVO;
+    }
 }

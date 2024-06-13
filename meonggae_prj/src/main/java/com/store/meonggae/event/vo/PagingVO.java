@@ -12,23 +12,25 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagingVO {
-	private int startPageNum, endPageNum;
-	private String field, keyword, currentPage;
-
+	private int startPageNum, endPageNum, currentPage, totalCount, pageScale;
+	private String field, keyword;
+	
 	public PagingVO() {
+		
 	}
 
-	public PagingVO(int startPageNum, int endPageNum, String field, String keyword, String currentPage) {
-		super();
+	public PagingVO(int startPageNum, int endPageNum, String field, String keyword, int currentPage, int totalCount, int pageScale) {
 		this.startPageNum = startPageNum;
 		this.endPageNum = endPageNum;
 		this.field = field;
 		this.keyword = keyword;
 		this.currentPage = currentPage;
+		this.totalCount = totalCount;
+		this.pageScale = pageScale;
 	}
 	
 	
-
+	
 	public int getStartPageNum() {
 		return startPageNum;
 	}
@@ -43,6 +45,30 @@ public class PagingVO {
 
 	public void setEndPageNum(int endPageNum) {
 		this.endPageNum = endPageNum;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getPageScale() {
+		return pageScale;
+	}
+
+	public void setPageScale(int pageScale) {
+		this.pageScale = pageScale;
 	}
 
 	public String getField() {
@@ -61,17 +87,8 @@ public class PagingVO {
 		this.keyword = keyword;
 	}
 
-	public String getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(String currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	@Override
-	public String toString() {
-		return "PagingVO [startPageNum=" + startPageNum + ", endPageNum=" + endPageNum + ", field=" + field
-				+ ", keyword=" + keyword + ", currentPage=" + currentPage + "]";
+	public void calculatePageNumbers() {
+		this.startPageNum = this.currentPage * this.pageScale - this.pageScale + 1;
+		this.endPageNum = Math.min(this.startPageNum + this.pageScale - 1, this.totalCount);
 	}
 }
