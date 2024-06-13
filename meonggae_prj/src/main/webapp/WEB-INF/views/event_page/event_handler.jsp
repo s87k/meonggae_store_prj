@@ -9,8 +9,11 @@
     <c:when test="${eventType eq '종료'}">
         <!-- 종료된 이벤트 내용 -->
         <jsp:include page="end_content.jsp" />
+
     </c:when>
     <c:otherwise>
         <p>잘못된 요청입니다. 이벤트 타입 : ${eventType}</p>
     </c:otherwise>
 </c:choose>
+       
+</div>
