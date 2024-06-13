@@ -30,14 +30,16 @@ public class EventController {
         PagingVO pVO = eventService.createPagingVO(keyword, field, currentPage);
 
         List<EventDomain> eventList = eventService.selectEvent(pVO);
+        
 
         model.addAttribute("eventList", eventList);
         model.addAttribute("totalCnt", pVO.getTotalCount());
         model.addAttribute("pageScale", pVO.getPageScale());
         model.addAttribute("currentPage", pVO.getCurrentPage());
         model.addAttribute("totalPage", (int) Math.ceil((double) pVO.getTotalCount() / pVO.getPageScale()));
-        model.addAttribute("paging", eventService.pageNation("/event_page/event_main.do", "", (int) Math.ceil((double) pVO.getTotalCount() / pVO.getPageScale()), pVO.getCurrentPage()));
-
+        model.addAttribute("paging", eventService.pageNation("http://localhost//meonggae_prj/event_page/event_main.do", "", (int) Math.ceil((double) pVO.getTotalCount() / pVO.getPageScale()), pVO.getCurrentPage()));
+        
+        
         return "event_page/event_main";
     }
 
@@ -68,9 +70,13 @@ public class EventController {
     		}
     	}
     	
-        model.addAttribute("eventList", eventList);
-        model.addAttribute("currentDate", currentDate);
+    	model.addAttribute("eventList", filterByEndDate);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("pageScale", pVO.getPageScale());
     	model.addAttribute("eventType", eventType);
+    	model.addAttribute("totalPage", (int) Math.ceil((double) pVO.getTotalCount() / pVO.getPageScale()));
+    	model.addAttribute("paging", eventService.pageNation("http://localhost//meonggae_prj/event_page/event_main.do", "", (int) Math.ceil((double) pVO.getTotalCount() / pVO.getPageScale()), pVO.getCurrentPage()));
+    	
     	return "event_page/event_handler";
     }
 }

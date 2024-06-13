@@ -55,5 +55,6 @@
                 </c:if>
             </c:forEach>
         </ul>
+        <div class="pagination">${paging}</div>
     </div>
 </div>
