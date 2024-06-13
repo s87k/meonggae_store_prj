@@ -6,11 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class PagingVO {
 	private int startPageNum, endPageNum, currentPage, totalCount, pageScale;
 	private String field, keyword;
