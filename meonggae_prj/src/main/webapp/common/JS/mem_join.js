@@ -12,9 +12,7 @@ $(function() {
 		showMonthAfterYear: true,
 		changeYear: true,
 		changeMonth: true,
-		buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-		buttonText: "선택",
-		yearSuffix: "년",
+		yearRange: 'c-100:c+0'
 	});
 	
 	//아이디 유효성검사
@@ -52,16 +50,12 @@ $(function() {
 function idDupWin(){
 	var id=document.frm.id.value;
     var reg = /^[A-z0-9]{5,12}$/;//영문/숫자 5~12자 이내인지 확인
-    if( id == "" ){
-    	alert("아이디를 영문, 숫자 5~12자 이내로 입력해주세요.");
-        return;
-    } else if( !reg.test(id) ){
+    if( !reg.test(id) ){
     	alert("아이디를 영문, 숫자 5~12자 이내로 입력해주세요.");
         $("#id").val('');
         $("#id").focus();
-        return;
     } else {
-    	window.open("../join_page/id_dup.jsp?id="+id, "idDup", "width=472, height=350, top="+
+    	window.open("id_dup.do?id="+id, "idDup", "width=472, height=350, top="+
         (window.screenY+203)+", left="+(window.screenX+306));
     }
 };//idDupWin
@@ -80,12 +74,12 @@ function chkCorrectPw() {
 function nickDupWin() {
 	var nick=document.frm.nick.value;
     var ko_reg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{1,12}$/;//한글/영문/숫자 1~12자 이내인지 확인
-    if( nick == "" ){
+    if( !ko_reg.test(nick) ){
     	alert("닉네임을 한글, 영문, 숫자 1~12자 이내로 입력해주세요.");
+    	$("#nick").val('');
         $("#nick").focus();
-        return;
      } else {
-        window.open("../join_page/nick_dup.jsp?nick="+nick, "nickDup", "width=472, height=350, top="+
+        window.open("nick_dup.do?nick="+nick, "nickDup", "width=472, height=400, top="+
         (window.screenY+203)+", left="+(window.screenX+306));
      }
 }; //nickDupWin	
