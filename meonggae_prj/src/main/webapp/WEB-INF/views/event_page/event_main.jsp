@@ -55,11 +55,11 @@
             </div>
             <c:choose>
                 <c:when test="${not empty eventList}">
-                    총 레코드의 수 : ${totalCnt}건<br />
+             <%--        총 레코드의 수 : ${totalCnt}건<br />
                     한 화면에 보여줄 게시물 수 : ${pageScale}건<br />
                     총 페이지 수 : ${totalPage}장<br />
-                    클릭한 페이지 : ${currentPage}<br />
-                    <div class="article">
+                    클릭한 페이지 : ${currentPage}<br /> --%>
+                    <div class="article" style="overflow: auto;">
                         <div class="event-board">
                             <div class="list list--event">
                                 <ul class="list-ul">

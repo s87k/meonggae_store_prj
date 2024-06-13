@@ -28,7 +28,7 @@ public class EventService {
     }
 
     public int pageScale() {
-        return 4; // 페이지당 항목 수
+        return 7; // 페이지당 항목 수
     }
 
     public String pageNation(String url, String param, int totalPage, int currentPage) {

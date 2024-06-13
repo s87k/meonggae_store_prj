@@ -3,6 +3,9 @@ package com.store.meonggae.user.contoller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +49,29 @@ public class EventController {
     }
 
     @GetMapping("/event_page/event_handler.do")
-    public String eventHandler() {
-        return "event_page/event_handler";
+    public String eventHandler(Model model, 
+    		@RequestParam("event-type") String eventType,
+    		@RequestParam(defaultValue = "1") int currentPage, 
+            @RequestParam(required = false) String keyword, 
+            @RequestParam(required = false) String field ) {
+    	PagingVO pVO = eventService.createPagingVO(keyword, field, currentPage);
+    	List<EventDomain> eventList = eventService.selectEvent(pVO);
+    	
+    	List<EventDomain> filterByEndDate = new ArrayList<EventDomain>();
+    	
+    	LocalDate currentDate = LocalDate.now();
+    	
+    	for(EventDomain ed : eventList) {
+    		LocalDate endDate = LocalDate.parse(ed.getEnd_date(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    		if(endDate.isAfter(currentDate)) {
+    			filterByEndDate.add(ed);
+    		}
+    	}
+    	
+        model.addAttribute("eventList", eventList);
+        model.addAttribute("currentDate", currentDate);
+    	model.addAttribute("eventType", eventType);
+    	return "event_page/event_handler";
     }
 }
 
