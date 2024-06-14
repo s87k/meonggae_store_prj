@@ -1,5 +1,7 @@
+<%@page import="com.store.meonggae.product.dao.CategoryDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" info="" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="top-bar">
     <div class="container">
         <div class="action pull-right">
@@ -59,23 +61,17 @@
                 <div class="categories">
                     <div class="category-list">
                         <ul class="category-ul">
-                            <li><a href="#void" id="" data-value="">여성의류</a></li>
-                            <li><a href="#void" id="" data-value="">남성의류</a></li>
-                            <li><a href="#void" id="" data-value="">신발</a></li>
-                            <li><a href="#void" id="" data-value="">가방/지갑</a></li>
-                            <li><a href="#void" id="" data-value="">스타굿즈</a></li>
+                        	<c:forEach var="parentCategory" items="${parentCategory}">
+                                <li><a href="#" class="parent-category" data-parentid="${parentCategory.categoryNum}">${parentCategory.name}</a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
                 <div class="category-detail">
                     <div class="detail-list">
-                        <ul class="detail-ul">
-                            <li><a href="#void" id="womenCloth" data-value="아우터">아우터</a></li>
-                            <li><a href="#void">상의</a></li>
-                            <li><a href="#void">바지</a></li>
-                            <li><a href="#void">치마</a></li>
-                            <li><a href="#void">원피스</a></li>
-                        </ul>
+<!--                         <ul class="detail-ul"> -->
+                        
+<!--                         </ul> -->
                     </div>
                 </div>
             </div>

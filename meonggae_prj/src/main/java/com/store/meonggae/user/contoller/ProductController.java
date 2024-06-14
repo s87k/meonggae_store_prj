@@ -12,4 +12,6 @@ public class ProductController {
 		return "product_page/product_add";
 	}
 	
+	
+	
 }

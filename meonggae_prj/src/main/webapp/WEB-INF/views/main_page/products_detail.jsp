@@ -64,7 +64,7 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
-                            <div class="thumb-main-image"><a href=""><img src="../products-img/single-product-1.jpg" alt=""></a></div>
+                            <div class="thumb-main-image"><a href=""><img src="../products-img/product-1.jpg" alt=""></a></div>
 
                         </div>
 

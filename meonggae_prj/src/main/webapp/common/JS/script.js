@@ -18,9 +18,29 @@ jQuery(document).ready(function($) {
 
 	//카테고리 상세 토글 보이기
 	$(".category-ul li").mouseenter(function() {
-		$(".category-detail").addClass("show");
+		var parentCategory = $(this).find(".parent-category").data("parentid");//부모의 카테고리번호 가져오기
+		$.ajax({
+			url:'subCategory.do', 
+			type:'GET',
+			dataType:'json',
+			data:{ parentCategory:parentCategory },
+			success: function(data){
+				var html = $(".detail-list");
+				html.empty();
+				html.append('<ul class="detail-ul">');
+            	$.each(data, function(index, item) {
+                	html.append('<li><a href="#" class="sub-category" data-parentid="' + item.categoryNum + '">' + item.name + '</a></li>');
+            	});//each
+				html.append('</ul>');// 동적으로 HTML 갱신
+            	$(".category-detail").addClass("show");
+			},//success
+			error:function(xhr){
+				console.log(xhr.status);
+				console.log(parentCategory+" < 서브 카테고리를 불러오는 중 오류가 발생");
+			}//error
+		});
 	});//mouseenter
-	$(".category-ul li").mouseleave(function() {
+	$(".parent-category").mouseleave(function() {
 		$(".category-detail").removeClass("show");
 	});//mouseleave
 	//카테고리 상세 토글 유지
