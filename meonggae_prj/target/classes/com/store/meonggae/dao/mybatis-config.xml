@@ -12,6 +12,8 @@
 	<typeAlias type="com.store.meonggae.event.vo.PagingVO" alias="pagingVO"/>
 	<typeAlias type="com.store.meonggae.event.vo.EventVO" alias="eventVO"/>
 	<typeAlias type="com.store.meonggae.event.domain.EventDomain" alias="eventDomain"/>
+<!-- product -->
+	<typeAlias type="com.store.meonggae.product.domain.CategoryDomain" alias="CategoryDomain"/>
 </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -27,5 +29,6 @@
   <mappers>
     <mapper resource="com/store/meonggae/user/login/dao/loginMapper.xml"/>
     <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
+    <mapper resource="com/store/meonggae/product/dao/categoryMapper.xml"/>
   </mappers>
 </configuration>
