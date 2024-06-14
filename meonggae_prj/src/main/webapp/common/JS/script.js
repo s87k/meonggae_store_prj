@@ -4,38 +4,38 @@ jQuery(document).ready(function($) {
 		location.href="http://localhost//meonggae_prj/main_page/search_contents.do";
 	});
 	
+	//카테고리 로드
+	loadCategories();
+	
 	//카테고리 토글
 	$(".category-btn").click(function() {
-		//카테고리 로드
-		loadCategories();
-		
-		// .categories에 show 클래스가 있으면 .fa-bars에 color-change 클래스를 추가
+		//카테고리 show 있는 경우
 		if ($(".categories").hasClass("show")) {
-			$(".fa-bars").addClass("color-change");
-		} else {
+			$(".categories").removeClass("show");
+			$(".category-detail").removeClass("show");
 			$(".fa-bars").removeClass("color-change");
+		} else {
+		//카테고리 show 없는 경우
+			$(".categories").addClass("show");
+			// .categories에 show 클래스가 있으면 .fa-bars에 color-change 클래스를 추가
+			$(".fa-bars").addClass("color-change");
 		}
 	});//click
 
-	//카테고리 상세 토글 보이기
-	//$(".category-ul li").mouseenter(function() {
+	//카테고리 상세 보이기
 	$(".category-ul").on("mouseenter", "li", function() {
 		//부모의 카테고리번호 가져오기
 		var parentCategory = $(this).find(".parent-category").data("parentid");
 		loadSubCategories(parentCategory);
+		//서브 카테고리 show
+        $(".category-detail").addClass("show");
 	});//mouseenter
-	$(".parent-category").mouseleave(function() {
+	
+	//카테고리 상세 안 보이기
+	$(".detail-ul").on("mouseleave", function() {
 		$(".category-detail").removeClass("show");
 	});//mouseleave
 	
-	//카테고리 상세 토글 유지
-	$(".category-detail").mouseenter(function() {
-		$(".category-detail").toggleClass("show");
-	});//mouseenter
-	$(".category-detail").mouseleave(function() {
-		$(".category-detail").toggleClass("show");
-	});//mouseleave
-
 	//스크롤의 위치에 따라 카테고리 위치 변경
 	$(window).scroll(function() {
 		var scrollPosition = $(window).scrollTop();
@@ -71,12 +71,10 @@ jQuery(document).ready(function($) {
 function loadCategories(){
 $.ajax({
 	type: 'GET',
-	url: 'parentCategory.do',
+	url: 'http://localhost/meonggae_prj/parentCategory.do',
 	dataType:"json",
 	success: function(response){
 		updateCategoryList(response);
-		//카테고리 show
-		$(".categories").toggleClass("show");
 	},
 	error: function(xhr){
 		console.log('대분류 카테고리 요청 실패', xhr.status);
@@ -104,14 +102,12 @@ function updateCategoryList(categories){
 //서브 카테고리 로드
 function loadSubCategories(parentCategory){
 $.ajax({
-	url:'subCategory.do', 
+	url:'http://localhost/meonggae_prj/subCategory.do', 
 	type:'GET',
 	dataType:'json',
 	data:{ Category:parentCategory },
 	success: function(response){
 		updateSubCategoryList(response);
-		//서브 카테고리 show
-        $(".category-detail").addClass("show");
 	},
 	error:function(xhr){
 		console.log('소분류 카테고리 요청 실패', xhr.status);
