@@ -7,6 +7,7 @@ $(function() {
 			data: {
 				'event-type': eventType
 			},
+			 dataType: 'html',
 			success: function(data) {
 				$('.article').html(data);
 			},
