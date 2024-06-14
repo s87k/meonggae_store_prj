@@ -16,6 +16,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
@@ -25,25 +27,55 @@ public class MainController {
 
 	@RequestMapping(value="/index.do",method= {GET,POST})
 	public String main(Model model) {
+<<<<<<< HEAD
+=======
 		//전체보기 카테고리(대분류)
 		/*
 		 * List<CategoryDomain> parentCategory = categoryService.selectParentCategory();
 		 * model.addAttribute("parentCategory", parentCategory);
 		 */
 		
+>>>>>>> branch 'main' of https://github.com/KimByeongNyeon/meonggae_store_prj.git
 		return "main_page/main_contents";
 	}
 	
-//	@RequestMapping(value="/subCategory.do", method= {RequestMethod.GET}, produces = "application/json")
-	@GetMapping("/subCategory.do")
+	//전체보기 카테고리(대분류)
+	//@ResponseBody json형식으로 변환하여 클라이언트에게 전달.
 	@ResponseBody
-    public List<CategoryDomain> subCategory(@RequestParam("parentCategory") String parentCategory) {
-		//전체보기 카테고리(소분류)
+	@RequestMapping(value="/parentCategory.do", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public String parentCategory() {
+		List<CategoryDomain> parentCategory = categoryService.selectParentCategory();
+		
+		JSONArray jsonArr = new JSONArray();
+		for(CategoryDomain category : parentCategory) {
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("categoryNum", category.getCategoryNum());
+			jsonObj.put("name", category.getName());
+			jsonObj.put("parentCategoryNum", category.getParentCategoryNum());
+			jsonArr.add(jsonObj);
+		}//for
+		return jsonArr.toJSONString();
+	}//parentCategory
+	
+	//전체보기 카테고리(소분류)
+	@ResponseBody
+	@RequestMapping(value="/subCategory.do", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+    public String subCategory(@RequestParam("Category") String parentCategory) {
 		System.out.println("부모 = "+parentCategory);
         List<CategoryDomain> subCategory = categoryService.selectSubCategory(parentCategory);
         System.out.println("subCategory = "+subCategory);
-        return subCategory;
-    }
+        
+        JSONArray jsonArr = new JSONArray();
+		for(CategoryDomain category : subCategory) {
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("categoryNum", category.getCategoryNum());
+			jsonObj.put("name", category.getName());
+			jsonObj.put("parentCategoryNum", category.getParentCategoryNum());
+			jsonArr.add(jsonObj);
+		}//for
+        
+        return jsonArr.toJSONString();
+    }//subCategory
 
 	/*
 	 * @GetMapping("/index.do") public String goToMain() {

@@ -22,6 +22,7 @@
 <!-- Theme Stylesheet -->
 
 <script src ="http://localhost/meonggae_prj/common/JS/script.js"></script>
+<script src ="http://localhost/meonggae_prj/common/JS/product_detail.js"></script>
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/responsive.css">
 </head>

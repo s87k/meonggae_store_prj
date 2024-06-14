@@ -61,17 +61,15 @@
                 <div class="categories">
                     <div class="category-list">
                         <ul class="category-ul">
-                        	<c:forEach var="parentCategory" items="${parentCategory}">
-                                <li><a href="#" class="parent-category" data-parentid="${parentCategory.categoryNum}">${parentCategory.name}</a></li>
-                            </c:forEach>
+                        <!-- 카테고리 항목이 동적으로 추가 -->
                         </ul>
                     </div>
                 </div>
                 <div class="category-detail">
                     <div class="detail-list">
-<!--                         <ul class="detail-ul"> -->
-                        
-<!--                         </ul> -->
+                        <ul class="detail-ul">
+                        <!-- 카테고리 항목이 동적으로 추가 -->
+                        </ul>
                     </div>
                 </div>
             </div>

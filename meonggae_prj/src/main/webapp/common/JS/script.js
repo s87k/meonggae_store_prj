@@ -6,8 +6,9 @@ jQuery(document).ready(function($) {
 	
 	//카테고리 토글
 	$(".category-btn").click(function() {
-		$(".categories").toggleClass("show");
-
+		//카테고리 로드
+		loadCategories();
+		
 		// .categories에 show 클래스가 있으면 .fa-bars에 color-change 클래스를 추가
 		if ($(".categories").hasClass("show")) {
 			$(".fa-bars").addClass("color-change");
@@ -17,32 +18,16 @@ jQuery(document).ready(function($) {
 	});//click
 
 	//카테고리 상세 토글 보이기
-	$(".category-ul li").mouseenter(function() {
-		var parentCategory = $(this).find(".parent-category").data("parentid");//부모의 카테고리번호 가져오기
-		$.ajax({
-			url:'subCategory.do', 
-			type:'GET',
-			dataType:'json',
-			data:{ parentCategory:parentCategory },
-			success: function(data){
-				var html = $(".detail-list");
-				html.empty();
-				html.append('<ul class="detail-ul">');
-            	$.each(data, function(index, item) {
-                	html.append('<li><a href="#" class="sub-category" data-parentid="' + item.categoryNum + '">' + item.name + '</a></li>');
-            	});//each
-				html.append('</ul>');// 동적으로 HTML 갱신
-            	$(".category-detail").addClass("show");
-			},//success
-			error:function(xhr){
-				console.log(xhr.status);
-				console.log(parentCategory+" < 서브 카테고리를 불러오는 중 오류가 발생");
-			}//error
-		});
+	//$(".category-ul li").mouseenter(function() {
+	$(".category-ul").on("mouseenter", "li", function() {
+		//부모의 카테고리번호 가져오기
+		var parentCategory = $(this).find(".parent-category").data("parentid");
+		loadSubCategories(parentCategory);
 	});//mouseenter
 	$(".parent-category").mouseleave(function() {
 		$(".category-detail").removeClass("show");
 	});//mouseleave
+	
 	//카테고리 상세 토글 유지
 	$(".category-detail").mouseenter(function() {
 		$(".category-detail").toggleClass("show");
@@ -61,26 +46,6 @@ jQuery(document).ready(function($) {
 		});
 	});//scroll
 
-	////////////////// 상품 상세페이지 //////////////////////////
-	//찜 클릭
-	$("#wishlist-btn").click(function() {
-		if ($(this).hasClass("wished")) {
-			$(this).removeClass("wished");
-			$(this).html('<i class="fa fa-heart-o"></i> 찜 0');
-		}else{
-			$(this).addClass("wished");
-			$(this).html('<i class="fa fa-heart"></i> 찜 1');
-		}
-	});//click
-	
-	//신고하기
-	$(".open-report-modal").click(function(){
-		$("#reportModal").modal("show");
-	});
-	$("#reportModal").on('hidden.bs.modal',function(e){
-		$(this).find('form')[0].reset();
-	});
-	
 	//이벤트 버튼
 	$(".event-btn").click(function(){
 		location.href="http://localhost//meonggae_prj/event_page/event_main.do";
@@ -100,4 +65,73 @@ jQuery(document).ready(function($) {
             }
         });
 	});
+});//ready
+
+//카테고리 로드
+function loadCategories(){
+$.ajax({
+	type: 'GET',
+	url: 'parentCategory.do',
+	dataType:"json",
+	success: function(response){
+		updateCategoryList(response);
+		//카테고리 show
+		$(".categories").toggleClass("show");
+	},
+	error: function(xhr){
+		console.log('대분류 카테고리 요청 실패', xhr.status);
+	}
+});//ajax
+};//loadCategories
+
+//카테고리 대분류 생성
+function updateCategoryList(categories){
+	var $ul = $(".category-ul");
+	$ul.empty();
+	
+	//json parsing
+	$.each(categories, function(index, item){
+		var $li = $("<li>");
+		var $a = $("<a>").attr("href", "#void")
+						.addClass("parent-category")
+						.attr("data-parentid", item.categoryNum)
+						.text(item.name);
+		$li.append($a);
+		$ul.append($li);				
+	});
+};//updateCategoryList
+
+//서브 카테고리 로드
+function loadSubCategories(parentCategory){
+$.ajax({
+	url:'subCategory.do', 
+	type:'GET',
+	dataType:'json',
+	data:{ Category:parentCategory },
+	success: function(response){
+		updateSubCategoryList(response);
+		//서브 카테고리 show
+        $(".category-detail").addClass("show");
+	},
+	error:function(xhr){
+		console.log('소분류 카테고리 요청 실패', xhr.status);
+	}
 });
+};//loadSubCategories
+
+////카테고리 소분류 생성
+function updateSubCategoryList(categories){
+	var $ul = $(".detail-ul");
+	$ul.empty();
+	
+	//json parsing
+	$.each(categories, function(index, item){
+		var $li = $("<li>");
+		var $a = $("<a>").attr("href", "#void")
+						.addClass("sub-category")
+						.attr("data-value", item.categoryNum)
+						.text(item.name);
+		$li.append($a);
+		$ul.append($li);
+	});
+};//updateSubCategoryList
