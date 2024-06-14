@@ -12,22 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MybatisDAO {
 	
-	private static MybatisDAO mbDAO;
 	private static SqlSessionFactory ssf;
-	
-	private MybatisDAO() {
-		org.apache.ibatis.logging.LogFactory.useLog4J2Logging();
-	}//MybiatisDAO
-	
-	public static MybatisDAO getInstance() {
-		if(mbDAO == null) {
-			mbDAO = new MybatisDAO();
-		}//end if
-		
-		return mbDAO;
-	}//getInstance
-	
+
 	static {
+		org.apache.ibatis.logging.LogFactory.useLog4J2Logging();
 		if(ssf == null) {
 			try {
 				//1.설정파일 연결
@@ -41,6 +29,7 @@ public class MybatisDAO {
 				}//end if
 			} catch (IOException e) {
 				e.printStackTrace();
+				throw new ExceptionInInitializerError(e);
 			}
 		}
 	}

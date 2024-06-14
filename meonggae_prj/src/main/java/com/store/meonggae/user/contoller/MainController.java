@@ -26,8 +26,10 @@ public class MainController {
 	@RequestMapping(value="/index.do",method= {GET,POST})
 	public String main(Model model) {
 		//전체보기 카테고리(대분류)
-		List<CategoryDomain> parentCategory = categoryService.selectParentCategory();
-		model.addAttribute("parentCategory", parentCategory);
+		/*
+		 * List<CategoryDomain> parentCategory = categoryService.selectParentCategory();
+		 * model.addAttribute("parentCategory", parentCategory);
+		 */
 		
 		return "main_page/main_contents";
 	}
