@@ -27,6 +27,15 @@ public class MainController {
 
 	@RequestMapping(value="/index.do",method= {GET,POST})
 	public String main(Model model) {
+<<<<<<< HEAD
+=======
+		//전체보기 카테고리(대분류)
+		/*
+		 * List<CategoryDomain> parentCategory = categoryService.selectParentCategory();
+		 * model.addAttribute("parentCategory", parentCategory);
+		 */
+		
+>>>>>>> branch 'main' of https://github.com/KimByeongNyeon/meonggae_store_prj.git
 		return "main_page/main_contents";
 	}
 	
