@@ -2,8 +2,27 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.store.meonggae.user_login">
-  <select id="selectOneUser" resultType="loginDomain" parameterType="loginVO">
-    select 
-  </select>
+	<resultMap
+		type="com.store.meonggae.user.login.domain.LoginDomain" id="ldResult">
+		<result column="MEM_NUM" property="memNum" />
+		<result column="NICK" property="nick" />
+		<result column="IMG" property="profile" />
+		<result column="LOGIN_FLAG" property="loginFlag" />
+		<result column="SUSPEND_DATE" property="suspendDate" />
+		<result column="UNSUSPEND_DATE" property="unsuspendDate" />
+		<result column="WITHDRAW_FLAG" property="withdrawFlag" />
+		<result column="WITHDRAW_DATE" property="withdrawDate" />
+	</resultMap>
+	<select id="selectOneUser" resultMap="ldResult"
+		parameterType="com.store.meonggae.user.login.vo.LoginVO">
+		select m.mem_num, m.nick, m.img,
+		m.login_flag, m.suspend_date,
+		m.unsuspend_date, m.withdraw_flag, m.withdraw_date
+		from member m, member_detail md
+		where
+		m.mem_num = md.mem_num and
+		md.mem_id = #{id} and md.pass = #{pass}
+	</select>
 </mapper>
