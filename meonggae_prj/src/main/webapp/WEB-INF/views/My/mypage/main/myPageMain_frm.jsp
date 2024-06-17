@@ -10,12 +10,12 @@
 
 <!-- header -->
 <c:import url="http://localhost/meonggae_prj/common/My/css/css.jsp"/>
-<c:import url="../../../header/header.jsp"/>
+<c:import url="/WEB-INF/views/header/header.jsp"/>
 <!-- header -->
 
 <!-- CSS -->
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/css/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/My/common/css/style_mypage.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css">
 <!-- CSS -->
 
 <script type="text/javascript">
@@ -36,7 +36,8 @@
 		<hr id="menuBottonLine">
 		<!-- 메뉴목록 -->
 		
-		<a href="https://naver.com">
+		
+		<a href="http://localhost/meonggae_prj/My/mypage/dibs/dibsGoods_frm.do">
 		<div id="dibListTitle" class="dibList">♥ 찜 목록</div>
 		</a>
 		<div id="dibList" class="dibList">
@@ -64,7 +65,7 @@
 			</div>
 		</div>
 		
-		<a href="https://naver.com">
+		<a href="http://localhost/meonggae_prj/My/mypage/sales_list/soldDetails_frm.do">
 		<div id="soldListTitle" class="soldList">판매 완료 목록</div>
 		</a>
 		<div id="soldList" class="soldList">
@@ -92,7 +93,7 @@
 			</div>
 		</div>
 		
-		<a href="https://naver.com">
+		<a href="http://localhost/meonggae_prj/My/mypage/sales_list/boughtDetails_frm.do">
 		<div id="boughtListTitle" class="boughtList">구매 완료 목록</div>
 		</a>
 		<div id="boughtList" class="boughtList">
@@ -125,5 +126,5 @@
 <!-- 내용 끝 -->
 
 <!-- footer -->
-<c:import url="http://localhost/meonggae_prj/footer/footer.jsp"/>
+<c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->

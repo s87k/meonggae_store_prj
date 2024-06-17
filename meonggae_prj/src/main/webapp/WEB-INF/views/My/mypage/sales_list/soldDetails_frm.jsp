@@ -9,13 +9,13 @@
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
-<c:import url="http://localhost/meonggae_prj/My/common/css/css.jsp"/>
-<c:import url="http://localhost/meonggae_prj/header/header.jsp"/>
+<c:import url="http://localhost/meonggae_prj/common/My/css/css.jsp"/>
+<c:import url="/WEB-INF/views/header/header.jsp"/>
 <!-- header -->
 
 <!-- CSS -->
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/css/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/My/common/css/style_mypage.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css">
 <!-- CSS -->
 
 <script type="text/javascript">
@@ -51,7 +51,7 @@
 				<div class="col-md-3 col-sm-4">
 					<div class="single-product">
 						<div class="product-block">
-							<img src="http://192.168.10.220/meonggae_prj/products-img/product-${ i.index }.jpg" class="thumbnail">
+							<img src="../../../products-img/product-${ i.index }.jpg" class="thumbnail">
 							<div class="product-description text-left">
 								<p class="title">여성의류</p>
 								<div style="overflow: hidden;">
@@ -71,5 +71,5 @@
 <!-- 내용 끝 -->
 
 <!-- footer -->
-<c:import url="http://localhost/meonggae_prj/footer/footer.jsp"/>
+<c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
