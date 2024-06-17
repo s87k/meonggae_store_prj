@@ -1,27 +1,13 @@
 package com.store.meonggae.user.contoller;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.store.meonggae.user.login.domain.LoginDomain;
 import com.store.meonggae.user.login.service.LoginService;
@@ -30,36 +16,44 @@ import com.store.meonggae.user.login.vo.LoginVO;
 @Controller
 @RequestMapping("/index.do")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	@PostMapping("/authenticate.do")
-	public String authenticate(
-			@RequestParam("uid") String id,
-			@RequestParam("upw") String pass,
-			Model model) {
+	public String authenticate(@RequestParam("uid") String id, @RequestParam("upw") String pass, HttpSession session) {
 		LoginVO loginVO = new LoginVO(id, pass);
 		LoginDomain user = loginService.selectOneUser(loginVO);
-		if(user != null) {
-			model.addAttribute("user", user);
+		if (user != null) {
+			session.setAttribute("user", user);
 			System.out.println(user);
-			return "main_page/main_contents";
-		}
-		else {
-			model.addAttribute("error", "아이디와 비밀 번호 오류");
+			return "redirect:/index.do";
+		} else {
 			return "login_page/login_page";
 		}
 	}
+
 	@PostMapping("/index.do")
-	public String getUserInfo(Model model) {
-		LoginDomain user = (LoginDomain) model.getAttribute("user");
-		model.addAttribute("user", user);
-		return "header/header";
+	public String mainPageLogin(/* HttpServletRequest request, Model model */) {
+		/*
+		 * LoginDomain user = (LoginDomain) model.getAttribute("user");
+		 * model.addAttribute("user", user);
+		 */ return "main_page/main_contents";
 	}
-	
+
+	/*
+	 * @PostMapping("/event_page/event_main.do") public String eventPageLogin(
+	 * HttpServletRequest request,Model model ) {
+	 * 
+	 * LoginDomain user = (LoginDomain) model.getAttribute("user");
+	 * model.addAttribute("user", user);
+	 * 
+	 * return "event_page/event_main"; }
+	 */
+
 	@PostMapping("/logout")
-	public String logout(SessionStatus ss) {
+	public String logout(HttpSession session,SessionStatus ss) {
+		session.invalidate();
 		ss.setComplete();
 		return "index";
 	}

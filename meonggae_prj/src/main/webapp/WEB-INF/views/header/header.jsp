@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-3">
 				<div class="logo">
-					<a href="http://localhost//meonggae_prj/index.do"> <img
+					<a href="http://localhost/meonggae_prj/index.do"> <img
 						src="http://localhost/meonggae_prj/common/images/meonggaelogo.png">
 					</a>
 				</div>
@@ -51,21 +51,21 @@
 			<div class="col-md-3 col-sm-4">
 				<div class="col-md-4 col-sm-4">
 					<a
-						href="http://localhost//meonggae_prj/product_page/product_add.do"
+						href="http://localhost/meonggae_prj/product_page/product_add.do"
 						class="icons"> <img
 						src="http://localhost/meonggae_prj/common/images/meonggaesale.png"
 						alt="판매하기 이미지"> <span class="icons-text">판매하기</span>
 					</a>
 				</div>
 				<div class="col-md-4 col-sm-4">
-					<a href="http://localhost//meonggae_prj/My/mypage/main/mypage.do"
+					<a href="http://localhost/meonggae_prj/My/mypage/main/mypage.do"
 						class="icons"> <img
 						src="http://localhost/meonggae_prj/common/images/meonggaeStore.png"
 						alt="내상점 이미지"> <span class="icons-text">내 상점</span>
 					</a>
 				</div>
 				<div class="col-md-4 col-sm-4">
-					<a href="http://localhost//meonggae_prj/meongae_talk/talk_page.do"
+					<a href="http://localhost/meonggae_prj/meongae_talk/talk_page.do"
 						class="icons"> <img
 						src="http://localhost/meonggae_prj/common/images/meonggaeTalk.png"
 						alt="멍게톡 이미지"> <span class="icons-text">멍게톡</span>
