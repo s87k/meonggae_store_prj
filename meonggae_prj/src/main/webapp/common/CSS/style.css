@@ -186,7 +186,7 @@ form.navbar-form button {
 	background: #40bea7;
 }
 .detail-list{
-	width: 150px;
+	width: 180px;
 	float: left;
 	border: 1px solid #bebebe;
 	background-color: white;
@@ -201,6 +201,9 @@ form.navbar-form button {
 	padding: 10px 0px 0px 23px;
 	
 }
+.detail-ul li:hover{
+	background: #40bea7;
+}
 .detail-ul li a{
 	text-align: left;
 	font-weight: bold;
@@ -208,7 +211,7 @@ form.navbar-form button {
 }
 
 .detail-ul li a:hover{
-	color: #40bea7;
+	color: white;
 }
 #carousel-example-generic{
 	height: 300px;
