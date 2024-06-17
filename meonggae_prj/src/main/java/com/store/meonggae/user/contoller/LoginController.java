@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,7 +28,7 @@ import com.store.meonggae.user.login.service.LoginService;
 import com.store.meonggae.user.login.vo.LoginVO;
 
 @Controller
-@RequestMapping("/login_page/login_page.do")
+@RequestMapping("/index.do")
 public class LoginController {
 	
 	@Autowired
@@ -43,7 +44,7 @@ public class LoginController {
 		if(user != null) {
 			model.addAttribute("user", user);
 			System.out.println(user);
-			return "redirect:/index.do";
+			return "main_page/main_contents";
 		}
 		else {
 			model.addAttribute("error", "아이디와 비밀 번호 오류");
@@ -52,8 +53,15 @@ public class LoginController {
 	}
 	@PostMapping("/index.do")
 	public String getUserInfo(Model model) {
-		model.getAttribute("user");
+		LoginDomain user = (LoginDomain) model.getAttribute("user");
+		model.addAttribute("user", user);
 		return "header/header";
+	}
+	
+	@PostMapping("/logout")
+	public String logout(SessionStatus ss) {
+		ss.setComplete();
+		return "index";
 	}
 }
 /*
