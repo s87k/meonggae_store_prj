@@ -15,8 +15,8 @@ import com.store.meonggae.product.domain.CategoryDomain;
 import com.store.meonggae.product.service.CategoryService;
 
 @Controller
-public class CategoryController {
-	
+public class SearchProductController {
+/*	
 	@Autowired
 	private CategoryService categoryService;
 
@@ -55,5 +55,5 @@ public class CategoryController {
 	        
 	        return jsonArr.toJSONString();
 	    }//subCategory
-	
+*/	
 }//class

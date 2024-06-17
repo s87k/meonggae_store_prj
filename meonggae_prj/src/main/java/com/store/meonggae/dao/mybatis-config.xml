@@ -29,6 +29,6 @@
   <mappers>
     <mapper resource="com/store/meonggae/user/login/dao/loginMapper.xml"/>
     <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
-    <mapper resource="com/store/meonggae/product/dao/categoryMapper.xml"/>
+    <mapper resource="com/store/meonggae/product/mapper/categoryMapper.xml"/>
   </mappers>
 </configuration>

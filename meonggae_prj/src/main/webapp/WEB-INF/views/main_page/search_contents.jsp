@@ -66,7 +66,7 @@
 
         <div class="container">
 
-            <div class="row">
+            <div class="row" style="padding: 0 15px">
 
                 <div class="tab-content">
 
@@ -79,10 +79,11 @@
                             			<a href="http://localhost//meonggae_prj/main_page/products_detail.do">
                             			<!-- 상세페이지로 이동 -->
 											<img src="../products-img/product-${ i.index }.jpg" alt="" class="thumbnail">
-											<div class="product-description text-left">
+											<div class="product-description">
 												<p class="title">여성의류${ i.index }</p>
 												<div style="overflow: hidden;">
 													<p class="price" style="float: left;">1${ i.index },000원</p>
+													<p class="location" style="float: left;"><i class="fa fa-map-marker" aria-hidden="true"></i>서울시 강남구</p>
 													<p class="time-ago" style="float: right;">${ i.index }일전</p>
 												</div>
 											</div>
