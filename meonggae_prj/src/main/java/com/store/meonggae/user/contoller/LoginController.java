@@ -42,6 +42,7 @@ public class LoginController {
 		LoginDomain user = loginService.selectOneUser(loginVO);
 		if(user != null) {
 			model.addAttribute("user", user);
+			System.out.println(user);
 			return "redirect:/index.do";
 		}
 		else {
@@ -49,7 +50,11 @@ public class LoginController {
 			return "login_page/login_page";
 		}
 	}
-	
+	@PostMapping("/index.do")
+	public String getUserInfo(Model model) {
+		model.getAttribute("user");
+		return "header/header";
+	}
 }
 /*
  * @Value("${kakao.client-id}") private String clientId;
