@@ -50,6 +50,7 @@
 	<div class="container" style="height: 100%">
 		<div class="tab">
 			<ul class="tabnav">
+			
 				<li><a href="#tab01">상품등록</a></li>
 				<li><a href="#tab02">판매상태</a></li>
 			</ul>
@@ -58,6 +59,7 @@
 					<form name="newProduct" action="" class="form-horizontal"
 						method="post">
 						<div class="form-group row">
+						<p>${user.nick}</p>
 							<label class="col-sm-2">이미지 등록</label>
 							<div class="col-sm-3">
 							<div class="addImage" id="image-show">
