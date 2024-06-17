@@ -17,7 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor)
-                .addPathPatterns("/**"); // 모든 요청에 대해 인터셉터 적용
+                .addPathPatterns("/**")
+                .excludePathPatterns("${}/index.do/logout.do"); // 모든 요청에 대해 인터셉터 적용
     }
 }
 
