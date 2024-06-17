@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,27 +36,15 @@ public class LoginController {
 
 	@PostMapping("/index.do")
 	public String mainPageLogin(/* HttpServletRequest request, Model model */) {
-		/*
-		 * LoginDomain user = (LoginDomain) model.getAttribute("user");
-		 * model.addAttribute("user", user);
-		 */ return "main_page/main_contents";
+		 return "main_page/main_contents";
 	}
 
-	/*
-	 * @PostMapping("/event_page/event_main.do") public String eventPageLogin(
-	 * HttpServletRequest request,Model model ) {
-	 * 
-	 * LoginDomain user = (LoginDomain) model.getAttribute("user");
-	 * model.addAttribute("user", user);
-	 * 
-	 * return "event_page/event_main"; }
-	 */
 
-	@PostMapping("/logout")
+	@GetMapping("/logout.do")
 	public String logout(HttpSession session,SessionStatus ss) {
 		session.invalidate();
 		ss.setComplete();
-		return "index";
+		return "redirect:/index.do";
 	}
 }
 /*
