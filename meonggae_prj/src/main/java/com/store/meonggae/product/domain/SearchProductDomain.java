@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter*/
 
 public class SearchProductDomain {
-	private String goodsNum, goodsName, goodsImgNum, imgName, price, priceFm, categoryNum, location, locationStr, timeAgo;
+	private String goodsNum, goodsName, goodsImgNum, imgName, price, priceFm, categoryNum, categoryName, parentCategoryNum, location, locationStr, timeAgo;
 	private int memNumSell;
 	private Date inputDate;
 	
@@ -25,8 +25,9 @@ public class SearchProductDomain {
 	}
 
 	public SearchProductDomain(String goodsNum, String goodsName, String goodsImgNum, String imgName, String price,
-			String priceFm, String categoryNum, String location, String locationStr, String timeAgo, int memNumSell,
-			Date inputDate) {
+			String priceFm, String categoryNum, String categoryName, String parentCategoryNum, String location,
+			String locationStr, String timeAgo, int memNumSell, Date inputDate) {
+		super();
 		this.goodsNum = goodsNum;
 		this.goodsName = goodsName;
 		this.goodsImgNum = goodsImgNum;
@@ -34,12 +35,15 @@ public class SearchProductDomain {
 		this.price = price;
 		this.priceFm = priceFm;
 		this.categoryNum = categoryNum;
+		this.categoryName = categoryName;
+		this.parentCategoryNum = parentCategoryNum;
 		this.location = location;
 		this.locationStr = locationStr;
 		this.timeAgo = timeAgo;
 		this.memNumSell = memNumSell;
 		this.inputDate = inputDate;
 	}
+
 
 	public String getGoodsNum() {
 		return goodsNum;
@@ -137,13 +141,31 @@ public class SearchProductDomain {
 		this.inputDate = inputDate;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getParentCategoryNum() {
+		return parentCategoryNum;
+	}
+
+	public void setParentCategoryNum(String parentCategoryNum) {
+		this.parentCategoryNum = parentCategoryNum;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchProductDomain [goodsNum=" + goodsNum + ", goodsName=" + goodsName + ", goodsImgNum=" + goodsImgNum
 				+ ", imgName=" + imgName + ", price=" + price + ", priceFm=" + priceFm + ", categoryNum=" + categoryNum
-				+ ", location=" + location + ", locationStr=" + locationStr + ", timeAgo=" + timeAgo + ", memNumSell="
-				+ memNumSell + ", inputDate=" + inputDate + "]";
+				+ ", categoryName=" + categoryName + ", parentCategoryNum=" + parentCategoryNum + ", location="
+				+ location + ", locationStr=" + locationStr + ", timeAgo=" + timeAgo + ", memNumSell=" + memNumSell
+				+ ", inputDate=" + inputDate + "]";
 	}
+
 	
 	
 }
