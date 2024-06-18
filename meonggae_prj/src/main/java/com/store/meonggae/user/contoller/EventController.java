@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.store.meonggae.event.service.EventService;
 import com.store.meonggae.event.domain.EventDomain;
 import com.store.meonggae.event.vo.PagingVO;
-import com.store.meonggae.user.login.domain.LoginDomain;
 
 @Controller
 public class EventController {
