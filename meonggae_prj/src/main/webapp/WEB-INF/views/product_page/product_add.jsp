@@ -150,7 +150,7 @@
                             <tbody>
                                 <c:forEach var="product" items="${productList}">
                                     <tr>
-                                        <td><img alt="상품 정보" src="../common/images/pizza.jpg"></td>
+                                        <td><img alt="상품 정보" src="http://localhost/meonggae_prj/products-img/${product.img}"></td>
                                         <td>
                                             <select>
                                                 <option value="판매중" <c:if test="${product.sell_status_code == 'N'}">selected</c:if>>판매중</option>
@@ -160,7 +160,11 @@
                                         <td>${product.category_num}</td>
                                         <td>${product.name}</td>
                                         <td>${product.price}</td>
-                                        <td>${product.quality_code}</td>
+                                        <td>
+                                        <c:if test="${product.quality_code == '1'}">미개봉</c:if>
+                                        <c:if test="${product.quality_code == '2'}">거의 새 것</c:if>
+                                        <c:if test="${product.quality_code == '3'}">사용감 있음</c:if>
+                                        </td>
                                         <td>${product.location}</td>
                                         <td>${product.cnt}</td>
                                         <td><input type="button" class="btn btn-success btn-sm" value="수정"></td>

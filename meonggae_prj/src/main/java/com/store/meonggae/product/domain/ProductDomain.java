@@ -2,15 +2,15 @@ package com.store.meonggae.product.domain;
 
 
 public class ProductDomain {
-	private String name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
+	private String img, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
 	
 	public ProductDomain() {
 		
 	}
 
-	public ProductDomain(String name, String detail, String quality_code, String category_num, String price, String cnt,
+	public ProductDomain(String img, String name, String detail, String quality_code, String category_num, String price, String cnt,
 			String trade_method_code, String category, String location, String sell_status_code) {
-		super();
+		this.img = img;
 		this.name = name;
 		this.detail = detail;
 		this.quality_code = quality_code;
@@ -21,6 +21,15 @@ public class ProductDomain {
 		this.category = category;
 		this.location = location;
 		this.sell_status_code = sell_status_code;
+	}
+	
+	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public String getName() {
@@ -106,7 +115,7 @@ public class ProductDomain {
 
 	@Override
 	public String toString() {
-		return "ProductDomain [name=" + name + ", detail=" + detail + ", quality_code=" + quality_code + ", category_num=" + category_num + ", price="
+		return "ProductDomain [img=" +img + "name=" + name + ", detail=" + detail + ", quality_code=" + quality_code + ", category_num=" + category_num + ", price="
 				+ price + ", cnt=" + cnt + ", trade_method_code=" + trade_method_code + ", category=" + category
 				+ ", location=" + location + ", sell_status_code=" + sell_status_code + "]";
 	}

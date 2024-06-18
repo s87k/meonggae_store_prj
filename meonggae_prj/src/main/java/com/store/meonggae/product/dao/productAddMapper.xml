@@ -5,10 +5,10 @@
 <mapper namespace="com.store.meonggae.product">
 
 <select id="selectProductByUser" resultType="productDomain" parameterType="int">
-select g.goods_num, g.mem_num_sell, g.mem_num_buy, g.category_num,
+select gi.name as img, g.goods_num, g.mem_num_sell, g.mem_num_buy, g.category_num,
 g.name, g.detail, g.price, g.cnt, g.trade_method_code, g.location, g.quality_code, g.sell_status_code
-from GOODS g, member_detail md
-where md.mem_num = g.mem_num_sell and md.mem_num = #{memNum, jdbcType=INTEGER}
+from GOODS g, goods_img gi ,member_detail md
+where g.goods_num = gi.goods_num and md.mem_num = g.mem_num_sell and md.mem_num = #{memNum, jdbcType=INTEGER}
 </select>
 <!-- <insert id="inserctProduct"></insert>
 <update id="updateProudct"></update>-->
