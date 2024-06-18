@@ -14,6 +14,7 @@
 	<typeAlias type="com.store.meonggae.event.domain.EventDomain" alias="eventDomain"/>
 <!-- product -->
 	<typeAlias type="com.store.meonggae.product.domain.CategoryDomain" alias="CategoryDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.ProductDomain" alias="productDomain"/>
 </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -30,5 +31,6 @@
     <mapper resource="com/store/meonggae/user/login/dao/loginMapper.xml"/>
     <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
     <mapper resource="com/store/meonggae/product/dao/categoryMapper.xml"/>
+    <mapper resource="com/store/meonggae/product/dao/productAddMapper.xml"/>
   </mappers>
 </configuration>
