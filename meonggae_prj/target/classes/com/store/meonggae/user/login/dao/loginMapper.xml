@@ -9,6 +9,7 @@
 		<result column="MEM_NUM" property="memNum" />
 		<result column="NICK" property="nick" />
 		<result column="IMG" property="profile" />
+		<result column="SUSPEND_FLAG" property="suspendFlag"/>
 		<result column="LOGIN_FLAG" property="loginFlag" />
 		<result column="SUSPEND_DATE" property="suspendDate" />
 		<result column="UNSUSPEND_DATE" property="unsuspendDate" />
@@ -17,12 +18,13 @@
 	</resultMap>
 	<select id="selectOneUser" resultMap="ldResult"
 		parameterType="com.store.meonggae.user.login.vo.LoginVO">
-		select m.mem_num, m.nick, m.img,
-		m.login_flag, m.suspend_date,
-		m.unsuspend_date, m.withdraw_flag, m.withdraw_date
-		from member m, member_detail md
-		where
-		m.mem_num = md.mem_num and
-		md.mem_id = #{id} and md.pass = #{pass}
+		<!-- select m.mem_num, m.nick, m.img, m.login_flag, m.suspend_date, m.unsuspend_date, 
+			m.withdraw_flag, m.withdraw_date from member m, member_detail md where m.mem_num 
+			= md.mem_num and md.mem_id = #{id} and md.pass = #{pass} -->
+		select mem_num, nick, img, suspend_flag, login_flag,
+		suspend_date, unsuspend_date, withdraw_flag,
+		withdraw_date
+		from VIEW_MEMBER
+		where mem_id = #{id} and pass = #{pass}
 	</select>
 </mapper>

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +27,21 @@ public class LoginController {
 		LoginVO loginVO = new LoginVO(id, pass);
 		LoginDomain user = loginService.selectOneUser(loginVO);
 		if (user != null) {
-			session.setAttribute("user", user);
-			System.out.println(user);
-			return "redirect:/index.do";
-		} else {
-			return "login_page/login_page";
-		}
-	}
+            if ("Y".equals(user.getSuspendFlag())) {
+                session.setAttribute("message", "정지된 회원 입니다.");
+                return "redirect:/index.do";
+            } else if ("Y".equals(user.getWithdrawFlag())) {
+                session.setAttribute("message", "탈퇴한 회원 입니다.");
+                return "redirect:/index.do";
+            } else {
+                session.setAttribute("user", user);
+                return "redirect:/index.do";
+            }
+        } else {
+            session.setAttribute("message", "로그인 실패. 아이디 또는 비밀번호를 확인하세요.");
+            return "login_page/login_page";
+        }
+    }
 
 	@PostMapping("/index.do")
 	public String mainPageLogin(/* HttpServletRequest request, Model model */) {

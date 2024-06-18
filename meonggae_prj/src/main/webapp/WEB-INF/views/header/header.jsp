@@ -8,22 +8,34 @@
 			<c:when test="${not empty user}">
 				<div class="action pull-right">
 					<ul>
-						<li class="login">
-							<a href="http://localhost/meonggae_prj/index.do/logout.do" class="login-btn">
-							<i class="fa fa-sign-out"></i>로그아웃</a> / 
-							<a href="http://localhost/meonggae_prj/My/mypage/main/myPageMain_frm.do" class="login-btn">
-							<i class="fa fa-user"></i>마이페이지</a>
-						</li>
+						<li class="login"><a
+							href="http://localhost/meonggae_prj/index.do/logout.do"
+							class="login-btn"> <i class="fa fa-sign-out"></i>로그아웃
+						</a> / <a
+							href="http://localhost/meonggae_prj/My/mypage/main/myPageMain_frm.do"
+							class="login-btn"> <i class="fa fa-user"></i>마이페이지
+						</a></li>
+					</ul>
+				</div>
+			</c:when>
+			<c:when test = "${not empty message}">
+			<script type="text/javascript">
+			alert('${message}')
+			</script>
+				<div class="action pull-right">
+					<ul>
+						<li class="login"><a href="javascript:void(0);"
+							class="login-btn"> <i class="fa fa-user"></i> 로그인 / 회원가입
+						</a></li>
 					</ul>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="action pull-right">
 					<ul>
-						<li class="login">
-							<a href="javascript:void(0);" class="login-btn">
-							<i class="fa fa-user"></i> 로그인 / 회원가입</a>
-						</li>
+						<li class="login"><a href="javascript:void(0);"
+							class="login-btn"> <i class="fa fa-user"></i> 로그인 / 회원가입
+						</a></li>
 					</ul>
 				</div>
 			</c:otherwise>
@@ -56,8 +68,7 @@
 			</div>
 			<div class="col-md-3 col-sm-4">
 				<div class="col-md-4 col-sm-4">
-					<a
-						href="http://localhost/meonggae_prj/product_page/product_add.do"
+					<a href="http://localhost/meonggae_prj/product_page/product_add.do"
 						class="icons"> <img
 						src="http://localhost/meonggae_prj/common/images/meonggaesale.png"
 						alt="판매하기 이미지"> <span class="icons-text">판매하기</span>
