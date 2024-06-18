@@ -1,11 +1,17 @@
+<%@page import="com.store.meonggae.user.login.domain.LoginDomain"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="나의 상점"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
-<%
-
-%>
+<c:choose>
+	<c:when test="${not empty user}">
+		<script type="text/javascript">
+			<%
+			System.out.println("로그인 성공!!!!!!!!");
+			%>
+		</script>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -20,10 +26,21 @@
 
 <script type="text/javascript">
 	$(function(){
-		
+		$('#pagination-demo').twbsPagination({
+	        totalPages: 6,
+	        visiblePages: 10,
+	        onPageClick: function (event, page) {
+	            $('#page-content').text('Page ' + page);
+	        }
+	    });
 	});//ready
 </script>
 
+<%
+LoginDomain ld = (LoginDomain)session.getAttribute("user");
+String nick = ld.getNick();
+System.out.println(nick);
+%>
 <!-- 내용 시작 -->
 <div class="container">
 	<div id="storeBanner" class="storeBanner">
@@ -31,7 +48,7 @@
 		<img src="http://localhost/meonggae_prj/common/images/profile_temp.png" class="img-circle" style="width: 100px; height: 100px"/>
 		</div>
 		<div id="userInfo" class="userInfo">
-			<div id="nick" class="nick">벽돌파는사람님의 상점</div>
+			<div id="nick" class="nick"><%= nick %>님의 상점</div>
 			<a href="#void" id="userDeclaration"><img src="http://localhost/meonggae_prj/common/images/declaration.png" style="width:18px; height: 18px;"/>신고</a>
 		</div>
 	</div>
@@ -65,9 +82,20 @@
 		</div>
 	</div>
 	
+<ul id="pagination-demo" class="pagination-sm"></ul>
+	
 </div>
 <!-- 내용 끝 -->
 
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
+	
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+			alert("로그인이 필요한 서비스입니다.");
+			location.href="http://localhost/meonggae_prj/index.do";
+		</script>
+	</c:otherwise>
+</c:choose>
