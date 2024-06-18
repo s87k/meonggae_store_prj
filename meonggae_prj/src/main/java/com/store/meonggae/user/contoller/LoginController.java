@@ -1,59 +1,59 @@
 package com.store.meonggae.user.contoller;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.store.meonggae.user.login.domain.LoginDomain;
 import com.store.meonggae.user.login.service.LoginService;
 import com.store.meonggae.user.login.vo.LoginVO;
 
 @Controller
-@RequestMapping("/login_page/login_page.do")
+@RequestMapping("/index.do")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	@PostMapping("/authenticate.do")
-	public String authenticate(
-			@RequestParam("uid") String id,
-			@RequestParam("upw") String pass,
-			Model model) {
+	public String authenticate(@RequestParam("uid") String id, @RequestParam("upw") String pass, HttpSession session) {
 		LoginVO loginVO = new LoginVO(id, pass);
 		LoginDomain user = loginService.selectOneUser(loginVO);
-		if(user != null) {
-			model.addAttribute("user", user);
-			System.out.println(user);
-			return "redirect:/index.do";
-		}
-		else {
-			model.addAttribute("error", "아이디와 비밀 번호 오류");
-			return "login_page/login_page";
-		}
-	}
+		if (user != null) {
+            if ("Y".equals(user.getSuspendFlag())) {
+                session.setAttribute("message", "정지된 회원 입니다.");
+                return "redirect:/index.do";
+            } else if ("Y".equals(user.getWithdrawFlag())) {
+                session.setAttribute("message", "탈퇴한 회원 입니다.");
+                return "redirect:/index.do";
+            } else {
+                session.setAttribute("user", user);
+                return "redirect:/index.do";
+            }
+        } else {
+            session.setAttribute("message", "로그인 실패. 아이디 또는 비밀번호를 확인하세요.");
+            return "login_page/login_page";
+        }
+    }
+
 	@PostMapping("/index.do")
-	public String getUserInfo(Model model) {
-		model.getAttribute("user");
-		return "header/header";
+	public String mainPageLogin(/* HttpServletRequest request, Model model */) {
+		 return "main_page/main_contents";
+	}
+
+
+	@GetMapping("/logout.do")
+	public String logout(HttpSession session,SessionStatus ss) {
+		session.invalidate();
+		ss.setComplete();
+		return "redirect:/index.do";
 	}
 }
 /*
