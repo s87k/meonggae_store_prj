@@ -1,7 +1,12 @@
 jQuery(document).ready(function($) {
 	//검색버튼 클릭
 	$("#search-btn").click(function(){
-		location.href="http://localhost/meonggae_prj/main_page/search_contents.do";
+		//검색어가 없는 경우 아무일도 안 일어나지 않음.
+		if($("#searchKey").val().trim()==""){
+			return;//함수 종료.
+		}else{
+			searchPrd();
+		}
 	});
 	
 	//카테고리 로드
@@ -48,13 +53,13 @@ jQuery(document).ready(function($) {
 
 	//이벤트 버튼
 	$(".event-btn").click(function(){
-		location.href="http://localhost/meonggae_prj/event_page/event_main.do";
+		location.href="http://localhost//meonggae_prj/event_page/event_main.do";
 	});
 	
 	//로그인 버튼
 	$(".login-btn").click(function() {
         $.ajax({
-            url: 'http://localhost/meonggae_prj/login_page/login_page.do',
+            url: 'http://localhost//meonggae_prj/login_page/login_page.do',
             type: 'GET',
             success: function(data) {
                 $('#popupModal .modal-body').html(data);
@@ -66,6 +71,25 @@ jQuery(document).ready(function($) {
         });
 	});
 });//ready
+
+//검색창 엔터키
+function enterkey(event){
+	if (event.which == 13) {
+		event.preventDefault();//폼이 제출되지 않게 이벤트 기본동작 중단.
+		if($("#searchKey").val().trim()==""){
+			//검색어가 없는 경우 아무일도 안 일어나지 않음.
+		}else{
+			searchPrd();
+		}
+	}//end if
+}//enterkey
+
+//키워드로 검색하기
+function searchPrd(){
+	var keyword = $("#searchKey").val().trim();
+	location.href = 'http://localhost/meonggae_prj/main_page/search_contents.do?keyword=' + keyword;
+}//searchPrd
+
 
 //카테고리 로드
 function loadCategories(){

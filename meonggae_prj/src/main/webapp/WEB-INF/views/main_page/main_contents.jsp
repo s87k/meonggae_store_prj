@@ -71,17 +71,18 @@
                     <div class="tab-pane active" id="trending">
 
                     	<div class="single-products">
-							<c:forEach begin="1" end="16" varStatus="i">
+							<c:forEach var="pd" items="${requestScope.list}" varStatus="i">
                             	<div class="single-product">
                             		<div class="product-block">
-                            			<a href="main_page/products_detail.do">
+                            			<a href="main_page/products_detail.do?goodsNum=${ pd.goodsNum }">
                             				<!-- 상세페이지로 이동 -->
-											<img src="http://localhost/meonggae_prj/products-img/product-${ i.index }.jpg" alt="" class="thumbnail">
-											<div class="product-description text-left">
-												<p class="title">여성의류${ i.index }</p>
+											<img src="http://localhost/meonggae_prj/products-img/${ pd.imgName }" alt="" class="thumbnail">
+											<div class="product-description ">
+												<p class="title">${ pd.goodsName }</p>
 												<div style="overflow: hidden;">
-													<p class="price" style="float: left;">1${ i.index },000원</p>
-													<p class="time-ago" style="float: right;">${ i.index }일전</p>
+													<p class="price" style="float: left;">${ pd.priceFm }원</p>
+													<p class="location" style="float: left;"><i class="fa fa-map-marker" aria-hidden="true"></i>${ pd.locationStr }</p>
+													<p class="time-ago" style="float: right;">${ pd.timeAgo }</p>
 												</div>
 											</div>
                             			</a>
