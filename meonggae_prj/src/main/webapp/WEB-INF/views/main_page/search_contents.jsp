@@ -35,28 +35,27 @@
 <c:if test="${not empty list}">
 	<div class="row">
 		<div class="search_categoryNavigation">
-			<%
-    			String[] list = {"여성의류", "남성의류", "신발", "가방/지갑", "스타굿즈", "여성의류", "남성의류", "신발", "가방/지갑",
-       							 "스타굿즈", "여성의류", "남성의류", "신발", "가방/지갑", "스타굿즈"};
-				String[] list2 = {"인기카테1","인기카테2","인기카테3"};
-   				pageContext.setAttribute("list", list);
-   				pageContext.setAttribute("list2", list2);
-			%>
 			<div class="p-css">
 				<p>카테고리</p>
 				<div class="category-fav">
-					<c:forEach items="${list2}" var="item2" varStatus="i">
+					<c:forEach var="entry" items="${requestScope.cateCnt}" varStatus="i">
+        				<c:if test="${i.index < 3}">
 						<div class="category-fav-item">
-							<a href="#void" class="category-one2">> ${item2}</a>
+							<a href="http://localhost/meonggae_prj/main_page/search_contents.do?keyword=${requestScope.keyword}&cate=${entry.key}" class="category-one2">
+								> ${entry.key} +${entry.value}
+							</a>
 						</div>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>
 			<div class="category-nomal">
-				<c:forEach items="${list}" var="item" varStatus="i">
+				<c:forEach var="entry" items="${requestScope.cateCnt}" varStatus="i">
+					<c:if test="${i.index >= 3}">
 					<div class="category-item">
-						<a href="#void" class="category-one">> ${item}</a>
+						<a href="#void" class="category-one">${entry.key} +${entry.value}</a>
 					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>
@@ -105,7 +104,8 @@
 </c:if>
 <c:if test="${empty list}">
 	<div class="empty-list">
-        <h1>검색 결과가 없습니다.</h1>
+        <h1> ${requestScope.keyword } </h1>
+        <h3>에 대한 검색 결과가 없습니다.</h3>
 	</div>
 </c:if>
 <!-- footer include 시작 -->

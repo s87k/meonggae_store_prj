@@ -57,7 +57,7 @@
 				<div class="search-form">
 					<form class="navbar-form" id="searchFrm" role="search">
                         <div class="form-group">
-                            <input type="text" id="searchKey" onkeydown="enterkey(event)" class="form-control" placeholder="상품명, @상점명 입력">
+                            <input type="text" id="searchKey" onkeydown="enterkey(event)" value="${requestScope.keyword}" class="form-control" placeholder="상품명, @상점명 입력">
                         </div>
                         <button type="button" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
                     </form>

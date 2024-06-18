@@ -12,6 +12,8 @@
 <result column="PRICE" property="price"/>
 <result column="PRICE_FM" property="priceFm"/>
 <result column="CATEGORY_NUM" property="categoryNum"/>
+<result column="CATEGORY_NAME" property="categoryName"/>
+<result column="PARENT_CATEGORY_NUM" property="parentCategoryNum"/>
 <result column="LOCATION" property="location"/>
 <result column="LOCATION_STR" property="locationStr"/>
 <result column="INPUT_DATE" property="inputDate"/>
@@ -53,6 +55,8 @@ and CATEGORY_NUM=#{ categoryNum }
 <result column="PRICE" property="price"/>
 <result column="PRICE_FM" property="priceFm"/>
 <result column="CATEGORY_NUM" property="categoryNum"/>
+<result column="CATEGORY_NAME" property="categoryName"/>
+<result column="PARENT_CATEGORY_NUM" property="parentCategoryNum"/>
 <result column="LOCATION" property="location"/>
 <result column="LOCATION_STR" property="locationStr"/>
 <result column="INPUT_DATE" property="inputDate"/>
