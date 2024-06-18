@@ -13,8 +13,14 @@
 	<typeAlias type="com.store.meonggae.event.vo.EventVO" alias="eventVO"/>
 	<typeAlias type="com.store.meonggae.event.domain.EventDomain" alias="eventDomain"/>
 <!-- product -->
+<<<<<<< HEAD
+	<typeAlias type="com.store.meonggae.product.domain.CategoryDomain" alias="categoryDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.SearchProductDetailDomain" alias="searchProductDetailDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.SearchProductDomain" alias="searchProductDomain"/>
+=======
 	<typeAlias type="com.store.meonggae.product.domain.CategoryDomain" alias="CategoryDomain"/>
 	<typeAlias type="com.store.meonggae.product.domain.ProductDomain" alias="productDomain"/>
+>>>>>>> branch 'main' of https://github.com/KimByeongNyeon/meonggae_store_prj.git
 </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -30,7 +36,12 @@
   <mappers>
     <mapper resource="com/store/meonggae/user/login/dao/loginMapper.xml"/>
     <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
+<<<<<<< HEAD
+    <mapper resource="com/store/meonggae/product/mapper/categoryMapper.xml"/>
+    <mapper resource="com/store/meonggae/product/mapper/searchProductMapper.xml"/>
+=======
     <mapper resource="com/store/meonggae/product/dao/categoryMapper.xml"/>
     <mapper resource="com/store/meonggae/product/dao/productAddMapper.xml"/>
+>>>>>>> branch 'main' of https://github.com/KimByeongNyeon/meonggae_store_prj.git
   </mappers>
 </configuration>

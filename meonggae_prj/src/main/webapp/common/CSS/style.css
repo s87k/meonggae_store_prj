@@ -337,7 +337,7 @@ form.navbar-form button {
 }
 .product-block img.thumbnail {
     border-bottom:1px solid #ced4da !important;
-    width: 250px;
+    width: 100%;
     height: 200px;
     border-radius: 0px;
     margin: 0px;
@@ -355,6 +355,9 @@ form.navbar-form button {
     font-weight: 600;
 }
 .product-description p.time-ago {
+    color: #868e96;
+}
+.product-description p.location {
     color: #868e96;
 }
 .product-description p.price {
@@ -718,4 +721,9 @@ ul.product-info-btn li:last-child a {
 }
 .meonggaeTalk-btn .fa{
 	font-size: 22px;
+}
+.empty-list{
+	text-align: center;
+	margin-top: 50px;
+	color: red;
 }
