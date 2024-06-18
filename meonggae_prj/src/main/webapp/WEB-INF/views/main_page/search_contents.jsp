@@ -32,6 +32,7 @@
 <jsp:include page="../header/header.jsp" />
 <!-- header 끝 -->
 <div class="container">
+<c:if test="${not empty list}">
 	<div class="row">
 		<div class="search_categoryNavigation">
 			<%
@@ -73,18 +74,18 @@
                     <div class="tab-pane active" id="trending">
 
                     	<div class="single-products">
-							<c:forEach begin="1" end="16" varStatus="i">
+							<c:forEach var="pd" items="${requestScope.list}" varStatus="i">
                             	<div class="single-product">
                             		<div class="product-block">
-                            			<a href="http://localhost//meonggae_prj/main_page/products_detail.do">
+                            			<a href="http://localhost//meonggae_prj/main_page/products_detail.do?goodsNum=${ pd.goodsNum }">
                             			<!-- 상세페이지로 이동 -->
-											<img src="../products-img/product-${ i.index }.jpg" alt="" class="thumbnail">
-											<div class="product-description">
-												<p class="title">여성의류${ i.index }</p>
+											<img src="http://localhost/meonggae_prj/products-img/${ pd.imgName }" alt="" class="thumbnail">
+											<div class="product-description ">
+												<p class="title">${ pd.goodsName }</p>
 												<div style="overflow: hidden;">
-													<p class="price" style="float: left;">1${ i.index },000원</p>
-													<p class="location" style="float: left;"><i class="fa fa-map-marker" aria-hidden="true"></i>서울시 강남구</p>
-													<p class="time-ago" style="float: right;">${ i.index }일전</p>
+													<p class="price" style="float: left;">${ pd.priceFm }원</p>
+													<p class="location" style="float: left;"><i class="fa fa-map-marker" aria-hidden="true"></i>${ pd.locationStr }</p>
+													<p class="time-ago" style="float: right;">${ pd.timeAgo }</p>
 												</div>
 											</div>
                             			</a>
@@ -101,6 +102,12 @@
 		</div>
 
 	</div>
+</c:if>
+<c:if test="${empty list}">
+	<div class="empty-list">
+        <h1>검색 결과가 없습니다.</h1>
+	</div>
+</c:if>
 <!-- footer include 시작 -->
 	<jsp:include page="../footer/footer.jsp" />
 <!-- footer include 끝 -->

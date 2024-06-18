@@ -722,3 +722,8 @@ ul.product-info-btn li:last-child a {
 .meonggaeTalk-btn .fa{
 	font-size: 22px;
 }
+.empty-list{
+	text-align: center;
+	margin-top: 50px;
+	color: red;
+}

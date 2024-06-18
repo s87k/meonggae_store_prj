@@ -225,7 +225,7 @@
     	grid-template-columns: repeat(3, 1fr);
 	}
 	.product-block img.thumbnail {
-    	width: 200px;
+    	width: 100%;
 	}
 	.thumb-main-image{
 		margin-bottom: 30px;

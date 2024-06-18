@@ -52,7 +52,6 @@
 			</select>
 		</div>
 	</div>
-
 	<div class="short-description">
 
         <div class="container">
@@ -65,7 +64,7 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
-                            <div class="thumb-main-image"><a href=""><img src="../products-img/product-1.jpg" alt=""></a></div>
+                            <div class="thumb-main-image"><a href=""><img src="http://localhost/meonggae_prj/products-img/${ spd.imgName }" alt=""></a></div>
 
                         </div>
 
@@ -75,12 +74,12 @@
 
                 <div class="col-md-6">
 
-                    <h1 class="product-title">회색 니트티셔츠</h1>
+                    <h1 class="product-title">${ spd.goodsName }</h1>
 
 
                     <div class="price">
 
-                        <span>15,000원</span>
+                        <span>${spd.priceFm}원</span>
 
                     </div>
                     
@@ -90,7 +89,7 @@
 
                         <li><a><i class="fa fa-eye"></i> 236</a></li>
 
-                        <li><a><i class="fa fa-clock-o"></i> 3일전</a></li>
+                        <li><a><i class="fa fa-clock-o"></i> ${spd.timeAgo}</a></li>
                     </ul>
 				</div>
                 <div class="col-md-3 col-sm-3 bullhorn">
@@ -98,11 +97,11 @@
 				</div>
 				<div class="product-info-status">
 				<ul>
-                    <li>상품상태 : <span class="strong-text">새상품</span></li>
+                    <li>상품상태 : <span class="strong-text">${spd.qualityCodeStr}</span></li>
 
-                    <li>배송비 : <span class="strong-text">무료배송</span></li>
+                    <li>배송비 : <span class="strong-text">${spd.deliveryFee}</span></li>
                     
-                    <li>직거래지역 : <span class="strong-text">강남구 역삼동</span></li>
+                    <li>직거래지역 : <span class="strong-text">${spd.locationStr}</span></li>
 				</ul>
 				</div>
 				<div class="wish-talk-btn">
@@ -129,12 +128,7 @@
 
 					<h3>상품정보</h3>
 					<p>
-						아예 새상품<br> 
-						일본에서 지난주 사왔어요<br> 
-						영수증 개런티 박스 쇼핑백까지 다 있어용<br>
-						직거래 가능<br> 
-						선물하기 좋아요<br> 
-						박스까지ㅠ있어서 그냥 바로 선물하심되여요
+						${spd.detail}
 					</p>
 				</div>
 
