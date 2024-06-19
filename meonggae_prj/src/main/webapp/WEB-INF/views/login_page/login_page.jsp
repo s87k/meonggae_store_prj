@@ -79,9 +79,11 @@
 					<div class="button-login-box">
 						<!-- 카카오 로그인 버튼 시작 -->
 						<a
-							href="https://kauth.kakao.com/oauth/authorize?client_id=0738d40e4912047a5dbb57d8ca06a869&redirect_uri=http://localhost//meonggae_prj/kakaologin&response_type=code">
+							href="https://kauth.kakao.com/oauth/authorize?
+							client_id=0738d40e4912047a5dbb57d8ca06a869&
+							redirect_uri=http://localhost/meonggae_prj/login_page/login_page.do&response_type=code">
 							<img
-							src="http://localhost//meonggae_prj/common/images/kakao_login_medium_wide.png"
+							src="http://localhost/meonggae_prj/common/images/kakao_login_medium_wide.png"
 							width="222" alt="카카오 로그인 버튼">
 						</a>
 						<!-- 카카오 로그인 버튼 끝 -->
@@ -91,7 +93,7 @@
 							data-onsuccess="onSignIn" data-theme="dark"></div>
 						<br>
 						<!-- 구글 로그인 버튼 끝-->
-						<a href="http://localhost//meonggae_prj/join_page/mem_join.do">소셜
+						<a href="http://localhost/meonggae_prj/join_page/mem_join.do">소셜
 							인증 없이 회원가입 하기</a>
 						<div style="padding-top: 10px;">
 							<input type="button" class="btn btn-success" id="login" value="로그인">
