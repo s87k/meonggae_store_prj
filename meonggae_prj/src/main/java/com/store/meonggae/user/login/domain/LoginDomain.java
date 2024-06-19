@@ -12,17 +12,19 @@ import lombok.ToString;
 
 public class LoginDomain {
 	private int memNum;
-	private String nick, profile, suspendFlag, loginFlag, withdrawFlag;
+	private String nick, id, pass, profile, suspendFlag, loginFlag, withdrawFlag;
 	private Date suspendDate, unsuspendDate, withdrawDate;
 	
 	public LoginDomain() {
 		
 	}
 	
-	public LoginDomain(int memNum, String nick, String profile, String suspendFlag, String loginFlag, String withdrawFlag, Date suspendDate,
+	public LoginDomain(int memNum, String nick, String id, String pass, String profile, String suspendFlag, String loginFlag, String withdrawFlag, Date suspendDate,
 			Date unsuspendDate, Date withdrawDate) {
 		this.memNum = memNum;
 		this.nick = nick;
+		this.id = id;
+		this.pass = pass;
 		this.profile = profile;
 		this.suspendFlag = suspendFlag;
 		this.loginFlag = loginFlag;
@@ -30,6 +32,22 @@ public class LoginDomain {
 		this.suspendDate = suspendDate;
 		this.unsuspendDate = unsuspendDate;
 		this.withdrawDate = withdrawDate;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public int getMemNum() {
@@ -106,7 +124,7 @@ public class LoginDomain {
 
 	@Override
 	public String toString() {
-		return "LoginDomain [memNum=" + memNum + ", nick=" + nick + ", profile=" + profile + ", suspendFlag=" + suspendFlag + ", loginFlag=" + loginFlag
+		return "LoginDomain [memNum=" + memNum + ", nick=" + nick + ", id=" + id + ", pass=" + pass + ", profile=" + profile + ", suspendFlag=" + suspendFlag + ", loginFlag=" + loginFlag
 				+ ", withdrawFlag=" + withdrawFlag + ", suspendDate=" + suspendDate + ", unsuspendDate=" + unsuspendDate
 				+ ", withdrawDate=" + withdrawDate + "]";
 	}

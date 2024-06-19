@@ -13,6 +13,7 @@ public class LoginService {
 	private LoginDAO lDAO;
 	
 	public LoginDomain selectOneUser(LoginVO lVO) {
+		System.out.println("Service : " + lVO.getPass());
 		return lDAO.login(lVO);
 	}
 }
