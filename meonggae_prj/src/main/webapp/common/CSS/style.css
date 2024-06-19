@@ -727,3 +727,10 @@ ul.product-info-btn li:last-child a {
 	margin-top: 50px;
 	color: red;
 }
+.empty-list > h3{
+	color: black;
+}
+.category-fav-item > p {
+	font-size: 10px;
+	color: #868e96;
+}

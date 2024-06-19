@@ -20,6 +20,10 @@ public class LoginVO {
 		this.pass = pass;
 	}
 
+	public LoginVO(String id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id;
 	}

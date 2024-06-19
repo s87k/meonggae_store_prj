@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class SearchProductDetailDomain {
-	private String goodsNum, goodsName, goodsImgNum, imgName, detail, price, priceFm, categoryNum, location, locationStr, 
+	private String goodsNum, goodsName, goodsImgNum, imgName, detail, price, priceFm, categoryNum, categoryName, parentCategoryNum, location, locationStr, 
 	timeAgo, tradeMethodCode, tradeMethodCodeStr, qualityCode, qualityCodeStr;
 	private int memNumSell, cnt, deliveryFee;
 	private Date inputDate;
