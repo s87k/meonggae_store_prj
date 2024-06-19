@@ -53,13 +53,13 @@ jQuery(document).ready(function($) {
 
 	//이벤트 버튼
 	$(".event-btn").click(function(){
-		location.href="http://localhost//meonggae_prj/event_page/event_main.do";
+		location.href="http://localhost/meonggae_prj/event_page/event_main.do";
 	});
 	
 	//로그인 버튼
 	$(".login-btn").click(function() {
         $.ajax({
-            url: 'http://localhost//meonggae_prj/login_page/login_page.do',
+            url: 'http://localhost/meonggae_prj/login_page/login_page.do',
             type: 'GET',
             success: function(data) {
                 $('#popupModal .modal-body').html(data);
