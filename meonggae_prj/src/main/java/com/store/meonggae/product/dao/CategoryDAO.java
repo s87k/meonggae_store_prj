@@ -24,4 +24,12 @@ public class CategoryDAO {
 			return ss.selectList("com.store.meonggae.product.selectCategory", categoryNum);
 		}
 	};//selectCategory
+	
+	//입력된 카테고리번호가 부모인지 확인
+	public int isParentCategory(String categoryNum)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectOne("com.store.meonggae.product.isParentCategory", categoryNum);
+		}
+	};//isParentCategory
+	
 }

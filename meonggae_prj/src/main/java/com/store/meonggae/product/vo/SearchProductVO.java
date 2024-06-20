@@ -12,6 +12,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SearchProductVO {
-	private String goodsName, location, categoryNum;
+	private String keyword, categoryNum;
 
 }

@@ -12,13 +12,18 @@ import com.store.meonggae.product.domain.CategoryDomain;
 public class CategoryService {
 
     @Autowired
-    private CategoryDAO upDAO;
+    private CategoryDAO cateDAO;
     
     public List<CategoryDomain> selectParentCategory(){
-    	return upDAO.selectCategory("0");
+    	return cateDAO.selectCategory("0");
     }
     public List<CategoryDomain> selectSubCategory(String subCategory){
-    	return upDAO.selectCategory(subCategory);
+    	return cateDAO.selectCategory(subCategory);
     }
+    public boolean isParentCategory(String categoryNum) {
+    	return cateDAO.isParentCategory(categoryNum) > 0;//true면 부모, false면 자식
+    }
+    
 
+    
 }

@@ -41,8 +41,14 @@
 					<c:forEach var="entry" items="${requestScope.cateCnt}" varStatus="i">
         				<c:if test="${i.index < 3}">
 						<div class="category-fav-item">
-							<a href="http://localhost/meonggae_prj/main_page/search_contents.do?keyword=${requestScope.keyword}&cate=${entry.key}" class="category-one2">
-								> ${entry.key} +${entry.value}
+						 <c:set var="categoryName" value="" />
+            			 <c:forEach var="item" items="${requestScope.list}">
+                			<c:if test="${entry.key == item.categoryNum}">
+                    			<c:set var="categoryName" value="${item.categoryName}" />
+                			</c:if>
+            			 </c:forEach>
+							<a href="http://localhost/meonggae_prj/main_page/search_contents.do?kw=${requestScope.keyword}&cn=${entry.key}" class="category-one2">
+								> ${categoryName} +${entry.value}
 							</a>
 						</div>
 						</c:if>
@@ -53,7 +59,15 @@
 				<c:forEach var="entry" items="${requestScope.cateCnt}" varStatus="i">
 					<c:if test="${i.index >= 3}">
 					<div class="category-item">
-						<a href="#void" class="category-one">${entry.key} +${entry.value}</a>
+					<c:set var="categoryName" value="" />
+            			 <c:forEach var="item" items="${requestScope.list}">
+                			<c:if test="${entry.key == item.categoryNum}">
+                    			<c:set var="categoryName" value="${item.categoryName}" />
+                			</c:if>
+            			 </c:forEach>
+						<a href="http://localhost/meonggae_prj/main_page/search_contents.do?kw=${requestScope.keyword}&cn=${entry.key}" class="category-one">
+							${categoryName} +${entry.value}
+						</a>
 					</div>
 					</c:if>
 				</c:forEach>
@@ -105,6 +119,7 @@
 <c:if test="${empty list}">
 	<div class="empty-list">
         <h1> ${requestScope.keyword } </h1>
+        <h1> ${categoryName } </h1>
         <h3>에 대한 검색 결과가 없습니다.</h3>
 	</div>
 </c:if>
