@@ -6,10 +6,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.store.meonggae.product.domain.CategoryDomain;
 import com.store.meonggae.product.service.CategoryService;
@@ -55,5 +57,14 @@ public class CategoryController {
 	        
 	        return jsonArr.toJSONString();
 	    }//subCategory
+		
+		@RequestMapping(value="/isParentCategory.do", method=RequestMethod.GET)
+		public RedirectView isParentCategory(@RequestParam("cn") String categoryNum) {
+			boolean result = categoryService.isParentCategory(categoryNum);//true면 부모.
+			String temp = result ? "T" : "F";
+			String redirectUrl = "main_page/search_contents.do?cn=" + categoryNum + "&isP=" + temp;
+			System.out.println(categoryNum + " / " + temp);
+			return new RedirectView(redirectUrl);
+		}
 	
 }//class
