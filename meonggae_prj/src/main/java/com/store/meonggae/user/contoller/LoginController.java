@@ -62,58 +62,61 @@ public class LoginController {
 				System.out.println("user.getId()가 null입니다.");
 			}
 
-			if ("Y".equals(user.getSuspendFlag())) {
-				session.setAttribute("message", "정지된 회원 입니다.");
-				session.setAttribute("status", "SUSPEND");
-			} else if ("Y".equals(user.getWithdrawFlag())) {
-				session.setAttribute("message", "탈퇴한 회원 입니다.");
-				session.setAttribute("status", "WITHDRAWN");
-			} else {
-				session.setAttribute("user", user);
-				session.setAttribute("status", "ACTIVE");
-				return "redirect:/index.do";
-			}
+			switch (user.getMemStatus()) {
+		    case "S":
+		        session.setAttribute("message", "정지된 회원입니다.");
+		        return "redirect:/index.do";
+		    case "W":
+		        session.setAttribute("message", "탈퇴한 회원입니다.");
+		        return "redirect:/index.do";
+		    case "N":
+		        session.setAttribute("user", user);
+		        return "redirect:/index.do";
+		    default:
+		        session.setAttribute("message", "알 수 없는 상태입니다.");
+		        return "redirect:/index.do";
+		}
 		} catch (Exception e) {
-				session.setAttribute("message", "로그인 중 오류가 발생했습니다.");
-				session.setAttribute("status", "FAILED : ERROR");
+			session.setAttribute("message", "로그인 중 오류가 발생했습니다.");
+			session.setAttribute("status", "FAILED : ERROR");
 			e.printStackTrace();
 			if (user != null) {
-					System.out.println("user.getPass(): " + user.getPass() + ", loginVO.getPass(): " + loginVO.getPass());
+				System.out.println("user.getPass(): " + user.getPass() + ", loginVO.getPass(): " + loginVO.getPass());
 			} else {
-					System.out.println("user가 null입니다.");
+				System.out.println("user가 null입니다.");
 			}
 		}
 		return "redirect:/index.do";
 	}
-	
+
 	@GetMapping("/login_page/login_page.do")
-    public String kakaoLogin(@RequestParam String code, HttpSession session) {
-        System.out.println("KakaoLogin method called");  // 메서드가 호출되는지 확인
+	public String kakaoLogin(@RequestParam String code, HttpSession session) {
+		System.out.println("KakaoLogin method called"); // 메서드가 호출되는지 확인
 
-        try {
-            System.out.println("Received Kakao code: " + code);  // 카카오 코드 확인
+		try {
+			System.out.println("Received Kakao code: " + code); // 카카오 코드 확인
 
-            String accessToken = loginService.getKaKaoAccessToken(code);
-            System.out.println("Access Token: " + accessToken);  // 토큰 값 확인
+			String accessToken = loginService.getKaKaoAccessToken(code);
+			System.out.println("Access Token: " + accessToken); // 토큰 값 확인
 
-            LoginDomain user = loginService.getKaKaoUserInfo(accessToken);
-            System.out.println("User Info: " + user);  // 사용자 정보 확인
-            
-            if (user == null) {
-                session.setAttribute("message", "카카오 로그인 실패. 사용자 없음");
-                return "redirect:/meonggae_prj/index.do";
-            }
+			LoginDomain user = loginService.getKaKaoUserInfo(accessToken);
+			System.out.println("User Info: " + user); // 사용자 정보 확인
 
-            session.setAttribute("user", user);
-            return "redirect:/meonggae_prj/index.do";
-            
-        } catch (Exception e) {
-            System.out.println("Exception occurred: " + e.getMessage());  // 예외 로그 추가
-            session.setAttribute("message", "카카오 로그인 중 오류가 발생했습니다.");
-            e.printStackTrace();
-            return "redirect:/meonggae_prj/index.do";
-        }
-    }
+			if (user == null) {
+				session.setAttribute("message", "카카오 로그인 실패. 사용자 없음");
+				return "redirect:/meonggae_prj/index.do";
+			}
+
+			session.setAttribute("user", user);
+			return "redirect:/meonggae_prj/index.do";
+
+		} catch (Exception e) {
+			System.out.println("Exception occurred: " + e.getMessage()); // 예외 로그 추가
+			session.setAttribute("message", "카카오 로그인 중 오류가 발생했습니다.");
+			e.printStackTrace();
+			return "redirect:/meonggae_prj/index.do";
+		}
+	}
 
 	@PostMapping("/index.do")
 	public String mainPageLogin() {

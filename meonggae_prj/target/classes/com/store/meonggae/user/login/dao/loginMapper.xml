@@ -17,12 +17,13 @@
 		<result column="UNSUSPEND_DATE" property="unsuspendDate" />
 		<result column="WITHDRAW_FLAG" property="withdrawFlag" />
 		<result column="WITHDRAW_DATE" property="withdrawDate" />
+		<result column="mem_status" property="memStatus" />
 	</resultMap>
 	<select id="selectOneUser" resultMap="ldResult"
 		parameterType="com.store.meonggae.user.login.vo.LoginVO">
 		select mem_num, nick, mem_id id, pass, img, login_flag,
 		suspend_date, unsuspend_date, withdraw_flag,
-		withdraw_date
+		withdraw_date, mem_status
 		from VIEW_MEMBER
 		where mem_id = #{id} 
 	</select>
