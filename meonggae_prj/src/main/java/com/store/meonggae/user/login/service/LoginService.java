@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,37 +24,40 @@ import com.store.meonggae.user.login.vo.LoginVO;
 public class LoginService {
     @Autowired
     private LoginDAO lDAO;
+    
+    private final String CLIENT_ID = "0738d40e4912047a5dbb57d8ca06a869";
+    private final String REDIRECT_URI = "http://localhost/meonggae_prj/login_page/kakao_test.do";
 
     public LoginDomain selectOneUser(LoginVO lVO) {
         return lDAO.login(lVO);
     }
 
-    public String getKaKaoAccessToken(String code) throws Exception {
+    public Map<String, Object> getKaKaoAccessToken(String code) throws Exception {
         System.out.println("getKaKaoAccessToken method called");  // 메서드 호출 확인
 
         // 1. 토큰 받아오는 url 설정
         String url = "https://kauth.kakao.com/oauth/token";
-
-        // 2. 필수 파라미터 map으로 값 넣기
-        Map<String, String> params = new HashMap<>();
-        params.put("grant_type", "authorization_code");
-        params.put("client_id", "0738d40e4912047a5dbb57d8ca06a869");
-        params.put("redirect_uri", "http://localhost/meonggae_prj/login_page/login_page.do");
-        params.put("code", code);
-
-        // 3. REST-API 호출
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.postForObject(url, params, String.class);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(response);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         
-        System.out.println("Kakao Access Token Response: " + jsonNode.toString());  // 응답 확인
         
-        return jsonNode.get("access_token").asText();
-    }
+        // 2. 필수 파라미터 map으로 값 넣기
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", CLIENT_ID);
+        params.add("redirect_uri", REDIRECT_URI);
+        params.add("code", code);
+        
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String,String>>(params, headers);
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
+        
+        // 3. REST-API 호출
+        return response.getBody();
+         }
 
-    public LoginDomain getKaKaoUserInfo(String accessToken) throws Exception {
+    public Map<String, Object> getKaKaoUserInfo(String accessToken) throws Exception {
         System.out.println("getKaKaoUserInfo method called");  // 메서드 호출 확인
 
         // 1. 카카오 로그인 시 유저 정보를 가져오기 위한 url
@@ -64,24 +70,16 @@ public class LoginService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
-        // 4. response 값 설정
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(response.getBody());
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
         
-        System.out.println("Kakao User Info Response: " + jsonNode.toString());  // 응답 확인
-
-        String id = jsonNode.get("id").asText();
-        String nickname = jsonNode.get("properties").get("nickname").asText();
-
+        
+        
         // 5. LoginDomain에 추가
-        LoginDomain user = new LoginDomain();
-        user.setId(id);
-        user.setNick(nickname);
 
-        return user;
+        return response.getBody();
     }
+    
+
 }
