@@ -1,5 +1,8 @@
 package com.store.meonggae.user.contoller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.store.meonggae.user.login.domain.LoginDomain;
 import com.store.meonggae.user.login.service.LoginService;
@@ -89,34 +93,6 @@ public class LoginController {
 		return "redirect:/index.do";
 	}
 
-	@GetMapping("/login_page/login_page.do")
-	public String kakaoLogin(@RequestParam String code, HttpSession session) {
-		System.out.println("KakaoLogin method called"); // 메서드가 호출되는지 확인
-
-		try {
-			System.out.println("Received Kakao code: " + code); // 카카오 코드 확인
-
-			String accessToken = loginService.getKaKaoAccessToken(code);
-			System.out.println("Access Token: " + accessToken); // 토큰 값 확인
-
-			LoginDomain user = loginService.getKaKaoUserInfo(accessToken);
-			System.out.println("User Info: " + user); // 사용자 정보 확인
-
-			if (user == null) {
-				session.setAttribute("message", "카카오 로그인 실패. 사용자 없음");
-				return "redirect:/meonggae_prj/index.do";
-			}
-
-			session.setAttribute("user", user);
-			return "redirect:/meonggae_prj/index.do";
-
-		} catch (Exception e) {
-			System.out.println("Exception occurred: " + e.getMessage()); // 예외 로그 추가
-			session.setAttribute("message", "카카오 로그인 중 오류가 발생했습니다.");
-			e.printStackTrace();
-			return "redirect:/meonggae_prj/index.do";
-		}
-	}
 
 	@PostMapping("/index.do")
 	public String mainPageLogin() {

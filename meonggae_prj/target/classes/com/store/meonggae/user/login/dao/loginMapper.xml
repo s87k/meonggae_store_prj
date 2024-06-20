@@ -25,6 +25,11 @@
 		suspend_date, unsuspend_date, withdraw_flag,
 		withdraw_date, mem_status
 		from VIEW_MEMBER
-		where mem_id = #{id} 
+		where mem_id = #{id}
 	</select>
+	<insert id="kakaoUserInsert">
+		insert into  member_detail(mem_num, login_flag, nick, img, mem_id,
+		social_num, social_company, social_input_date)
+		values(seq_member.nextval, S, #{nick}, #{img}, #{mem_id}, 1, 카카오, sysdate)
+	</insert>
 </mapper>
