@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,6 +42,23 @@ public class SocialLoginController {
 		
 		redirectAttributes.addFlashAttribute("user", user);
 		
+		return "redirect:/index.do";
+	}
+	
+	@GetMapping("/login_page/google_test.do")
+	public String googleLogin(@RequestParam(value = "id_token", required=false) 
+			String idTokenString, 
+			HttpServletRequest request ) {
+		
+		if (idTokenString != null) {
+			LoginDomain user = new LoginDomain();
+			
+			if(user != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+			}
+			
+		}
 		return "redirect:/index.do";
 	}
 }

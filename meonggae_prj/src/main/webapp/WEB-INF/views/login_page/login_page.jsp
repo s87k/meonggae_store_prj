@@ -29,22 +29,6 @@
 	});
 </script>
 <title>로그인</title>
-<!-- script -->
-<!-- 카카오 로그인 -->
-<!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-	crossorigin="anonymous"></script>
-<script>
-	Kakao.init('d3195abcd666c962cd16b0331f89a8f8'); // 사용하려는 앱의 JavaScript 키 입력
-</script>
-<script type="text/javascript">
-	function loginWithKakao() {
-		Kakao.Auth.authorize({
-			redirectUri : 'http://localhost//meonggae_prj/kakaologin',
-		});
-	}
-</script> -->
-<!-- 카카오 로그인 끝 -->
 <!-- Bootstrap CSS -->
 
 <!-- 나의 스타일 추가 -->
