@@ -5,16 +5,18 @@
 <mapper namespace="com.store.meonggae.store">
 
 <!-- 내상점 메인 판매상품 리스트 -->
- <select id="storeSalesList" resultType="storeMainDomain" parameterType="String">
-	select	goodsNum, NAME, PRICE, inputDate, img, rnum
-	from	(select  g.GOODS_NUM goodsNum, g.NAME, g.PRICE, g.INPUT_DATE inputDate, gi.NAME img, row_number() over(order by g.GOODS_NUM) rnum
-			from		GOODS g, GOODS_IMG gi, member m
-			where   g.MEM_NUM_SELL=m.MEM_NUM
-							and g.GOODS_NUM=gi.GOODS_NUM
-							and m.NICK='${nick}'
-							and g.mem_num_buy is null
-			order by g.GOODS_NUM desc)
-	where	rnum between 1 and 10
-</select> 
+<select id="storeSalesList" resultType="storeMainDomain" parameterType="String">
+select		*
+from		V_SALES_LIST
+where		NICK='${nick}'
+<!-- 	where	rnum between 1 and 10 -->
+</select>
+
+<!-- 프로필사진 -->
+<select id="userProfile" resultType="String" parameterType="String">
+select		IMG
+from		MEMBER
+where		nick='${nick}'
+</select>
 
 </mapper>

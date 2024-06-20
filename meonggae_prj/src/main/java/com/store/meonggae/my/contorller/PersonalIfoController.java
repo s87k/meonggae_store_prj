@@ -54,7 +54,7 @@ public class PersonalIfoController {
 	// 1. httpservletRequest 받기
 	public String profileUploadProcess(HttpServletRequest request, String temp, Model model) throws IOException {
 		
-		File saveDir = new File("D:/meonggae_store_prj/meonggae_prj/src/main/webapp/upload");
+		File saveDir = new File("D:/meonggae_store_prj/meonggae_prj/src/main/webapp/profile-img");
 		int tempSize =100*1024*1024;
 		
 		MultipartRequest mr = new MultipartRequest(request, saveDir.getAbsolutePath(),

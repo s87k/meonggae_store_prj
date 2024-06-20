@@ -7,11 +7,6 @@
 <!-- 로그인 세션 설정 시작 -->
 <c:choose>
 	<c:when test="${not empty user}">
-		<script type="text/javascript">
-			<%
-			System.out.println("로그인 성공!!!!!!!!");
-			%>
-		</script>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -37,24 +32,22 @@
 </script>
 
 <%
-LoginDomain ld = (LoginDomain)session.getAttribute("user");
-String nick = ld.getNick();
-System.out.println(nick);
+String nick = request.getParameter("nick");
 %>
 <!-- 내용 시작 -->
 <div class="container">
 	<div id="storeBanner" class="storeBanner">
 		<div id="profileImg" class="profileImg">
-		<img src="http://localhost/meonggae_prj/common/images/profile_temp.png" class="img-circle" style="width: 100px; height: 100px"/>
+		<img src="http://localhost/meonggae_prj/profile-img/${ profile }" class="img-circle" style="width: 100px; height: 100px"/>
 		</div>
 		<div id="userInfo" class="userInfo">
 			<div id="nick" class="nick"><%= nick %>님의 상점</div>
-			<a href="#void" id="userDeclaration"><img src="http://localhost/meonggae_prj/common/images/declaration.png" style="width:18px; height: 18px;"/>신고</a>
+			<a href="#void" id="userDeclaration"><i class="fa fa-exclamation"></i> 신고</a>
 		</div>
 	</div>
 		<span id="storeMenu" class="storeMenu">
-			<a href="http://localhost/meonggae_prj/My/store/store_frm.do" id="selected">상품</a> | 
-			<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do" id="unSelected">후기</a>　　　
+			<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${user.nick}" id="selected">상품</a> | 
+			<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${user.nick}" id="unSelected">후기</a>　　　
 			<a href="http://localhost/meonggae_prj/My/mypage/main/myPageMain_frm.do" id="unSelected">@@마이페이지진입/임시@@</a>
 		</span>
 	<hr>
@@ -62,18 +55,22 @@ System.out.println(nick);
 	<div class="row">
 		<div class="tab-content">
 			<div class="tab-pane active" id="trending">
-				<c:forEach begin="1" end="5" varStatus="i">
+				<c:forEach items="${ listSales }" var="is">
 				<div class="col-md-3 col-sm-4">
 					<div class="single-product">
 						<div class="product-block">
-							<img src="../../products-img/product-${ i.index }.jpg" class="thumbnail">
+						<a href="http://localhost/meonggae_prj/main_page/products_detail.do?goodsNum=${ is.goodsNum }">
+						
+							<img src="../../products-img/${ is.img }" class="thumbnail">
 							<div class="product-description text-left">
-								<p class="title">여성의류</p>
+								<p class="title">${ is.name }</p>
 								<div style="overflow: hidden;">
-								<p class="price" style="float: left;">0원</p>
-								<p class="time-ago" style="float: right;">0일전</p>
+								<p class="price" style="float: left;">${ is.price }</p>
+								<p class="time-ago" style="float: right;">${ is.inputDate }</p>
 								</div>
 							</div>
+							
+						</a>
 						</div>
 					</div>
 				</div>

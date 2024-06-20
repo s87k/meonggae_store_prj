@@ -3,9 +3,8 @@
     info="나의 상점_리뷰"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
-<%
-
-%>
+<c:choose>
+	<c:when test="${not empty user}">
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -24,20 +23,23 @@
 	});//ready
 </script>
 
+<%
+String nick = request.getParameter("nick");
+%>
 <!-- 내용 시작 -->
 <div class="container">
 	<div id="storeBanner" class="storeBanner">
 		<div id="profileImg" class="profileImg">
-		<img src="http://localhost/meonggae_prj/common/images/profile_temp.png" class="img-circle" style="width: 100px; height: 100px"/>
+		<img src="http://localhost/meonggae_prj/profile-img/${ profile }" class="img-circle" style="width: 100px; height: 100px"/>
 		</div>
 		<div id="userInfo" class="userInfo">
-			<div id="nick" class="nick">벽돌파는사람님의 상점</div>
-			<a href="#void" id="userDeclaration"><img src="http://localhost/meonggae_prj/common/images/declaration.png" style="width:18px; height: 18px;"/>신고</a>
+			<div id="nick" class="nick"><%= nick %>님의 상점</div>
+			<a href="#void" id="userDeclaration"><i class="fa fa-exclamation"></i> 신고</a>
 		</div>
 	</div>
 	<div id="storeMenu" class="storeMenu">
-		<a href="http://localhost/meonggae_prj/My/store/store_frm.do" id="unSelected">상품</a> | 
-		<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do" id="selected">후기</a>
+		<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${user.nick}" id="unSelected">상품</a> | 
+		<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${user.nick}" id="selected">후기</a>
 	</div>
 		
 	<div class="totalStarScore">
@@ -59,3 +61,12 @@
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
+
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+			alert("로그인이 필요한 서비스입니다.");
+			location.href="http://localhost/meonggae_prj/index.do";
+		</script>
+	</c:otherwise>
+</c:choose>
