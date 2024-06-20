@@ -40,8 +40,11 @@ public class MainController {
 	
 	//검색페이지 이동
 	@GetMapping("/main_page/search_contents.do")
-	public String searchContents(@RequestParam(required = false) String kw, @RequestParam(required = false) String cn,
-			@RequestParam(required = false) String isP, Model model) {
+	public String searchContents(
+			@RequestParam(name = "kw", required = false) String kw, 
+			@RequestParam(name = "cn", required = false) String cn,
+			@RequestParam(name = "isP", required = false) String isP, 
+			Model model) {
 		List<SearchProductDomain> list = null;
 		if(kw != null && cn == null && isP == null) {
 			//키워드만 있는 경우
