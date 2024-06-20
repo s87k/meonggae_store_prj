@@ -54,17 +54,14 @@ public class MainController {
 			//카테고리만 있는 경우
 			if("T".equals(isP.trim())) {
 				//부모 카테고리인 경우
-				System.out.println("부모카테로 조회");
 				list = SearchProductService.selectPrdCateP(cn);
 			}else if ("F".equals(isP.trim())) {
 				//자식 카테고리인 경우
-				System.out.println("자식카테로 조회");
 				list = SearchProductService.selectPrdCate(cn);
 				
 			}
 		}
 		
-		System.out.println(list);
 		Map<String, Long> cateCnt = SearchProductService.cateCnt(list);
 		model.addAttribute("list",list);//조회 결과 리스트
 		model.addAttribute("cateCnt",cateCnt);//조회된 상품들의 카테고리 카운팅

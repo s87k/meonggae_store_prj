@@ -63,7 +63,6 @@ public class CategoryController {
 			boolean result = categoryService.isParentCategory(categoryNum);//true면 부모.
 			String temp = result ? "T" : "F";
 			String redirectUrl = "main_page/search_contents.do?cn=" + categoryNum + "&isP=" + temp;
-			System.out.println(categoryNum + " / " + temp);
 			return new RedirectView(redirectUrl);
 		}
 	
