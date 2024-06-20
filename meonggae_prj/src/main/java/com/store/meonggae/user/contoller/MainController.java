@@ -40,24 +40,38 @@ public class MainController {
 	
 	//검색페이지 이동
 	@GetMapping("/main_page/search_contents.do")
-	public String searchContents(@RequestParam(required = false) String keyword, @RequestParam(required = false) String cate, Model model) {
-		//키워드만 있는 경우
-		if(keyword != null && cate == null) {
-			List<SearchProductDomain> list = SearchProductService.selectPrdKey(keyword);
-			Map<String, Long> cateCnt = SearchProductService.cateCnt(list);
-			model.addAttribute("list",list);
-			model.addAttribute("cateCnt",cateCnt);
-			model.addAttribute("keyword",keyword);
-		}else if(keyword != null && cate != null) {
+	public String searchContents(@RequestParam(required = false) String kw, @RequestParam(required = false) String cn,
+			@RequestParam(required = false) String isP, Model model) {
+		List<SearchProductDomain> list = null;
+		if(kw != null && cn == null && isP == null) {
+			//키워드만 있는 경우
+			list = SearchProductService.selectPrdKey(kw);
+		}else if(kw != null && cn != null ) {
 			//키워드 & 카테고리 둘다 있는 경우
-			System.out.println(keyword + " / " + cate);
-			SearchProductVO spVo = new SearchProductVO();
-			spVo.setCategoryName(cate);
-			spVo.setKeyword(keyword);
-			List<SearchProductDomain> list = SearchProductService.selectPrdKeyCate(spVo);
-		}else if(keyword == null && cate != null) {
+			SearchProductVO spVo = new SearchProductVO(kw, cn);
+			list = SearchProductService.selectPrdKeyCate(spVo);
+		}else if(kw == null && cn != null && isP != null) {
 			//카테고리만 있는 경우
-			System.out.println(keyword + " / " + cate);
+			if("T".equals(isP.trim())) {
+				//부모 카테고리인 경우
+				System.out.println("부모카테로 조회");
+				list = SearchProductService.selectPrdCateP(cn);
+			}else if ("F".equals(isP.trim())) {
+				//자식 카테고리인 경우
+				System.out.println("자식카테로 조회");
+				list = SearchProductService.selectPrdCate(cn);
+				
+			}
+		}
+		
+		System.out.println(list);
+		Map<String, Long> cateCnt = SearchProductService.cateCnt(list);
+		model.addAttribute("list",list);//조회 결과 리스트
+		model.addAttribute("cateCnt",cateCnt);//조회된 상품들의 카테고리 카운팅
+		model.addAttribute("keyword",kw);//검색된 키워드 검색창에 유지
+		if(cn != null) {
+			String categoryName = SearchProductService.selectCategoryName(cn);
+			model.addAttribute("categoryName",categoryName);//검색된 키워드 검색창에 유지
 		}
 		
 		return "main_page/search_contents";

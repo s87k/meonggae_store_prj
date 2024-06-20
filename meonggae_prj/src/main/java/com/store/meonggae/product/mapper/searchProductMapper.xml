@@ -38,13 +38,19 @@ where (REPLACE(GOODS_NAME, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%
 select *
 from v_select_all_goods
 where (REPLACE(GOODS_NAME, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%' or REPLACE(LOCATION, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%')
-and CATEGORY_NAME=#{ categoryName }
+and CATEGORY_NUM=#{ categoryNum }
 </select>
-<!-- 카테고리 단독 조회 -->
+<!-- 카테고리 단독 조회 - 부모 -->
+<select id="selectPrdCateP" resultMap="searchProductDomain" parameterType="String">
+select *
+from v_select_all_goods
+where PARENT_CATEGORY_NUM=#{ categoryNum }
+</select>
+<!-- 카테고리 단독 조회 - 자식-->
 <select id="selectPrdCate" resultMap="searchProductDomain" parameterType="String">
 select *
 from v_select_all_goods
-and CATEGORY_NAME=#{ categoryName }
+where CATEGORY_NUM=#{ categoryNum }
 </select>
 
 <resultMap type="SearchProductDetailDomain" id="SearchProductDetailDomain">

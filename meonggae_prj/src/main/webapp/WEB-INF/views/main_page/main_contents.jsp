@@ -64,7 +64,7 @@
 
         <div class="container">
 
-            <div class="row">
+            <div class="row" style="padding: 0 15px">
 
                 <div class="tab-content">
 

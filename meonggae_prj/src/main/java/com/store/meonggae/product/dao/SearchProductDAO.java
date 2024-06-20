@@ -41,10 +41,16 @@ public class SearchProductDAO {
 		}
 	};//selectPrdGNLocKey
 	
-	//카테고리 단독 조회
-	public List<SearchProductDomain> selectPrdCate(String categoryName)throws PersistenceException {
+	//카테고리 단독 조회-부모
+	public List<SearchProductDomain> selectPrdCateP(String categoryNum)throws PersistenceException {
 		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
-			return ss.selectList("com.store.meonggae.product.selectPrdCate", categoryName);
+			return ss.selectList("com.store.meonggae.product.selectPrdCateP", categoryNum);
+		}
+	};//selectPrdKeyword
+	//카테고리 단독 조회-자식
+	public List<SearchProductDomain> selectPrdCate(String categoryNum)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectList("com.store.meonggae.product.selectPrdCate", categoryNum);
 		}
 	};//selectPrdKeyword
 	
@@ -54,4 +60,11 @@ public class SearchProductDAO {
 			return ss.selectOne("com.store.meonggae.product.selectPrdDetail", goodsNum);
 		}
 	};//selectPrdKeyword
+	
+	//입력된 카테고리번호로 이름 찾기
+	public String selectCategoryName(String categoryNum)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectOne("com.store.meonggae.product.selectCategoryName", categoryNum);
+		}
+	};//isParentCategory
 }

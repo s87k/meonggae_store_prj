@@ -32,9 +32,13 @@ public class SearchProductService {
     public List<SearchProductDomain> selectPrdKeyCate(SearchProductVO spVO){
     	return spDAO.selectPrdKeyCate(spVO);
     }
-    //상품 카테고리 검색
-    public List<SearchProductDomain> selectPrdCate(String categoryName){
-    	return spDAO.selectPrdCate(categoryName);
+    //상품 카테고리 검색 - 부모
+    public List<SearchProductDomain> selectPrdCateP(String categoryNum){
+    	return spDAO.selectPrdCateP(categoryNum);
+    }
+    //상품 카테고리 검색 - 자식
+    public List<SearchProductDomain> selectPrdCate(String categoryNum){
+    	return spDAO.selectPrdCate(categoryNum);
     }
     //상품 상세 조회
     public SearchProductDetailDomain selectPrdDetail(String goodsNum){
@@ -45,12 +49,16 @@ public class SearchProductService {
     public Map<String, Long> cateCnt(List<SearchProductDomain> list) {
         // 카테고리별 개수 계산하여 맵으로 변환하고, 개수가 큰 순서대로 정렬
         Map<String, Long> cateCnt = list.stream()
-                .collect(Collectors.groupingBy(SearchProductDomain::getCategoryName, Collectors.counting()))
+                .collect(Collectors.groupingBy(SearchProductDomain::getCategoryNum, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
         return cateCnt;
+    }
+    
+    public String selectCategoryName(String categoryNum) {
+    	return spDAO.selectCategoryName(categoryNum);
     }
 }

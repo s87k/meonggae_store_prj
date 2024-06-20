@@ -87,7 +87,7 @@ function enterkey(event){
 //키워드로 검색하기
 function searchPrd(){
 	var keyword = $("#searchKey").val().trim();
-	location.href = 'http://localhost/meonggae_prj/main_page/search_contents.do?keyword=' + keyword;
+	location.href = 'http://localhost/meonggae_prj/main_page/search_contents.do?kw=' + keyword;
 }//searchPrd
 
 
@@ -114,7 +114,7 @@ function updateCategoryList(categories){
 	//json parsing
 	$.each(categories, function(index, item){
 		var $li = $("<li>");
-		var $a = $("<a>").attr("href", "#void")
+		var $a = $("<a>").attr("href", 'http://localhost/meonggae_prj/isParentCategory.do?cn=' + item.categoryNum)
 						.addClass("parent-category")
 						.attr("data-parentid", item.categoryNum)
 						.text(item.name);
@@ -147,7 +147,7 @@ function updateSubCategoryList(categories){
 	//json parsing
 	$.each(categories, function(index, item){
 		var $li = $("<li>");
-		var $a = $("<a>").attr("href", "#void")
+		var $a = $("<a>").attr("href", 'http://localhost/meonggae_prj/isParentCategory.do?cn=' + item.categoryNum)
 						.addClass("sub-category")
 						.attr("data-value", item.categoryNum)
 						.text(item.name);
