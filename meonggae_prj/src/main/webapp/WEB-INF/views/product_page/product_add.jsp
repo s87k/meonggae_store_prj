@@ -56,77 +56,57 @@
             <div class="tabcontent">
                 <div id="tab01">
                     <form name="newProduct" action="" class="form-horizontal" method="post">
-                        <div class="form-group row">
-                            <label class="col-sm-2">이미지 등록</label>
-                            <div class="col-sm-3">
-                                <div class="addImage" id="image-show">
-                                    <!-- 이미지 띄울 공간 -->
-                                </div>
-                                <input type="file" name="productfile">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">거래 상태</label>
-                            <div class="col-sm-3">
-                                <select>
-                                    <option value="판매중">판매중</option>
-                                    <option value="판매완료">판매완료</option>
-                                    <option value="얘기중 ㅋㅋ">얘기중 ㅋㅋ</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">상품명</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="name" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">가격</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="unitPrice" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">상세 정보</label>
-                            <div class="col-sm-3">
-                                <textarea name="description" cols="50" rows="2"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">분류</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="category" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">거래 방식</label>
-                            <div class="col-sm-3">
-                                <input type="button" name="zik" class="form-control" value="직거래">
-                                <input type="button" name="taeck" class="form-control" value="택배">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2">물품 상태</label>
-                            <div class="col-sm-5">
-                                <input type="radio" name="condition" value="New "> 미개봉
-                                <input type="radio" name="condition" value="almostNew "> 거의 새 것
-                                <input type="radio" name="condition" value="old "> 사용감 있음
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" class="btn btn-primary" value="등록">
-                            </div>
-                        </div>
+                        <div class="form-section">
+                 <div class="form-group">
+                    <label for="image">상품이미지</label>
+                    <img id="image-preview" class="image-preview" src="">
+                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                </div>
+                <div class="form-group">
+                    <label for="product-name">상품명</label>
+                    <input type="text" id="product-name" name="product-name">
+                </div>
+                <div class="form-group">
+                    <label for="category">카테고리</label>
+                    <select id="category" name="category">
+                        <option value="여성의류">여성의류</option>
+                        <option value="남성의류">남성의류</option>
+                        <option value="신발">신발</option>
+                        <option value="가방/지갑">가방/지갑</option>
+                        <option value="시계">시계</option>
+                        <option value="쥬얼리">쥬얼리</option>
+                        <option value="패션 악세서리">패션 악세서리</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product-name">가격</label>
+                    <input type="text" id="product-price" name="product-price">
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="form-group">
+                    <label>물품 상태</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="condition" value="미개봉"> 미개봉</label>
+                        <label><input type="radio" name="condition" value="거의 새 것"> 거의 새 것</label>
+                        <label><input type="radio" name="condition" value="사용감 있음"> 사용감 있음</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="product-name">직거래 장소</label>
+                    <input type="text" id="trade-addr" name="trade-addr">
+                </div>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="description">설명</label>
+                    <textarea id="description" name="description" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn">등록하기</button>
+                <button type="button" class="btn btn-secondary">임시저장</button>
+            </div>
                     </form>
                 </div>
                 <div id="tab02">
