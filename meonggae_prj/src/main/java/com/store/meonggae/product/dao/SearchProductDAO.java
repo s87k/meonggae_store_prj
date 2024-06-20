@@ -37,14 +37,14 @@ public class SearchProductDAO {
 	//키워드(상품명&지역) 후 카테고리 조회
 	public List<SearchProductDomain> selectPrdKeyCate(SearchProductVO spVO)throws PersistenceException {
 		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
-			return ss.selectList("com.store.meonggae.product.selectPrdKeyCate");
+			return ss.selectList("com.store.meonggae.product.selectPrdKeyCate", spVO);
 		}
 	};//selectPrdGNLocKey
 	
 	//카테고리 단독 조회
-	public List<SearchProductDomain> selectPrdCate(SearchProductVO spVO)throws PersistenceException {
+	public List<SearchProductDomain> selectPrdCate(String categoryName)throws PersistenceException {
 		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
-			return ss.selectList("com.store.meonggae.product.selectPrdCate");
+			return ss.selectList("com.store.meonggae.product.selectPrdCate", categoryName);
 		}
 	};//selectPrdKeyword
 	

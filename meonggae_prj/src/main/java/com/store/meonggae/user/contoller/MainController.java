@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.store.meonggae.product.domain.SearchProductDetailDomain;
 import com.store.meonggae.product.domain.SearchProductDomain;
 import com.store.meonggae.product.service.SearchProductService;
+import com.store.meonggae.product.vo.SearchProductVO;
 
 
 @Controller
@@ -40,6 +41,7 @@ public class MainController {
 	//검색페이지 이동
 	@GetMapping("/main_page/search_contents.do")
 	public String searchContents(@RequestParam(required = false) String keyword, @RequestParam(required = false) String cate, Model model) {
+		//키워드만 있는 경우
 		if(keyword != null && cate == null) {
 			List<SearchProductDomain> list = SearchProductService.selectPrdKey(keyword);
 			Map<String, Long> cateCnt = SearchProductService.cateCnt(list);
@@ -47,6 +49,14 @@ public class MainController {
 			model.addAttribute("cateCnt",cateCnt);
 			model.addAttribute("keyword",keyword);
 		}else if(keyword != null && cate != null) {
+			//키워드 & 카테고리 둘다 있는 경우
+			System.out.println(keyword + " / " + cate);
+			SearchProductVO spVo = new SearchProductVO();
+			spVo.setCategoryName(cate);
+			spVo.setKeyword(keyword);
+			List<SearchProductDomain> list = SearchProductService.selectPrdKeyCate(spVo);
+		}else if(keyword == null && cate != null) {
+			//카테고리만 있는 경우
 			System.out.println(keyword + " / " + cate);
 		}
 		

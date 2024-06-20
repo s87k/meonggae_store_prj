@@ -37,14 +37,14 @@ where (REPLACE(GOODS_NAME, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%
 <select id="selectPrdKeyCate" resultMap="searchProductDomain" parameterType="com.store.meonggae.product.vo.SearchProductVO">
 select *
 from v_select_all_goods
-where (REPLACE(GOODS_NAME, ' ', '') like '%'|| REPLACE(#{goodsName}, ' ', '') ||'%' or REPLACE(LOCATION, ' ', '') like '%'|| REPLACE(#{location}, ' ', '') ||'%')
-and CATEGORY_NUM=#{ categoryNum }
+where (REPLACE(GOODS_NAME, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%' or REPLACE(LOCATION, ' ', '') like '%'|| REPLACE(#{keyword}, ' ', '') ||'%')
+and CATEGORY_NAME=#{ categoryName }
 </select>
 <!-- 카테고리 단독 조회 -->
-<select id="selectPrdCate" resultMap="searchProductDomain" parameterType="com.store.meonggae.product.vo.SearchProductVO">
+<select id="selectPrdCate" resultMap="searchProductDomain" parameterType="String">
 select *
 from v_select_all_goods
-and CATEGORY_NUM=#{ categoryNum }
+and CATEGORY_NAME=#{ categoryName }
 </select>
 
 <resultMap type="SearchProductDetailDomain" id="SearchProductDetailDomain">
