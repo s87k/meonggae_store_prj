@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class StoreMainDomain {
 	
-	private int goodsNum, price, rnum;
-	private String name, img;
+	private int goodsNum, rnum;
+	private String price, name, img;
 	private String inputDate;
 	public int getGoodsNum() {
 		return goodsNum;
@@ -13,10 +13,10 @@ public class StoreMainDomain {
 	public void setGoodsNum(int goodsNum) {
 		this.goodsNum = goodsNum;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public int getRnum() {
