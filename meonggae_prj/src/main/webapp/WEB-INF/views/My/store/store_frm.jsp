@@ -65,7 +65,7 @@ String nick = request.getParameter("nick");
 							<div class="product-description text-left">
 								<p class="title">${ is.name }</p>
 								<div style="overflow: hidden;">
-								<p class="price" style="float: left;">${ is.price }</p>
+								<p class="price" style="float: left;">${ is.price }원</p>
 								<p class="time-ago" style="float: right;">${ is.inputDate }</p>
 								</div>
 							</div>
