@@ -25,4 +25,10 @@ public class StoreDAO {
 		return list;
 	}//selectSalesList
 	
+	public String selectProfile(String nick) throws PersistenceException{
+		SqlSession ss = mbDAO.getMyBatisHandler(false);
+		String profile = ss.selectOne("com.store.meonggae.store.userProfile", nick);
+		return profile;
+	}//selectProfile
+	
 }//class

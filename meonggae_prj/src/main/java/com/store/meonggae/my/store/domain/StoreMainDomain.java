@@ -6,7 +6,7 @@ public class StoreMainDomain {
 	
 	private int goodsNum, price, rnum;
 	private String name, img;
-	private Date inputDate;
+	private String inputDate;
 	public int getGoodsNum() {
 		return goodsNum;
 	}
@@ -37,10 +37,10 @@ public class StoreMainDomain {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public Date getInputDate() {
+	public String getInputDate() {
 		return inputDate;
 	}
-	public void setInputDate(Date inputDate) {
+	public void setInputDate(String inputDate) {
 		this.inputDate = inputDate;
 	}
 	

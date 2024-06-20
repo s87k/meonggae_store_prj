@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.store.meonggae.my.store.domain.StoreMainDomain;
 import com.store.meonggae.my.store.service.StoreService;
@@ -22,11 +23,13 @@ public class StoreController {
 	 * @return
 	 */
 	@GetMapping("/store_frm.do")
-	public String storeMain(String nick, Model model) {
+	public String storeMain(@RequestParam("nick") String nick, Model model) {
 		
 		List<StoreMainDomain> list = ss.searchSalesList(nick);
 		model.addAttribute("listSales", list);
-		System.out.println(list);
+		
+		String profile = ss.searchProfile(nick);
+		model.addAttribute("profile", profile);
 		
 		return "My/store/store_frm";
 	}
@@ -36,8 +39,12 @@ public class StoreController {
 	 * @return
 	 */
 	@GetMapping("/store_review_frm.do")
-	public String storeReview() {
-		return "My/store/store_review_frm";
+	public String storeReview(@RequestParam("nick") String nick, Model model) {
+		
+		String profile = ss.searchProfile(nick);
+		model.addAttribute("profile", profile);
+		
+		return "My/store/review_frm";
 	}
 	
 }//class
