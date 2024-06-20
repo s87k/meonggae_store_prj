@@ -26,4 +26,15 @@ public class StoreService {
 		
 		return list;
 	}//searchSalesList
+	
+	public String searchProfile(String nick) {
+		String profile = "";
+		try {
+			profile = sDAO.selectProfile(nick);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		
+		return profile;
+	}//searchProfile
 }
