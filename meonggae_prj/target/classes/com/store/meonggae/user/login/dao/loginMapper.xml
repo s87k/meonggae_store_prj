@@ -8,7 +8,7 @@
 		type="com.store.meonggae.user.login.domain.LoginDomain" id="ldResult">
 		<result column="MEM_NUM" property="memNum" />
 		<result column="NICK" property="nick" />
-		<result column="MEM_ID," property="id" />
+		<result column="MEM_ID" property="id" />
 		<result column="PASS" property="pass" />
 		<result column="IMG" property="profile" />
 		<result column="SUSPEND_FLAG" property="suspendFlag" />
@@ -21,7 +21,7 @@
 	</resultMap>
 	<select id="selectOneUser" resultMap="ldResult"
 		parameterType="com.store.meonggae.user.login.vo.LoginVO">
-		select mem_num, nick, mem_id id, pass, img, login_flag,
+		select mem_num, nick, mem_id, pass, img, login_flag,
 		suspend_date, unsuspend_date, withdraw_flag,
 		withdraw_date, mem_status
 		from VIEW_MEMBER
