@@ -47,7 +47,7 @@
 			<div id="loginBoxTitle">멍게장터</div>
 			<!-- 아이디, 비번, 버튼 박스 -->
 			<form
-				action="${pageContext.request.contextPath}/authenticate.do"
+				action="${pageContext.request.contextPath}/index.do/authenticate.do"
 				method="post" id="loginFrm">
 				<div id="inputBox">
 					<div class="input-form-box">
@@ -70,10 +70,10 @@
 						</a>
 						<!-- 카카오 로그인 버튼 끝 -->
 						<!-- 구글 로그인 버튼 시작 -->
-						<!-- <div class="g-signin2"
+						<div class="g-signin2"
 							style="width: 280px; border-radius: 20px; height: 40px; padding-top: 10px; padding-bottom: 10px;"
 							data-onsuccess="onSignIn" data-theme="dark"></div>
-						<br> -->
+						<br>
 						<!-- 구글 로그인 버튼 끝-->
 						<a href="http://localhost/meonggae_prj/join_page/mem_join.do">소셜
 							인증 없이 회원가입 하기</a>

@@ -24,6 +24,7 @@ import com.store.meonggae.user.login.service.LoginService;
 import com.store.meonggae.user.login.vo.LoginVO;
 
 @Controller
+@RequestMapping("/index.do")
 public class LoginController {
 
 	@Autowired
@@ -67,19 +68,19 @@ public class LoginController {
 			}
 
 			switch (user.getMemStatus()) {
-			case "S":
-				session.setAttribute("message", "정지된 회원입니다.");
-				return "redirect:/index.do";
-			case "W":
-				session.setAttribute("message", "탈퇴한 회원입니다.");
-				return "redirect:/index.do";
-			case "N":
-				session.setAttribute("user", user);
-				return "redirect:/index.do";
-			default:
-				session.setAttribute("message", "알 수 없는 상태입니다.");
-				return "redirect:/index.do";
-			}
+		    case "S":
+		        session.setAttribute("message", "정지된 회원입니다.");
+		        return "redirect:/index.do";
+		    case "W":
+		        session.setAttribute("message", "탈퇴한 회원입니다.");
+		        return "redirect:/index.do";
+		    case "N":
+		        session.setAttribute("user", user);
+		        return "redirect:/index.do";
+		    default:
+		        session.setAttribute("message", "알 수 없는 상태입니다.");
+		        return "redirect:/index.do";
+		}
 		} catch (Exception e) {
 			session.setAttribute("message", "로그인 중 오류가 발생했습니다.");
 			session.setAttribute("status", "FAILED : ERROR");
@@ -93,30 +94,16 @@ public class LoginController {
 		return "redirect:/index.do";
 	}
 
+
 	@PostMapping("/index.do")
 	public String mainPageLogin() {
 		return "main_page/main_contents";
 	}
 
-//	@GetMapping("/logout.do")
-//    public String logout(HttpSession session, SessionStatus ss) {
-//        String accessToken = (String) session.getAttribute("access_token");
-//        System.out.println("Access Token: " + accessToken);
-//
-//        if (accessToken != null) {
-//            try {
-//                loginService.kakaoLogOut(accessToken);
-//                System.out.println("Kakao logout and unlink successful.");
-//            } catch (Exception e) {
-//                System.err.println("Kakao logout or unlink failed: " + e.getMessage());
-//                e.printStackTrace();
-//            }
-//        } else {
-//            System.err.println("Access Token is null. Unable to logout from Kakao.");
-//        }
-//
-//        session.invalidate();
-//        ss.setComplete();
-//        return "redirect:/index.do";
-//   }
+	@GetMapping("/logout.do")
+	public String logout(HttpSession session, SessionStatus ss) {
+		session.invalidate();
+		ss.setComplete();
+		return "redirect:/index.do";
+	}
 }
