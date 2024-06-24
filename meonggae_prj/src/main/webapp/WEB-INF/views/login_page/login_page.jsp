@@ -47,7 +47,7 @@
 			<div id="loginBoxTitle">멍게장터</div>
 			<!-- 아이디, 비번, 버튼 박스 -->
 			<form
-				action="${pageContext.request.contextPath}/index.do/authenticate.do"
+				action="${pageContext.request.contextPath}/authenticate.do"
 				method="post" id="loginFrm">
 				<div id="inputBox">
 					<div class="input-form-box">
