@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.store.meonggae.mgr.common.service.BoardUtilService;
 import com.store.meonggae.mgr.manager.domain.MgrManagerDomain;
@@ -20,6 +21,7 @@ public class MgrManagerController {
 	@Autowired
 	private BoardUtilService boardUtilService;
 	
+	// 관리자 - 관리자 관리 - 조회 리스트
 	@GetMapping("/mgr/manager/mgr_manager_list_frm.do")
 	public String searchListManager(ManagerSearchVO sVO, Model model) {
 		
@@ -50,6 +52,7 @@ public class MgrManagerController {
 		} // end if
 		String pageNation = boardUtilService.pageNation("mgr/manager/mgr_manager_list_frm.do", param, totalPage, currentPage);
 		
+		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageNation", pageNation);
@@ -58,6 +61,7 @@ public class MgrManagerController {
 		return "mgr/manager/mgr_manager_list_frm";
 	} // searchManagerList
 	
+	// 관리자 - 관리자 관리 - 상세 조회
 	@GetMapping("/mgr/manager/mgr_manager_detail_frm.do")
 	public String searchOneManager(String managerId, Model model) {
 		MgrManagerDomain mmDomain = mmService.searchOneManager(managerId);
@@ -66,10 +70,41 @@ public class MgrManagerController {
 		return "/mgr/manager/mgr_manager_detail_frm";
 	} // searchOneManager
 	
+	// 관리자 - 관리자 관리 - 관리자 등록
 	@GetMapping("/mgr/manager/mgr_manager_add_frm.do")
 	public String searchOneManager() {
 		
 		return "/mgr/manager/mgr_manager_add_frm";
 	} // searchOneManager
+	
+	// 관리자 - 관리자 관리 - 관리자 등록 - 아이디 중복확인
+	@GetMapping("/mgr/manager/mgr_manager_id_dup.do")
+	public String managerAddIdDuplicate() {
+		
+		return "mgr/manager/mgr_manager_id_dup";
+	} // managerAddIdDuplicate
+	
+	// 관리자 - 관리자 관리 - 관리자 등록 - 아이디 중복확인 - AJAX
+	@GetMapping("/mgr/manager/mgr_manager_id_dup_chk.do")
+	@ResponseBody
+	public String managerAjaxAddIdDuplicate(String managerId) {
+		
+		return mmService.searchOneManagerIdDuplicate(managerId);
+	} // managerAddIdDuplicate
+	
+	// 관리자 - 관리자 관리 - 관리자 등록 - 닉네임 중복확인
+	@GetMapping("/mgr/manager/mgr_manager_nick_dup.do")
+	public String managerAddNickDuplicate() {
+		
+		return "mgr/manager/mgr_manager_nick_dup";
+	} // managerAddIdDuplicate
+	
+	// 관리자 - 관리자 관리 - 관리자 등록 - 닉네임 중복확인 - AJAX
+	@GetMapping("/mgr/manager/mgr_manager_nick_dup_chk.do")
+	@ResponseBody
+	public String managerAjaxAddNickDuplicate(String nick) {
+		
+		return mmService.searchOneManagerNickDuplicate(nick);
+	} // managerAddIdDuplicate
 	
 } // class

@@ -1,13 +1,17 @@
 package com.store.meonggae.mgr.manager.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.store.meonggae.mgr.dao.MgrManagerDAO;
 import com.store.meonggae.mgr.manager.domain.MgrManagerDomain;
 import com.store.meonggae.mgr.manager.vo.ManagerSearchVO;
@@ -91,6 +95,7 @@ public class MgrManagerService {
 		return list;
 	} // searchManagerList
 	
+	// 관리자 한 명 상세 조회
 	public MgrManagerDomain searchOneManager (String managerId) {
 		MgrManagerDomain mmDomain = null;
 		
@@ -116,4 +121,62 @@ public class MgrManagerService {
 		
 		return mmDomain;
 	} // searchOneManager
+	
+	// 관리자 등록시 아이디 중복 검사
+	@SuppressWarnings("unchecked")
+	public String searchOneManagerIdDuplicate(String managerId) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+		
+		JSONObject jsonObj = new JSONObject();
+		
+		jsonObj.put("result", false);
+		jsonObj.put("dataSize", 0);
+		jsonObj.put("date", sdf.format(new Date()));
+		jsonObj.put("data", "");
+		
+		boolean flagCanUse = false;
+		
+		try {
+			flagCanUse = mmDAO.selectOneManagerIdDuplicate(managerId);
+			JSONObject jsonTemp = new JSONObject();
+			jsonTemp.put("flagCanUse", flagCanUse);
+			jsonObj.put("data", jsonTemp);
+			jsonObj.put("dataSize", 1);
+			jsonObj.put("result", true);
+			
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}// end catch
+		return jsonObj.toJSONString();
+	} // searchOneManagerIdDuplicate
+	
+	// 관리자 등록시 닉네임 중복 검사
+	@SuppressWarnings("unchecked")
+	public String searchOneManagerNickDuplicate(String nick) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+		
+		JSONObject jsonObj = new JSONObject();
+		
+		jsonObj.put("result", false);
+		jsonObj.put("dataSize", 0);
+		jsonObj.put("date", sdf.format(new Date()));
+		jsonObj.put("data", "");
+		
+		boolean flagCanUse = false;
+		
+		try {
+			flagCanUse = mmDAO.selectOneManagerNickDuplicate(nick);
+			JSONObject jsonTemp = new JSONObject();
+			jsonTemp.put("flagCanUse", flagCanUse);
+			jsonObj.put("data", jsonTemp);
+			jsonObj.put("dataSize", 1);
+			jsonObj.put("result", true);
+			
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}// end catch
+		return jsonObj.toJSONString();
+	} // searchOneManagerIdDuplicate
 } // class

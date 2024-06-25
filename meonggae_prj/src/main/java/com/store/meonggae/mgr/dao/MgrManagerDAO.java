@@ -40,6 +40,7 @@ public class MgrManagerDAO {
 		return list;
 	} // selectListManager
 	
+	// 관리자 한 명 검색
 	public MgrManagerDomain selectOneManager(String managerId) {
 		MgrManagerDomain mmDomain = null;
 		
@@ -48,6 +49,24 @@ public class MgrManagerDAO {
 
 		return mmDomain;
 	} // selectOneManager
+	
+	// 관리자 아이디 중복검사
+	public boolean selectOneManagerIdDuplicate(String managerId) {
+		boolean flagCanUse = false;
+		
+		SqlSession ss = mbDAO.getMyBatisHandler(false);
+		flagCanUse = ss.selectOne("com.store.meonggae.mgr.manager.selectOneManagerIdDuplicate", managerId);
+		return flagCanUse;
+	} // selectOneManagerIdDuplicate
+	
+	// 관리자 닉네임 중복검사
+	public boolean selectOneManagerNickDuplicate(String nick) {
+		boolean flagCanUse = false;
+		
+		SqlSession ss = mbDAO.getMyBatisHandler(false);
+		flagCanUse = ss.selectOne("com.store.meonggae.mgr.manager.selectOneManagerNickDuplicate", nick);
+		return flagCanUse;
+	} // selectOneManagerIdDuplicate
 	
 	public void insertManager(MgrManagerVO mmVO) {
 		

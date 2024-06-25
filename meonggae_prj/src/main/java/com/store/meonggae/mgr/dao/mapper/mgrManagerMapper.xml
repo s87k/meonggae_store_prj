@@ -27,25 +27,32 @@
 	</resultMap>
 	
 	<!-- 게시판 리스트의 수 -->
-	<select id="selectOneListCnt" resultType="int" parameterType="sVO">
+	<select id="selectOneListCnt" resultType="int" parameterType="managerSearchVO">
 		select	count(*) cnt
 		from	manager
-		<choose>
-			<when test="field eq 0">
-				<where>
+		<where>
+			<choose>
+				<when test="field eq 0">
 					manager_id like '%' || #{keyword} || '%'
-				</where>
-			</when>
-			<when test="field eq 1">
-				<where>
+				</when>
+				<when test="field eq 1">
 					nick like '%' || #{keyword} || '%'
-				</where>
-			</when>
-		</choose> 
+				</when>
+				<otherwise>
+					1 = 1
+				</otherwise>
+			</choose> 
+			<if test="deptno neq null">
+				and deptno in 
+				<foreach collection="deptno" open="(" item="dpt" separator="," close=")" index="">
+					#{dpt}
+				</foreach>
+			</if>
+		</where>
 	</select>
 	
 	<!-- 게시판 리스트 목록 조회 -->
-	<select id="selectListManager" resultMap="mgrManagerDomResult" parameterType="sVO">
+	<select id="selectListManager" resultMap="mgrManagerDomResult" parameterType="managerSearchVO">
 		select	rnum, NAME, dname, MANAGER_ID, NICK, INPUT_DATE
 		from	(
 				select	row_number() over(order by m.nick) rnum, m.NAME, d.dname, m.MANAGER_ID, m.NICK, m.INPUT_DATE
@@ -58,7 +65,13 @@
 					<when test="field eq 1">
 						and instr(nick, #{keyword}) > 0 
 					</when>
-				</choose> 
+				</choose>
+				<if test="deptno neq null">
+					and m.deptno in 
+					<foreach collection="deptno" open="(" item="dpt" separator="," close=")" index="">
+						#{dpt}
+					</foreach>
+				</if>
 				)
 		where	rnum between #{startNum} and #{endNum}
 	</select>
@@ -70,5 +83,19 @@
 				m.manager_id, m.nick, m.permission, m.input_date
 		from	manager m, dept d
 		where	m.deptno = d.deptno and m.manager_id=#{managerId}
+	</select>
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="selectOneManagerIdDuplicate" resultType="Boolean" parameterType="String">
+		select	decode(count(*), 0, 1, 0) flag_can_use
+		from	manager
+		where	manager_id = #{managerId}
+	</select>
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="selectOneManagerNickDuplicate" resultType="Boolean" parameterType="String">
+		select	decode(count(*), 0, 1, 0) flag_can_use
+		from	manager
+		where	nick = #{nick}
 	</select>
 </mapper>

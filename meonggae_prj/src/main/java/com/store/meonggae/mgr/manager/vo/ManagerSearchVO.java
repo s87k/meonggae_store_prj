@@ -17,4 +17,5 @@ import lombok.ToString;
 public class ManagerSearchVO {
 	private int startNum,endNum;
 	private String field, keyword, currentPage;
+	private List<String> deptno;
 }

@@ -35,7 +35,7 @@
 
 <style type="text/css">
 	
-	
+	.clickable {cursor:pointer;}
 	
 </style>
 
@@ -111,6 +111,13 @@
 			} // end if
 			$("#frmBoard").submit();
 		}); // click
+		
+		// 필터 초기화
+		$("#resetFilter").click(function () {
+			let url = new URL(location.href);
+			url.searchParams.delete('deptno');
+			location.href = "${pageContext.request.contextPath}/mgr/manager/mgr_manager_list_frm.do" + url.search;
+		}); // click
 	}); // $(document).ready(function() { })
 	
 	function chkNull() {
@@ -129,7 +136,7 @@
 		
 		let url = new URL(location.href);
 		let urlParams = url.searchParams;
-		let arrDept = urlParams.getAll('dept');
+		let arrDept = urlParams.getAll('deptno');
 
 		let flagChk = false;
 		let output = '';
@@ -219,23 +226,23 @@
 																			
 																			<div id="divChkDept" style="vertical-align: middle;">
 																				<input type="checkbox" class="dept" id="chkDeptAll"/><label>모든 부서</label><br/>
-																				<input type="checkbox" name="dept" class="dept deptOne" value="1"/><label>AA부</label><br/>
-																				<input type="checkbox" name="dept" class="dept deptOne" value="2"/><label>BB부</label><br/>
-																				<input type="checkbox" name="dept" class="dept deptOne" value="3"/><label>CC부</label><br/>
-																				<input type="checkbox" name="dept" class="dept deptOne" value="4"/><label>DD부</label><br/>
-																				<input type="checkbox" name="dept" class="dept deptOne" value="5"/><label>EE부</label><br/>
+																				<input type="checkbox" name="deptno" class="dept deptOne" value="1"/><label>AA부</label><br/>
+																				<input type="checkbox" name="deptno" class="dept deptOne" value="2"/><label>BB부</label><br/>
+																				<input type="checkbox" name="deptno" class="dept deptOne" value="3"/><label>CC부</label><br/>
+																				<input type="checkbox" name="deptno" class="dept deptOne" value="4"/><label>DD부</label><br/>
+																				<input type="checkbox" name="deptno" class="dept deptOne" value="5"/><label>EE부</label><br/>
 																			</div>
 																		</div>
 																	</div>
 																	<div class="col-12">
 																		<div class="form-group">
-																			<button type="button" id="btnFilter" class="btn btn-secondary">Filter</button>
+																			<button type="button" id="btnFilter" class="btn btn-secondary">필터 적용</button>
 																		</div>
 																	</div>
 																</div>
 															</div>
 															<div class="dropdown-foot between">
-																<a class="clickable" href="#">초기화</a>
+																<a id="resetFilter" class="clickable">초기화</a>
 															</div>
 														</div>
 													</div>
@@ -294,6 +301,7 @@
 							</div>
 						</div>
 					</div>
+				<div class="" style="margin-top:10px;">검색된 총 관리자 수: <c:out value="${requestScope.totalCount }"/>명</div>
 				</div>
 				<div class="card-inner p-0" style="margin:0px auto; text-align: center;">
 					<table class="table table-hover">
