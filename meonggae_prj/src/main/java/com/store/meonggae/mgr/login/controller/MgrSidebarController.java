@@ -31,8 +31,8 @@ public class MgrSidebarController {
 //	} // mgrDashFrm
 	
 	// 사이드바 - 관리자 관리
-	@GetMapping("/mgr/manager/mgr_manager_list_frm.do")
-	public String mgrManagerFrm() {
-		return "mgr/manager/mgr_manager_list_frm";
-	} // mgrDashFrm
+//	@GetMapping("/mgr/manager/mgr_manager_list_frm.do")
+//	public String mgrManagerFrm() {
+//		return "mgr/manager/mgr_manager_list_frm";
+//	} // mgrDashFrm
 } // class
