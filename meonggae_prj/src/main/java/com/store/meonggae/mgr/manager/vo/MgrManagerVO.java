@@ -13,4 +13,5 @@ import lombok.ToString;
 @ToString
 public class MgrManagerVO {
 	private String managerId, deptno, parentManagerId, pass, name, birth, nick, permission, secondAuthKey;
+	private String gender, tel, addr1, addr2, email;
 }

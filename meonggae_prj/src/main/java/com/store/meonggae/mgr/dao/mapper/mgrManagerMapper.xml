@@ -76,6 +76,12 @@
 		where	rnum between #{startNum} and #{endNum}
 	</select>
 	
+	<!-- 전체 관리자 이름 조회 -->
+	<select id="selectListAllManagerName" resultMap="mgrManagerDomResult">
+		select	/*+ index(manager PK_MANAGER) */ name, manager_id
+		from	manager
+	</select>
+	
 	<!-- 게시판 목록 하나 조회 -->
 	<select id="selectOneManager" resultMap="mgrManagerDomResult" parameterType="String">
 		select	m.NAME, m.birth, m.tel, m.gender, m.addr1, m.addr2,
@@ -98,4 +104,10 @@
 		from	manager
 		where	nick = #{nick}
 	</select>
+	
+	<!--  관리자 등록 -->
+	<insert id="insertManager" parameterType="com.store.meonggae.mgr.manager.vo.MgrManagerVO">
+		insert	into manager(MANAGER_ID, DEPTNO, PARENT_MANAGER_ID, PASS, NAME, BIRTH, NICK, GENDER, EMAIL, ADDR1, ADDR2, TEL, PERMISSION, SECOND_AUTH_KEY)
+		values	(#{managerId}, #{deptno}, #{parentManagerId}, #{pass}, #{name}, #{birth}, #{nick}, #{gender}, #{email}, #{addr1}, #{addr2}, #{tel}, #{permission}, #{secondAuthKey}) 
+	</insert>
 </mapper>

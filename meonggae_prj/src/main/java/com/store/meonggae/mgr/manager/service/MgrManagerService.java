@@ -7,14 +7,17 @@ import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.store.meonggae.mgr.dao.MgrManagerDAO;
 import com.store.meonggae.mgr.manager.domain.MgrManagerDomain;
 import com.store.meonggae.mgr.manager.vo.ManagerSearchVO;
+import com.store.meonggae.mgr.manager.vo.MgrManagerVO;
 
 @Service
 public class MgrManagerService {
@@ -94,6 +97,28 @@ public class MgrManagerService {
 		
 		return list;
 	} // searchManagerList
+	
+	// 전 관리자 이름 조회
+	public List<MgrManagerDomain> searchListAllManagerName() {
+		List<MgrManagerDomain> list = null;
+		
+		try {
+			list = mmDAO.selectListAllManagerName();
+			MgrManagerDomain mmDomain = null;
+			
+			String key = "test1234";
+			String salt = "123456";
+			TextEncryptor te = Encryptors.text(key, salt);
+			
+			for (int i = 0; i < list.size(); i++) {
+				mmDomain = list.get(i);
+				mmDomain.setName(te.decrypt(mmDomain.getName()));
+			} // end for
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
+		return list;
+	} // searchListAllManagerName
 	
 	// 관리자 한 명 상세 조회
 	public MgrManagerDomain searchOneManager (String managerId) {
@@ -179,4 +204,44 @@ public class MgrManagerService {
 		}// end catch
 		return jsonObj.toJSONString();
 	} // searchOneManagerIdDuplicate
+	
+	// 관리자 신규 등록
+	public boolean addManagerProcess(MgrManagerVO mMgrVO) {
+		boolean flagAddResult = false;
+		
+		try {
+			String key = "test1234";
+			String salt = "123456";
+			TextEncryptor te = Encryptors.text(key, salt);
+			PasswordEncoder pe = new BCryptPasswordEncoder();
+			
+			mMgrVO.setPass(pe.encode(mMgrVO.getPass()));
+			mMgrVO.setName(te.encrypt(mMgrVO.getName()));
+			mMgrVO.setBirth(te.encrypt(mMgrVO.getBirth()));
+			mMgrVO.setAddr1(te.encrypt(mMgrVO.getAddr1()));
+			mMgrVO.setAddr2(te.encrypt(mMgrVO.getAddr2()));
+			mMgrVO.setTel(te.encrypt(mMgrVO.getTel()));
+			mMgrVO.setPermission(te.encrypt(mMgrVO.getPermission()));
+			if(mMgrVO.getEmail() != null) {
+				mMgrVO.setEmail(te.encrypt(mMgrVO.getEmail()));
+			} else {
+				mMgrVO.setEmail("");
+			} // end if
+			if(mMgrVO.getSecondAuthKey() != null) {
+				mMgrVO.setSecondAuthKey(te.encrypt(mMgrVO.getSecondAuthKey()));
+			} else {
+				mMgrVO.setSecondAuthKey("");
+			} // end if
+			if(mMgrVO.getParentManagerId() == null) {
+				mMgrVO.setParentManagerId("");
+			} // end if
+			
+			mmDAO.insertManager(mMgrVO);
+			flagAddResult = true;
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
+		
+		return flagAddResult;
+	} // addManagerProcess
 } // class

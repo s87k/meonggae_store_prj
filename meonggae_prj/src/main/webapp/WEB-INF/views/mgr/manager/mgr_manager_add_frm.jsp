@@ -123,24 +123,50 @@
 					'width=550, height=340, top=' + (window.screenY + 100) + ', left=' + (window.screenX + 100));
 		}); // click
 		
+		// 뒤로가기 버튼
+		$("#btnBack").click(function() {
+			history.back();
+		}); // click
+		
+		// 등록 버튼
+		$("#btnSubmit").click(function(){
+			let arrInvalid = $("input.invalid");
+			let arrLabel = $("span.invalid");
+			for(let i = 0; i < arrInvalid.length; i++) {
+				if($(arrInvalid[i]).val() == null || $(arrInvalid[i]).val().trim() == '') {
+					alert($(arrLabel[i]).text());
+					return;
+				} // end if
+			} // end for
+			if(!$(".gender").is(":checked")){
+				alert('성별은 필수 선택입니다');
+				return;
+			} // end if
+			
+			// 이메일 합쳐서 하나로
+			$("#email").val($("#email1").val() + '@' + $("#email2").val())
+			
+			$("#frm").submit();
+		}); // click
+		
 		// 비밀번호
-		$("#password").keyup(function() {
+		$("#pass").keyup(function() {
 // 			console.log('change');
-			if(strongPassword($("#password").val())) {
+			if(strongPassword($("#pass").val())) {
 // 				console.log('hide');
-				$(".passwordNotGood").hide();
+				$(".passNotGood").hide();
 			} else {
 // 				console.log('show');
-				$(".passwordNotGood").show();
+				$(".passNotGood").show();
 			} // end else 
 		}); // change
 		
 		// 비밀번호 확인 - 값이 변경될 때마다 비교
-		$("#password-check").keyup(function() {
-			if(isPasswordMatch($("#password").val(), $("#password-check").val())) {
-				$(".passwordNotEqual").hide();
+		$("#pass-check").keyup(function() {
+			if(isPasswordMatch($("#pass").val(), $("#pass-check").val())) {
+				$(".passNotEqual").hide();
 			} else {
-				$(".passwordNotEqual").show();
+				$(".passNotEqual").show();
 			} // end else 
 		}); // change
 		
@@ -152,7 +178,7 @@
 		// 전화번호 하이픈
 		$("#tel").keyup(function(){
 			$(this).val($(this).val().replace(/[^0-9]/gi, "").replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
-		});
+		}); // keyup
 		
 	}); // $(document).ready(function() { })
 	
@@ -163,8 +189,8 @@
 	} // strongPassword
 	
 	// 비밀번호 확인
-	function isPasswordMatch (password1, password2) {
-		return password1 === password2;
+	function isPasswordMatch (pass1, pass2) {
+		return pass1 === pass2;
 	} // isPasswordMatch
 </script>
 
@@ -198,7 +224,7 @@
 	<div class="col-xxl-6" style="margin:0px auto;">
 		<div class="card card-bordered" data-select2-id="9">
 			<div class="card-inner" data-select2-id="8">
-				<form action="#" id="frm" class="form-validate" novalidate="novalidate" data-select2-id="7">
+				<form action="mgr_manager_add_process.do" id="frm" class="form-validate" method="post" novalidate="novalidate" data-select2-id="7">
 					<div class="row g-gs" data-select2-id="6">
 						<div class="col-md-12">
 							<div class="col-md-6" style="margin:0px auto;">
@@ -206,9 +232,9 @@
 									<label class="form-label" for="fv-full-name">아이디</label>
 									<div class="form-control-wrap">
 										<div class="input-group">
-											<input type="text" class="form-control invalid" id="managerId" name="managerId" disabled="disabled">
+											<input type="text" class="form-control invalid" id="managerId" name="managerId" readonly value="manager5">
 											<button type="button" class="btn btn-light" id="idChk">중복확인</button>
-											<span class="invalid">이 항목은 필수 입력입니다.</span>
+											<span class="invalid">아이디는 필수 입력입니다.</span>
 										</div>
 									</div>
 								</div>
@@ -219,14 +245,9 @@
 								<div class="form-group">
 									<label class="form-label" for="fv-full-name">비밀번호 (8자 이상의 영문자, 숫자, 특수문자 @$!%*#로 구성)</label>
 									<div class="form-control-wrap">
-										<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="password">
-											<em class="passcode-icon icon-show icon ni ni-eye"></em>
-											<em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-										</a>
-										<input type="password" class="form-control invalid" id="password" name="password">
-	<!-- 									<input type="password" class="form-control invalid" id="fv-full-name" name="fv-full-name" required="" aria-describedby="fv-full-name-error" aria-invalid="true"> -->
-										<span class="invalid">이 항목은 필수 입력입니다.</span>
-										<span class="errMsg passwordNotGood">비밀번호는 8자 이상의 영문자, 숫자, 특수문자 @$!%*#로 구성</span>
+										<input type="password" class="form-control invalid" id="pass" name="pass" value="qwer1234!">
+										<span class="invalid">비밀번호는 필수 입력입니다.</span>
+										<span class="errMsg passNotGood">비밀번호는 8자 이상의 영문자, 숫자, 특수문자 @$!%*#로 구성</span>
 									</div>
 								</div>
 							</div>
@@ -236,14 +257,14 @@
 								<div class="form-group">
 									<label class="form-label" for="fv-full-name">비밀번호 확인</label>
 									<div class="form-control-wrap">
-	<!-- 									<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="password-check"> -->
+	<!-- 									<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="pass-check"> -->
 	<!-- 										<em class="passcode-icon icon-show icon ni ni-eye"></em> -->
 	<!-- 										<em class="passcode-icon icon-hide icon ni ni-eye-off"></em> -->
 	<!-- 									</a> -->
-										<input autocomplete="new-password" type="password" class="form-control invalid" id="password-check">
-	<!-- 									<input type="password" class="form-control invalid" id="fv-full-name" name="fv-full-name" required="" aria-describedby="fv-full-name-error" aria-invalid="true"> -->
-										<span class="invalid">이 항목은 필수 입력입니다.</span>
-										<span class="errMsg passwordNotEqual">비밀번호가 일치하지 않습니다</span>
+										<input autocomplete="new-pass" type="password" class="form-control invalid" id="pass-check" value="qwer1234!">
+	<!-- 									<input type="pass" class="form-control invalid" id="fv-full-name" name="fv-full-name" required="" aria-describedby="fv-full-name-error" aria-invalid="true"> -->
+										<span class="invalid">비밀번호 확인은 필수 입력입니다.</span>
+										<span class="errMsg passNotEqual">비밀번호가 일치하지 않습니다</span>
 									</div>
 								</div>
 							</div>
@@ -253,8 +274,8 @@
 								<div class="form-group">
 									<label class="form-label" for="fv-full-name">이름</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control invalid" id="name" name="name">
-										<span class="invalid">이 항목은 필수 입력입니다.</span>
+										<input type="text" class="form-control invalid" id="name" name="name" value="최관리">
+										<span class="invalid">이름은 필수 입력입니다.</span>
 									</div>
 								</div>
 							</div>
@@ -265,8 +286,8 @@
 									<label class="form-label" for="fv-full-name">닉네임</label>
 									<div class="form-control-wrap">
 										<div class="input-group">
-											<input type="text" class="form-control invalid" id="nick" name="nick" disabled="disabled">
-											<span class="invalid">이 항목은 필수 입력입니다.</span>
+											<input type="text" class="form-control invalid" id="nick" name="nick" readonly value="관리자5">
+											<span class="invalid">닉네임은 필수 입력입니다.</span>
 											<button type="button" class="btn btn-light" id="nickChk">중복확인</button>
 										</div>
 									</div>
@@ -276,14 +297,43 @@
 						<div class="col-md-12">
 							<div class="col-md-6" style="margin:0px auto;">
 								<div class="form-group">
+									<label class="form-label" for="fv-full-name">이메일</label>
+									<div class="row gy-4">
+										<div class="col-sm-6">
+											<div class="form-control-wrap">
+												<div class="input-group">
+													<input type="text" class="form-control invalid" id="email1" value="manager5">
+													<span class="invalid">이메일은 필수 입력입니다.</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6" style="text-align:center;">
+											<div class="input-group">
+												<div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">@</span></div>
+												<input type="text" class="form-control invalid" list="selecEmail" id="email2">
+												<datalist id="selecEmail">
+													<option value='직접 입력'>직접 입력</option>
+													<option value='naver.com'>naver.com</option>
+													<option value='daum.net'>daum.net</option>
+													<option value='gmail.com'>gmail.com</option>
+													<option value='hotmail.com'>hotmail.com</option>
+													<option value='nate.com'>nate.com</option>
+													<option value='korea.com'>korea.com</option>
+													<option value='mungae.com'>mungae.com</option>
+												</datalist>
+												<span class="invalid">이메일은 필수 입력입니다.</span>
+											</div>
+										</div>
+										<input type="hidden" id="email" name="email"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-6" style="margin:0px auto;">
+								<div class="form-group">
 									<label class="form-label" for="fv-topics">부서</label>
 									<div class="form-control-wrap ">
-	<!-- 									<select class="form-select js-select2 select2-hidden-accessible invalid" id="fv-topics" name="fv-topics" data-placeholder="Select a option" required="" data-select2-id="fv-topics" tabindex="-1" aria-hidden="true" aria-describedby="fv-topics-error"> -->
-	<!-- 										<option label="empty" value="" data-select2-id="2"></option> -->
-	<!-- 										<option value="fv-gq" data-select2-id="16">aa 부</option> -->
-	<!-- 										<option value="fv-tq" data-select2-id="17">bb 부</option> -->
-	<!-- 										<option value="fv-ab" data-select2-id="18">cc 부</option> -->
-	<!-- 									</select> -->
 										<select class="form-select js-select2" name="deptno">
 											<option value="1">AA부</option>
 											<option value="2">BB부</option>
@@ -291,7 +341,22 @@
 											<option value="4">DD부</option>
 											<option value="5">EE부</option>
 										</select>
-										<span id="fv-topics-error" class="invalid">이 항목은 필수 입력입니다.</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-6" style="margin:0px auto;">
+								<div class="form-group">
+									<label class="form-label" for="fv-topics">매니저 선택</label>
+									<div class="form-control-wrap ">
+										<select class="form-select js-select2" name="parentManagerId">
+											<option value="">--- 선택 ---</option>
+											<option value="">--- 매니저 없음 ---</option>
+											<c:forEach var="mgr" items="${requestScope.listManager }" varStatus="i">
+												<option value="${mgr.managerId }"><c:out value="${mgr.name } (${mgr.managerId })"/></option>
+											</c:forEach>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -306,7 +371,7 @@
 											<option value="2">문의, 후기 관리</option>
 											<option value="3" selected="selected">대시보드 조회</option>
 										</select>
-										<span id="fv-topics-error" class="invalid">이 항목은 필수 입력입니다.</span>
+<!-- 										<span id="fv-topics-error" class="invalid">이 항목은 필수 입력입니다.</span> -->
 									</div>
 								</div>
 							</div>
@@ -324,7 +389,7 @@
 									  <div class="form-icon form-icon-left">
 									    <em class="icon ni ni-calendar"></em>
 									  </div>
-									  <input type="text" id="birth" class="form-control datepicker visitors" readonly="readonly" data-date-format="yyyy-mm-dd" maxlength="10" name="birth" value="${strDate }"/>
+									  <input type="text" id="birth" class="form-control datepicker visitors" readonly data-date-format="yyyy-mm-dd" maxlength="10" name="birth" value="${strDate }"/>
 									</div>
 								</div>
 							</div>
@@ -335,8 +400,8 @@
 									<label class="form-label" for="fv-phone">성별</label>
 									<div class="form-control-wrap">
 										<div style="vertical-align:middle;">
-											<input type="radio" name="gender" value="M" style="width:15px; height:15px;"/><label style="vertical-align:top; margin-left:5px;">남자</label>
-											<input type="radio" name="gender" value="F" style="width:15px; height:15px; margin-left:15px;"/><label style="vertical-align:top; margin-left:5px;">여자</label>
+											<input type="radio" class="gender" name="gender" value="M" style="width:15px; height:15px;" checked="checked"/><label style="vertical-align:top; margin-left:5px;">남자</label>
+											<input type="radio" class="gender" name="gender" value="F" style="width:15px; height:15px; margin-left:15px;"/><label style="vertical-align:top; margin-left:5px;">여자</label>
 										</div>
 									</div>
 								</div>
@@ -351,7 +416,8 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="fv-phone">+82</span>
 											</div>
-											<input type="text" class="form-control valid" maxlength="13" id="tel" name="tel"/>
+											<input type="text" class="form-control invalid" maxlength="13" id="tel" name="tel" value="010-1212-9898"/>
+											<span class="invalid">전화번호는 필수 입력입니다.</span>
 										</div>
 									</div>
 								</div>
@@ -363,8 +429,8 @@
 									<label class="form-label" for="fv-full-name">주소</label>
 									<div class="form-control-wrap">
 										<div class="input-group">
-											<input type="text" class="form-control invalid" id="addr1" name="addr1" disabled="disabled">
-											<span class="invalid">이 항목은 필수 입력입니다.</span>
+											<input type="text" class="form-control invalid" id="addr1" name="addr1" readonly value="서울시 강남구 역삼동">
+											<span class="invalid">주소는 필수 입력입니다.</span>
 											<input type="button" class="btn btn-light" id="addChk" value="우편번호검색"></input>
 										</div>
 									</div>
@@ -376,8 +442,8 @@
 								<div class="form-group">
 									<label class="form-label" for="fv-full-name">상세주소</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control invalid" id="addr2" name="addr2">
-										<span class="invalid">이 항목은 필수 입력입니다.</span>
+										<input type="text" class="form-control invalid" id="addr2" name="addr2" value="한독빌등 8층 7">
+										<span class="invalid">상세주소는 필수 입력입니다.</span>
 									</div>
 								</div>
 							</div>

@@ -40,6 +40,16 @@ public class MgrManagerDAO {
 		return list;
 	} // selectListManager
 	
+	// 관리자 이름 리스트 조회
+	public List<MgrManagerDomain> selectListAllManagerName() {
+		List<MgrManagerDomain> list = null;
+		
+		SqlSession ss = mbDAO.getMyBatisHandler(false);
+		list = ss.selectList("com.store.meonggae.mgr.manager.selectListAllManagerName");
+		
+		return list;
+	} // selectListAllManagerName
+	
 	// 관리자 한 명 검색
 	public MgrManagerDomain selectOneManager(String managerId) {
 		MgrManagerDomain mmDomain = null;
@@ -68,7 +78,10 @@ public class MgrManagerDAO {
 		return flagCanUse;
 	} // selectOneManagerIdDuplicate
 	
+	// 관리자 신규 등록
 	public void insertManager(MgrManagerVO mmVO) {
-		
+		SqlSession ss = mbDAO.getMyBatisHandler(true);
+		System.out.println("dao: " + mmVO);
+		ss.insert("com.store.meonggae.mgr.manager.insertManager", mmVO);
 	} // insertManager
 } // class

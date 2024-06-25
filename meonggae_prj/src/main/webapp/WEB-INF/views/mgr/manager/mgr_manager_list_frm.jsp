@@ -41,7 +41,6 @@
 
 <script type="text/javascript">
 	$(function() {
-		
 		setCheckboxChecked();
 		
 		// 검색
@@ -150,6 +149,19 @@
 		} // end else
 	} // setCheckboxChecked
 </script>
+
+<!-- 관리자를 새로 등록하여 관리자 리스트 조회 페이지로 온 경우 -->
+<c:if test="${requestScope.flagAddResult ne null}">
+	<script type="text/javascript">
+		$(function (){
+			if(${requestScope.flagAddResult }) {
+				alert('관리자 등록에 성공하였습니다');
+			} else {
+				alert('관리자 등록에 실패하였습니다');
+			} // else
+		}) // $(document).ready(function() { })
+	</script>
+</c:if>
 
 </head>
 <body class="nk-body bg-lighter npc-general has-sidebar no-touch nk-nio-theme">
