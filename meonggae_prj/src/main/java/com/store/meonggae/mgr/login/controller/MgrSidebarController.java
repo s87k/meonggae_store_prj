@@ -18,11 +18,11 @@ public class MgrSidebarController {
 		return "mgr/member/mgr_member_list_frm";
 	} // mgrDashFrm
 	
-	// 사이드바 - 리뷰 관리
-	@GetMapping("/mgr/review/mgr_review_list_frm.do")
-	public String mgrReviewFrm() {
-		return "mgr/review/mgr_review_list_frm";
-	} // mgrDashFrm
+//	// 사이드바 - 리뷰 관리
+//	@GetMapping("/mgr/review/mgr_review_list_frm.do")
+//	public String mgrReviewFrm() {
+//		return "mgr/review/mgr_review_list_frm";
+//	} // mgrDashFrm
 	
 	// 사이드바 - 물품 관리
 //	@GetMapping("/mgr/product/mgr_product.do")

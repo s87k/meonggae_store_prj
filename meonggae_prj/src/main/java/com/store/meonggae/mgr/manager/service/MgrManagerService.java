@@ -69,6 +69,7 @@ public class MgrManagerService {
 		return startNum;
 	} // getStartNum
 	
+	// 게시물의 마지막 번호
 	public int getEndNum(int startNum, int pageScale) {
 		int endNum = startNum + pageScale - 1;
 		return endNum;

@@ -368,7 +368,7 @@
 							<div class="form-control-wrap">
 								<div class="input-group">
 									<div class="input-group-prepend" style="width:120px;">
-							 			<select id="field" class="form-select js-select2" name="field">
+							 			<select id="field" class="form-select js-select2" name="field" id="field">
 											<option value="0"${param.field eq 0 ? " selected='selected'" : ""}>아이디</option>
 											<option value="1"${param.field eq 1 ? " selected='selected'" : ""}>닉네임</option>
 										</select>

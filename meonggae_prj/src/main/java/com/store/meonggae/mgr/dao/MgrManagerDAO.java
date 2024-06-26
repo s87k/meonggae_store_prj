@@ -81,7 +81,6 @@ public class MgrManagerDAO {
 	// 관리자 신규 등록
 	public void insertManager(MgrManagerVO mmVO) {
 		SqlSession ss = mbDAO.getMyBatisHandler(true);
-		System.out.println("dao: " + mmVO);
 		ss.insert("com.store.meonggae.mgr.manager.insertManager", mmVO);
 	} // insertManager
 } // class
