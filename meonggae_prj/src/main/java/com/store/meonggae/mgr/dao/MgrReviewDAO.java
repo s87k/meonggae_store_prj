@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.store.meonggae.mgr.review.domain.MgrCategoryDomain;
 import com.store.meonggae.mgr.review.domain.MgrReviewDomain;
 import com.store.meonggae.mgr.review.vo.MgrReviewSearchVO;
+import com.store.meonggae.mgr.review.vo.MgrReviewVO;
 
 @Component
 public class MgrReviewDAO {
@@ -45,4 +46,24 @@ public class MgrReviewDAO {
 
 		return list;
 	} // selectListCategoryList
-}
+	
+	// 리뷰 하나 상세 조회
+	public MgrReviewDomain selectOneReview(MgrReviewVO mrVO) {
+		MgrReviewDomain mrDomain = null;
+		
+		SqlSession ss = mbDAO.getMyBatisHandler(false);
+		mrDomain = ss.selectOne("com.store.meonggae.mgr.review.selectOneReview", mrVO);
+		
+		return mrDomain;
+	} // selectOneReview
+	
+	// 리뷰 삭제
+	public int deleteReview(MgrReviewVO mrVO) {
+		int cnt = 0;
+		
+		SqlSession ss = mbDAO.getMyBatisHandler(true);
+		cnt = ss.delete("com.store.meonggae.mgr.review.deleteOneReview", mrVO);
+	
+		return cnt;
+	} // deleteReview
+} // class

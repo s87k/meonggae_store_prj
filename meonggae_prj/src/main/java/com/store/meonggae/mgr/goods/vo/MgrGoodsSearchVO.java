@@ -1,4 +1,4 @@
-package com.store.meonggae.mgr.review.vo;
+package com.store.meonggae.mgr.goods.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +14,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MgrReviewSearchVO {
+public class MgrGoodsSearchVO {
 	private int startNum,endNum;
 	private String field, keyword, currentPage;
 	private String startDate, endDate;
 	private String categoryNum, parentCategoryNum;
+	private String tradeMethodCode, qualityCode, sellStatusCode; 
+	private String location;
+	private String minPrice, maxPrice; 
 }

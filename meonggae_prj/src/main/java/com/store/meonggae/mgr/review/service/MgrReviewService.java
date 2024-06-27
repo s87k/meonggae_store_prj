@@ -15,6 +15,7 @@ import com.store.meonggae.mgr.dao.MgrReviewDAO;
 import com.store.meonggae.mgr.review.domain.MgrCategoryDomain;
 import com.store.meonggae.mgr.review.domain.MgrReviewDomain;
 import com.store.meonggae.mgr.review.vo.MgrReviewSearchVO;
+import com.store.meonggae.mgr.review.vo.MgrReviewVO;
 
 @Service
 public class MgrReviewService {
@@ -123,5 +124,30 @@ public class MgrReviewService {
 		} // catch
 		return jsonObj.toJSONString();
 	} // searchListCategoryList
+	
+	// 리뷰 상세 조회
+	public MgrReviewDomain searchOneReviewDetail(MgrReviewVO mrVO) {
+		
+		MgrReviewDomain mrDomain = null;
+		
+		try {
+			mrDomain = mrDAO.selectOneReview(mrVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
+		
+		return mrDomain;
+	} // searchOneReviewDetail
+	
+	// 리뷰 삭제
+	public int removeReview(MgrReviewVO mrVO) {
+		int cnt = 0;
+		try {
+			cnt = mrDAO.deleteReview(mrVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
+		return cnt;
+	} // removeReview
 	
 } // class

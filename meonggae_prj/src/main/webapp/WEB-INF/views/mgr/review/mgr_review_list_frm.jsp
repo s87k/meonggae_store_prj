@@ -66,7 +66,18 @@
    .ui-widget-header .ui-icon { background-image: url('http://192.168.10.214${pageContext.request.contextPath}/mgr_common/images/btns.png'); } 
 	
 </style>
-
+<!-- 후기를 삭제한 경우 -->
+<c:if test="${requestScope.flagDelete ne null}">
+	<script type="text/javascript">
+		$(function() {
+			if(${requestScope.flagDelete }) {
+				alert('후기 삭제에 성공하였습니다');
+			} else {
+				alert('후기 삭제에 실패하였습니다');
+			} // else
+		}); // $(document).ready(function() { })
+	</script>
+</c:if>
 <script type="text/javascript">
 	$(function() {
 		//callAjaxCategoryList(0, 0);
@@ -74,7 +85,7 @@
 		
 		// 상위 거래 카테고리 선택시
 		$("#selCategoryUpper").change(function () {
-			console.log($("#selCategoryUpper").val());
+// 			console.log($("#selCategoryUpper").val());
 			if($("#selCategoryUpper").val() != null && $("#selCategoryUpper").val() != '') {
 				callAjaxCategoryList($("#selCategoryUpper").val(), 1);
 			}
@@ -92,19 +103,7 @@
 				$("#keyword").prop("disabled", "disabled");
 				$("#field").prop("disabled", "disabled");
 			} // end if
-			if($("#selCategoryUpper").val() == null || $("#selCategoryUpper").val() == '') {
-				$("#selCategoryUpper").prop("disabled", "disabled");
-				$("#selCategoryLower").prop("disabled", "disabled");
-			} // end if
-			if($("#selCategoryLower").val() == null || $("#selCategoryLower").val() == '') {
-				$("#selCategoryLower").prop("disabled", "disabled");
-			} // end if
-			if($("#startDate").val() == null || $("#startDate").val() == '') {
-				$("#startDate").prop("disabled", "disabled");
-			} // end if
-			if($("#endDate").val() == null || $("#endDate").val() == '') {
-				$("#endDate").prop("disabled", "disabled");
-			} // end if
+			disableInput();
 			$("#frmBoard").submit();
 		}); // click
 		
@@ -143,19 +142,24 @@
 // 			if($("#chkDeptAll").is(":checked")) {
 // 				$(".dept").prop("disabled", "disabled");
 // 			} // end if
-			if($("#selCategoryUpper").val() == null || $("#selCategoryUpper").val() == '') {
-				$("#selCategoryUpper").prop("disabled", "disabled");
-				$("#selCategoryLower").prop("disabled", "disabled");
-			} // end if
-			if($("#startDate").val() == null || $("#startDate").val() == '') {
-				$("#startDate").prop("disabled", "disabled");
-			} // end if
-			if($("#endDate").val() == null || $("#endDate").val() == '') {
-				$("#endDate").prop("disabled", "disabled");
-			} // end if
+			disableInput();
 			$("#frmBoard").submit();
 		} // end if
 	} // chkNull
+	
+	// form submit시 null인 거 안 넘어가게
+	function disableInput() {
+		if($("#selCategoryUpper").val() == null || $("#selCategoryUpper").val() == '') {
+			$("#selCategoryUpper").prop("disabled", "disabled");
+			$("#selCategoryLower").prop("disabled", "disabled");
+		} // end if
+		if($("#startDate").val() == null || $("#startDate").val() == '') {
+			$("#startDate").prop("disabled", "disabled");
+		} // end if
+		if($("#endDate").val() == null || $("#endDate").val() == '') {
+			$("#endDate").prop("disabled", "disabled");
+		} // end if
+	} // disableInput
 	
 	// 동적으로 카테고리 상위 하위 변경
 	function callAjaxCategoryList(categoryNum, categoryType) {
@@ -359,13 +363,14 @@
 								<th scope="col">카테고리</th>
 								<th scope="col">별점</th>
 								<th scope="col">작성일</th>
+								<th scope="col">삭제</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:choose>
 								<c:when test="${requestScope.list eq null or requestScope.currentPage > requestScope.totalPage}">
 									<tr>
-										<td colspan="6">조회된 결과가 없습니다</td>
+										<td colspan="8">조회된 결과가 없습니다</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -375,10 +380,10 @@
 											
 											<c:choose>
 												<c:when test="${pageContext.request.queryString eq null or pageContext.request.queryString eq ''}">
-													<td><a href="${pageContext.request.contextPath}/mgr/review/mgr_review_detail_frm.do?mem_num=${reviewDomain.memNumBuy }&goods_num=${reviewDomain.goodsNum}"><c:out value="${reviewDomain.content}"/></a></td>
+													<td><a href="${pageContext.request.contextPath}/mgr/review/mgr_review_detail_frm.do?memNum=${reviewDomain.memNumBuy }&goodsNum=${reviewDomain.goodsNum}"><c:out value="${reviewDomain.content}"/></a></td>
 												</c:when>
 												<c:otherwise>
-													<td><a href="${pageContext.request.contextPath}/mgr/manager/mgr_review_detail_frm.do?${pageContext.request.queryString }&mem_num=${reviewDomain.memNumBuy }&goods_num=${reviewDomain.goodsNum}"><c:out value="${reviewDomain.content}"/></a></td>
+													<td><a href="${pageContext.request.contextPath}/mgr/review/mgr_review_detail_frm.do?${pageContext.request.queryString }&memNum=${reviewDomain.memNumBuy }&goodsNum=${reviewDomain.goodsNum}"><c:out value="${reviewDomain.content}"/></a></td>
 												</c:otherwise>
 											</c:choose>
 											<td><c:out value="${reviewDomain.nickBuy}"/></td>
@@ -386,6 +391,14 @@
 											<td><c:out value="${reviewDomain.categoryName}"/></td>
 											<td><c:out value="${reviewDomain.star}"/></td>
 											<td><c:out value="${reviewDomain.reviewInputDate}"/></td>
+											<c:choose>
+												<c:when test="${reviewDomain.deleteFlag }">
+													<td style="color:#ff0000;">삭제됨</td>
+												</c:when>
+												<c:otherwise>
+													<td>-</td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 									</c:forEach>
 								</c:otherwise>

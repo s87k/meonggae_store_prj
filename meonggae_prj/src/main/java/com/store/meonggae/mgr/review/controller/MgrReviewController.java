@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.store.meonggae.mgr.common.service.BoardUtilService;
 import com.store.meonggae.mgr.review.domain.MgrCategoryDomain;
 import com.store.meonggae.mgr.review.domain.MgrReviewDomain;
 import com.store.meonggae.mgr.review.service.MgrReviewService;
 import com.store.meonggae.mgr.review.vo.MgrReviewSearchVO;
+import com.store.meonggae.mgr.review.vo.MgrReviewVO;
 
 @Controller
 public class MgrReviewController {
@@ -77,7 +79,11 @@ public class MgrReviewController {
 	
 	// 리뷰 관리 - 상세 조회
 	@GetMapping("/mgr/review/mgr_review_detail_frm.do")
-	public String searchOneReviewDetail() {
+	public String searchOneReviewDetail(MgrReviewVO mrVO, Model model) {
+		
+		MgrReviewDomain reviewDomain = mrService.searchOneReviewDetail(mrVO);
+		model.addAttribute("reviewDomain", reviewDomain);
+		
 		return "mgr/review/mgr_review_detail_frm";
 	} // searchReviewDetail
 	
@@ -88,4 +94,20 @@ public class MgrReviewController {
 	public String searchListCategory(int categoryNum) {
 		return mrService.searchListCategoryListAjax(categoryNum);
 	} // searchListCategory
-}
+	
+	// 리뷰 삭제
+	@GetMapping("/mgr/review/mgr_review_delete_process.do")
+	public String removeReviewProcess(MgrReviewVO mrVO, MgrReviewSearchVO sVO, RedirectAttributes redirectAttributes) {
+		int cnt = mrService.removeReview(mrVO);
+		boolean flagDelete = cnt == 1 ? true : false;
+		
+		redirectAttributes.addAttribute("parentCategoryNum", sVO.getParentCategoryNum());
+		redirectAttributes.addAttribute("categoryNum", sVO.getCategoryNum());
+		redirectAttributes.addAttribute("startDate", sVO.getStartDate());
+		redirectAttributes.addAttribute("endDate", sVO.getEndDate());
+		redirectAttributes.addFlashAttribute("flagDelete", flagDelete);
+		
+		return "redirect:mgr_review_list_frm.do";
+	} // removeReview
+	
+} // class

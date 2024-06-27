@@ -3,10 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.store.meonggae.mgr.review">
-<!-- 	<resultMap type="usrGraphDomain" id="usrGraphDomResult"> -->
-<!-- 		<result column="input_date" property="col"/> -->
-<!-- 		<result column="CNT" property="cnt"/> -->
-<!-- 	</resultMap> -->
 	<resultMap type="com.store.meonggae.mgr.review.domain.MgrReviewDomain" id="mgrReviewDomResult">
 		<result column="GOODS_NUM" property="goodsNum"/>
 		<result column="MEM_NUM_SELL" property="memNumSell"/>
@@ -134,12 +130,17 @@
 <!-- 	</select> -->
 	
 	<!-- 게시판 목록 하나 조회 -->
-<!-- 	<select id="selectOneManager" resultMap="mgrManagerDomResult" parameterType="String"> -->
-<!-- 		select	m.NAME, m.birth, m.tel, m.gender, m.addr1, m.addr2, -->
-<!-- 				(select name from manager where manager_id = m.PARENT_MANAGER_ID) PARENT_MANAGER_NAME, -->
-<!-- 				m.manager_id, m.nick, m.permission, m.input_date -->
-<!-- 		from	manager m, dept d -->
-<!-- 		where	m.deptno = d.deptno and m.manager_id=#{managerId} -->
-<!-- 	</select> -->
+	<select id="selectOneReview" resultMap="mgrReviewDomResult" parameterType="com.store.meonggae.mgr.review.vo.MgrReviewVO">
+		select	GOODS_NUM,MEM_NUM_SELL,MEM_NUM_BUY,NICK_SELL,NICK_BUY,GOODS_TITLE,GOODS_IMG,CATEGORY_NUM,CATEGORY_NAME,PARENT_CATEGORY_NUM,PARENT_CATEGORY_NAME,CONTENT,STAR,DELETE_FLAG,REVIEW_INPUT_DATE,GOODS_INPUT_DATE,SELL_DATE
+		from	view_mgr_review
+		where	mem_num_buy = #{memNum} and goods_num = #{goodsNum}
+	</select>
+	
+	<!--  리뷰 삭제 -->
+	<delete id="deleteOneReview" parameterType="com.store.meonggae.mgr.review.vo.MgrReviewVO">
+		update	review
+		set		DELETE_FLAG = 'Y'
+		where	MEM_NUM = #{memNum} and GOODS_NUM = #{goodsNum}
+	</delete>
 	
 </mapper>
