@@ -13,10 +13,10 @@ public class MgrSidebarController {
 	} // mgrDashFrm
 	
 	// 사이드바 - 회원 관리
-	@GetMapping("/mgr/member/mgr_member_list_frm.do")
-	public String mgrMemberFrm() {
-		return "mgr/member/mgr_member_list_frm";
-	} // mgrDashFrm
+//	@GetMapping("/mgr/member/mgr_member_list_frm.do")
+//	public String mgrMemberFrm() {
+//		return "mgr/member/mgr_member_list_frm";
+//	} // mgrDashFrm
 	
 //	// 사이드바 - 리뷰 관리
 //	@GetMapping("/mgr/review/mgr_review_list_frm.do")
